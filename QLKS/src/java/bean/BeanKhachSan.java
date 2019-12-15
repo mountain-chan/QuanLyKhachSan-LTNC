@@ -1,6 +1,7 @@
 package bean;
 
 import static bean.BeanThanhPho.hashThanhPho;
+import java.io.Serializable;
 import model.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,8 +13,10 @@ import javax.faces.bean.ManagedBean;
 
 @ManagedBean(name = "beanKhachSan", eager = true)
 @ApplicationScoped
-public class BeanKhachSan {
+public class BeanKhachSan implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     KhachSan khachSan;
     ArrayList<KhachSan> listKhachSan;
     ArrayList<KhachSan> listKhachSanNoiBat;

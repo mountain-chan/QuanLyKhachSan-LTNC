@@ -1,7 +1,11 @@
 package model;
 
-public class Phong {
+import java.io.Serializable;
 
+public class Phong implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    
     int Id;
     String Ten;
     int DienTich;

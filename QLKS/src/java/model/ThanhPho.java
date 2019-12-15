@@ -1,7 +1,11 @@
 package model;
 
-public class ThanhPho {
+import java.io.Serializable;
 
+public class ThanhPho implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    
     int Id;
     String Ten;
     String MoTa;

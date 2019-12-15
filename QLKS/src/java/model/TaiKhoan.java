@@ -1,7 +1,11 @@
 package model;
 
-public class TaiKhoan {
+import java.io.Serializable;
 
+public class TaiKhoan implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    
     String TenTaiKhoan;
     String MatKhau;
     String HoTen;

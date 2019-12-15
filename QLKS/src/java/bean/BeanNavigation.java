@@ -1,5 +1,6 @@
 package bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -8,8 +9,10 @@ import model.*;
 
 @ManagedBean(name = "beanNavigation")
 @RequestScoped
-public class BeanNavigation {
+public class BeanNavigation implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     @ManagedProperty(value = "#{param.pageId}")
     private int pageId;
 

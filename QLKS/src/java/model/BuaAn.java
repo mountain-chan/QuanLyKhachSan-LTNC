@@ -1,7 +1,11 @@
 package model;
 
-public class BuaAn {
+import java.io.Serializable;
 
+public class BuaAn implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    
     int Id;
     String Ten;
 
