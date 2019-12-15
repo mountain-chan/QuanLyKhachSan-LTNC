@@ -1,5 +1,17 @@
-body{
-    font-family: Arial;
+/* Font Google Dep
+font-family: 'Muli';
+font-family: 'Josefin Sans';
+font-family: 'Maven Pro';
+font-family: 'Quicksand'
+font-family: 'Roboto Slab'
+*/
+
+.ui-widget {
+    font-family: 'Maven Pro', sans-serif !important;
+}
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { 
+    font-family: 'Maven Pro', sans-serif !important;
 }
 
 .c80{
@@ -140,4 +152,57 @@ body{
 
 .form-dang-nhap > *:first-child{
     margin-top: 5px;
+}
+
+.ui-layout-pane-north {
+    border: 0 !important;
+    padding: 0 0 0 0 !important;
+    margin: 0 0 0 0 !important;
+}
+
+.ui-layout-pane-center {
+    border: 0 !important;
+    padding: 0 0 0 0 !important;
+    margin: 0 0 0 0 !important;
+}
+
+.ui-layout-unit-content {
+    border: 0 !important;
+    padding: 0 0 0 0 !important;
+    margin: 0 0 0 0 !important;
+}
+
+.ui-widget-content {
+    border: 0 !important;
+    padding: 0 0 0 0 !important;
+    margin: 0 0 0 0 !important;
+}
+
+
+.topnav {
+    overflow: hidden;
+}
+
+.topnav a {
+    float: left;
+    display: block;
+    color: #CCD6E5;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 16px;
+    /*font-weight: lighter !important;*/
+    border-bottom: 3px solid transparent;
+    margin-bottom: 1px;
+    margin-right: 30px;
+}
+
+.topnav a:hover {
+    color: #FFFFFF;
+    border-bottom: 2px solid #CCD6E5;
+}
+
+.topnav a.active {
+    color: #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
 }

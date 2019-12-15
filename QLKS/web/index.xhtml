@@ -7,15 +7,22 @@
 
     <f:view contentType="text/html">
         <h:head>
-            <title>----------------</title>
+            <title>Đặt Phòng Khách Sạn</title>
         </h:head>
         <h:body>
             <ui:composition template="Template/template.xhtml">
                 <ui:define name="content">
 
 
+                    <div style="background-color: #F7F7F7; height: 300px; border: 1px solid #E0E0E0;">
+                        <div class="c80" style="margin-top: 40px">
+                            <h2>Tìm kiếm ưu đãi khách sạn, chỗ nghỉ ...</h2>
+                            <h5>Từ những khu nghỉ dưỡng thanh bình đến những căn hộ hạng sang hiện đại</h5>
+                        </div>
+                    </div>
+
                     <div class="c80">
-                        <h2>Thành Phố</h2>
+                        <h2>Tìm theo Thành phố</h2>
                         <div class="row">
                             <h:form>
                                 <h:commandLink action = "#{beanNavigation.ThanhPho}">
@@ -24,7 +31,6 @@
                                         <div class="div-zoom">
                                             <img class="img-zoom" src="#{beanThanhPho.listThanhPho.get(0).urlHinhAnh}" alt="Img"/>
                                         </div>
-
                                         <div class="chu-goc-trai">
                                             <span style="font-size: 28px; font-weight: bold;">#{beanThanhPho.listThanhPho.get(0).ten}</span>
                                             <img src="Content/Images/VietNamFlag.png" alt="VietNam" valign="middle"/>
@@ -105,14 +111,13 @@
 
 
                     <div class="c80">
-                        <h2>Loại Khách Sạn</h2>
+                        <h2>Tìm theo Loại khách sạn</h2>
                         <div class="row">
                             <div class="col-centered">
                                 <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="2500">
                                     <div class="carousel-inner">
                                         <ui:param name="class" value="item active"/>
                                         <c:forEach items="#{beanLoaiKhachSan.listLoaiKhachSan}" var="item">
-
                                             <div class="#{class}">
                                                 <div class="carousel-col">
                                                     <div class="img-responsive">
@@ -134,7 +139,6 @@
                                             <c:set var="class" value="item"/>
                                         </c:forEach>
                                     </div>
-                                    <!-- Controls -->
                                     <div class="left carousel-control">
                                         <a href="#carousel" role="button" data-slide="prev">
                                             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -155,7 +159,7 @@
 
 
                     <div class="c80">
-                        <h2>Khách Sạn</h2>
+                        <h2>Các Khách sạn nổi bật!</h2>
                         <div class="row">
                             <c:forEach items="#{beanKhachSan.listKhachSanNoiBat}" var="item">
                                 <div class="col-md-3">

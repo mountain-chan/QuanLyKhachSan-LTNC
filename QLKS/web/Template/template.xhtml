@@ -13,14 +13,18 @@
                 <link rel="stylesheet" href="Content/css/bootstrap.min.css"/>
                 <script src="Content/js/bootstrap.min.js"></script>
                 <link rel="stylesheet" href="Content/css/style.css"/>
+                <link rel="stylesheet" href="Content/css/font.css"/>
+                <!--<link href="https://fonts.googleapis.com/css?family=Muli&amp;display=swap" rel="stylesheet"/>-->
+                <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Maven+Pro|Muli|Quicksand&amp;display=swap" rel="stylesheet"/>
+                <!--&amp;-->
             </f:facet>
         </h:head>
         <h:body>
             <p:layout fullPage="true">
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                <p:layoutUnit position="north" resizable="false" gutter="0" collapsible="false" >
                     <ui:include src="header.xhtml"/>
                 </p:layoutUnit>
-                <p:layoutUnit position="center">
+                <p:layoutUnit position="center" resizable="false" gutter="0">
                     <ui:insert name="content">Content</ui:insert>
                     <ui:include src="footer.xhtml"/>
                 </p:layoutUnit>

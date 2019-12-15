@@ -6,26 +6,36 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:jsf="http://xmlns.jcp.org/jsf">
 
-    <a href="/"><img src="Content/Images/Logo.png" width="299" height="62" style="margin: 10px 0px 5px 140px"/></a>
-    <div jsf:id="head-dangnhap" style="float: right; margin-right: 50px; margin-top: 20px">
-        <ui:include src="form.xhtml"/>
-        <c:choose>
-            <c:when test="#{sessionScope['TaiKhoan'] == null}">
-                <h:form>
-                    <div class="header-right">
-                        <span style="margin-right: 30px;">Chào Khách,</span>
-                        <p:commandButton value="Đăng nhập" update="dangnhap" oncomplete="PF('dialog_dangnhap').show();" style="width: 95px; height: 30px; font-size: 13px !important; margin-right: 15px" ajax="true" />
-                        <p:commandButton value="Đăng ký" update="dangky" oncomplete="PF('dialog_dangky').show();" style="width: 95px; height: 30px; font-size: 13px !important; margin-right: 20px" ajax="true" />
-                    </div>
-                </h:form>
-            </c:when>
-            <c:otherwise>
-                <h:form>
-                    <span style="margin-right: 20px; font-weight: bold">Chào #{sessionScope['TaiKhoan'].hoTen},</span>
-                    <p:commandLink value="Đăng Xuất"/>
-                </h:form>
-            </c:otherwise>
-        </c:choose>
+    <div style="background-color: #003580;">
+        <a href="/"><img src="Content/Images/Logo.png" width="299" height="62" style="margin: 10px 0px 5px 240px"/></a>
+        <div jsf:id="head-dangnhap" style="float: right; margin-right: 50px; margin-top: 20px">
+            <ui:include src="form.xhtml"/>
+            <c:choose>
+                <c:when test="#{sessionScope['TaiKhoan'] == null}">
+                    <h:form>
+                        <div class="header-right">
+                            <span style="margin-right: 30px; color: white; font-weight: 500">Chào Khách,</span>
+                            <p:commandButton value="Đăng nhập" update="dangnhap" oncomplete="PF('dialog_dangnhap').show();" style="width: 95px; height: 30px; font-size: 13px !important; margin-right: 15px" ajax="true" />
+                            <p:commandButton value="Đăng ký" update="dangky" oncomplete="PF('dialog_dangky').show();" style="width: 95px; height: 30px; font-size: 13px !important; margin-right: 20px" ajax="true" />
+                        </div>
+                    </h:form>
+                </c:when>
+                <c:otherwise>
+                    <h:form>
+                        <span style="margin-right: 20px; color: white; font-weight: bold">Chào #{sessionScope['TaiKhoan'].hoTen},</span>
+                        <p:commandLink value="Đăng Xuất"/>
+                    </h:form>
+                </c:otherwise>
+            </c:choose>
+        </div>
+        <div class="c80">
+            <div class="topnav">
+                <a href="#" class="active">Trang chủ</a>
+                <a href="#">Đặt phòng</a>
+                <a href="#">Cá nhân</a>
+                <a href="#">Tin tức</a>
+                <a href="#">Liên hệ</a>
+            </div> 
+        </div>
     </div>
-
 </ui:composition>
