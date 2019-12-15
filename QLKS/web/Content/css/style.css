@@ -125,3 +125,19 @@ body{
     overflow: hidden;
     padding: 10px 10px 10px 10px;
 }
+
+.header-right {
+    margin-right: 20px;
+}
+
+.form-dang-nhap {
+    width: 90%; margin: auto; text-align: left;
+}
+
+.form-dang-nhap > *{
+    margin-top: 8px;
+}
+
+.form-dang-nhap > *:first-child{
+    margin-top: 5px;
+}

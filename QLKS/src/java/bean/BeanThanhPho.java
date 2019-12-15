@@ -1,6 +1,5 @@
 package bean;
 
-import java.io.Serializable;
 import model.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,12 +7,12 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 @ManagedBean(name = "beanThanhPho", eager = true)
-@SessionScoped
-public class BeanThanhPho implements Serializable {
+@ApplicationScoped
+public class BeanThanhPho {
 
     public static HashMap<Integer, String> hashThanhPho;
 
@@ -32,7 +31,7 @@ public class BeanThanhPho implements Serializable {
     public ArrayList<ThanhPho> getListThanhPho() {
         return listThanhPho;
     }
-
+    
     public BeanThanhPho() {
         try {
             thanhPho = new ThanhPho();

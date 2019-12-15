@@ -6,17 +6,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 @ManagedBean(name = "beanTaiKhoan", eager = true)
-@SessionScoped
+@ApplicationScoped
 public class BeanTaiKhoan {
 
     TaiKhoan taiKhoan;
     ArrayList<TaiKhoan> listTaiKhoan;
     Connection con;
-
+    
     public TaiKhoan getTaiKhoan() {
         return taiKhoan;
     }

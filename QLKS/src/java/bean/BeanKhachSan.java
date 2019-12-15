@@ -7,11 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 @ManagedBean(name = "beanKhachSan", eager = true)
-@SessionScoped
+@ApplicationScoped
 public class BeanKhachSan {
 
     KhachSan khachSan;

@@ -141,12 +141,24 @@ insert into Phong values
 (N'Phòng Trăng Mật', 15, 400, N'1 Giường đôi', N'Phòng này có máy lạnh, minibar và được cách âm. Phòng này được trang trí bằng hoa và bánh ngọt.', 1, 2),
 (N'Phòng Cao Cấp', 20, 400, N'1 Giường đôi', N'Phòng cách âm này có máy lạnh.', 1, 3),
 (N'Phòng Gia Đình', 25, 500, N'2 Giường đôi', N'Phòng gia đình này có quầy bar mini, truyền hình cáp và máy lạnh.', 1, 4),
-(N'Phòng Trung Cấp', 10, 200, N'1 Giường đơn', N'Phòng trung cấp nên chẳng có gì hết, thích hợp với bọn kiết xác.', 0, 5)
+(N'Phòng Trung Cấp', 10, 200, N'1 Giường đơn', N'Phòng trung cấp nên chẳng có gì hết, thích hợp với bọn kiết xác.', 0, 5),
+(N'Phòng Superior', 30, 600, N'1 Giường đôi', N'Phòng cách âm này có nhiều thứ vl.', 1, 6),
+(N'Phòng Tiêu chuẩn', 15, 350, N'2 Giường đơn', N'Phòng này ít thứ vl.', 1, 7),
+(N'Phòng Không', 15, 350, N'2 Giường đơn', N'Phòng không không quân.', 1, 8),
+(N'Phòng Thủ', 15, 350, N'2 Giường đơn', N'Phòng gia đình này có quầy bar mini, truyền hình cáp và máy lạnh.', 1, 9),
+(N'Phòng 4 Người', 15, 350, N'2 Giường đôi', N'Phòng gia đình này có quầy bar mini, truyền hình cáp và máy lạnh.', 1, 10),
+(N'Phòng 3 Người', 15, 350, N'2 Giường đơn', N'Phòng gia đình này có quầy bar mini, truyền hình cáp và máy lạnh.', 1, 11),
+(N'Phòng Ban', 15, 350, N'2 Giường đơn', N'Phòng gia đình này có quầy bar mini, truyền hình cáp và máy lạnh.', 1, 12),
+(N'Phòng Đào Tạo', 25, 350, N'1 Giường đơn', N'Phòng gia đình này có quầy bar mini, truyền hình cáp và máy lạnh.', 1, 13),
+(N'Phòng Tuyến', 18, 350, N'1 Giường đơn', N'Phòng gia đình này có quầy bar mini, truyền hình cáp và máy lạnh.', 1, 14),
+(N'Phòng 2 Người', 25, 350, N'2 Giường đơn', N'Phòng được trang bị 2 máy tính, thích hợp để solo game.', 1, 15),
+(N'Phòng 1 Người', 15, 350, N'1 Giường đơn', N'Phòng dành cho một người.', 1, 16)
 GO
 
 insert into TaiKhoan values
 ('NguyenKhanh', '123456', N'Nguyễn Khánh', 1, '0366918587', 'nguyenkhanh@gmail.com', 1),
 ('LyChan', '123456', N'Lý Văn Chản', 1, '0123455678', 'lychan@gmail.com', 1),
 ('BuiThuy', '123456', N'Bùi Đình Thủy', 1, '0556878945', 'buithuy@gmail.com', 1),
-('NgoThuong', '123456', N'Ngô Văn Thường', 1, '0358763412', 'ngothuong@gmail.com', 0)
+('NgoThuong', '123456', N'Ngô Văn Thường', 1, '0358763412', 'ngothuong@gmail.com', 0),
+('LopTruong', '123456', N'Nguyễn Lớp Trưởng', 0, '0358763412', 'loptruong@gmail.com', 0)
 GO
