@@ -74,8 +74,8 @@ public class BeanKhachSan implements Serializable {
                 tmp.setBuaAn(rs.getInt("BuaAn"));
                 tmp.setIdThanhPho(rs.getInt("IdThanhPho"));
                 tmp.setTenThanhPho(rs.getString("TenThanhPho"));
-                tmp.setIdThanhPho(rs.getInt("IdLoaiKhachSan"));
-                tmp.setTenThanhPho(rs.getString("TenLoaiKhachSan"));
+                tmp.setIdLoaiKhachSan(rs.getInt("IdLoaiKhachSan"));
+                tmp.setTenLoaiKhachSan(rs.getString("TenLoaiKhachSan"));
                 listKhachSan.add(tmp);
                 if (index < 4) {
                     listKhachSanNoiBat.add(tmp);
@@ -125,9 +125,9 @@ public class BeanKhachSan implements Serializable {
             tmp.setTenThanhPho(hashThanhPho.get(tmp.getIdThanhPho()));
             KhachSan ks = new KhachSan(tmp);
             listKhachSan.add(ks);
-            msg.Message.addMessage("Thành Công", "Thêm Khách Sạn Thành Công!");
+            pf.Message.addMessage("Thành Công", "Thêm Khách Sạn Thành Công!");
         } catch (Exception e) {
-            msg.Message.errorMessage("Thất Bại", "Thêm Khách Sạn Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Thêm Khách Sạn Thất Bại!");
         }
     }
 
@@ -156,9 +156,9 @@ public class BeanKhachSan implements Serializable {
                     break;
                 }
             }
-            msg.Message.addMessage("Thành Công", "Sửa Khách Sạn Thành Công!");
+            pf.Message.addMessage("Thành Công", "Sửa Khách Sạn Thành Công!");
         } catch (Exception e) {
-            msg.Message.errorMessage("Thất Bại", "Sửa Khách Sạn Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Sửa Khách Sạn Thất Bại!");
         }
     }
 
@@ -175,9 +175,9 @@ public class BeanKhachSan implements Serializable {
                     break;
                 }
             }
-            msg.Message.addMessage("Thành Công", "Xóa Khách Sạn Thành Công!");
+            pf.Message.addMessage("Thành Công", "Xóa Khách Sạn Thành Công!");
         } catch (Exception e) {
-            msg.Message.errorMessage("Thất Bại", "Xóa Khách Sạn Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Xóa Khách Sạn Thất Bại!");
         }
     }
 

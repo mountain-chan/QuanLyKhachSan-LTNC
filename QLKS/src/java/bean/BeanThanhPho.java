@@ -78,9 +78,9 @@ public class BeanThanhPho implements Serializable {
             con.close();
             ThanhPho tp = new ThanhPho(tmp);
             listThanhPho.add(tp);
-            msg.Message.addMessage("Thành Công", "Thêm Thành Phố Thành Công!");
+            pf.Message.addMessage("Thành Công", "Thêm Thành Phố Thành Công!");
         } catch (Exception e) {
-            msg.Message.errorMessage("Thất Bại", "Thêm Thành Phố Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Thêm Thành Phố Thất Bại!");
         }
     }
 
@@ -101,9 +101,9 @@ public class BeanThanhPho implements Serializable {
                     break;
                 }
             }
-            msg.Message.addMessage("Thành Công", "Sửa Thành Phố Thành Công!");
+            pf.Message.addMessage("Thành Công", "Sửa Thành Phố Thành Công!");
         } catch (Exception e) {
-            msg.Message.errorMessage("Thất Bại", "Sửa Thành Phố Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Sửa Thành Phố Thất Bại!");
         }
     }
 
@@ -120,9 +120,9 @@ public class BeanThanhPho implements Serializable {
                     break;
                 }
             }
-            msg.Message.addMessage("Thành Công", "Xóa Thành Phố Thành Công!");
+            pf.Message.addMessage("Thành Công", "Xóa Thành Phố Thành Công!");
         } catch (Exception e) {
-            msg.Message.errorMessage("Thất Bại", "Xóa Thành Phố Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Xóa Thành Phố Thất Bại!");
         }
     }
 

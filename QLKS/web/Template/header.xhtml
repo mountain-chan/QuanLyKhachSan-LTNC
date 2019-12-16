@@ -8,7 +8,7 @@
 
     <div style="background-color: #003580;">
         <a href="/"><img src="Content/Images/Logo.png" width="299" height="62" style="margin: 10px 0px 5px 240px"/></a>
-        <div jsf:id="head-dangnhap" style="float: right; margin-right: 50px; margin-top: 20px">
+        <div jsf:id="head-dangnhap" style="float: right; margin-right: 60px; margin-top: 30px">
             <ui:include src="form.xhtml"/>
             <c:choose>
                 <c:when test="#{sessionScope['TaiKhoan'] == null}">
@@ -23,7 +23,7 @@
                 <c:otherwise>
                     <h:form>
                         <span style="margin-right: 20px; color: white; font-weight: bold">Chào #{sessionScope['TaiKhoan'].hoTen},</span>
-                        <p:commandLink value="Đăng Xuất" action="#{beanDangNhap.DangXuat()}"/>
+                        <p:commandLink style="color: #00BBFF; font-weight: bold" value="Đăng Xuất" action="#{beanDangNhap.DangXuat()}"/>
                     </h:form>
                 </c:otherwise>
             </c:choose>

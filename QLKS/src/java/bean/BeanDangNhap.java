@@ -24,7 +24,7 @@ public class BeanDangNhap implements Serializable {
     public void DangNhap() {
         TaiKhoan tk = SQLConnection.getTaiKhoan(dangNhap.getTenTaiKhoan(), dangNhap.getMatKhau());
         if (tk != null) {
-            msg.Message.addMessage("Thành Công", "Đăng nhập thành công!");
+            pf.Message.addMessage("Thành Công", "Đăng nhập thành công!");
             FacesContext facesContext = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
             HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
@@ -48,7 +48,7 @@ public class BeanDangNhap implements Serializable {
                 }
             }
         } else {
-            msg.Message.addMessage("Thất Bại", "Sai tên tài khoản hoặc mật khẩu!");
+            pf.Message.addMessage("Thất Bại", "Sai tên tài khoản hoặc mật khẩu!");
         }
     }
 

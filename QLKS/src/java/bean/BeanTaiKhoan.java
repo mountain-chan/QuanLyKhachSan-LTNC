@@ -81,9 +81,9 @@ public class BeanTaiKhoan implements Serializable {
             con.close();
             TaiKhoan tk = new TaiKhoan(tmp);
             listTaiKhoan.add(tk);
-            msg.Message.addMessage("Thành Công", "Thêm Tài Khoản Thành Công!");
+            pf.Message.addMessage("Thành Công", "Thêm Tài Khoản Thành Công!");
         } catch (Exception e) {
-            msg.Message.errorMessage("Thất Bại", "Thêm Tài Khoản Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Thêm Tài Khoản Thất Bại!");
         }
     }
     
@@ -107,9 +107,9 @@ public class BeanTaiKhoan implements Serializable {
                     break;
                 }
             }
-            msg.Message.addMessage("Thành Công", "Sửa Tài Khoản Thành Công!");
+            pf.Message.addMessage("Thành Công", "Sửa Tài Khoản Thành Công!");
         } catch (Exception e) {
-            msg.Message.errorMessage("Thất Bại", "Sửa Tài Khoản Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Sửa Tài Khoản Thất Bại!");
         }
     }
     
@@ -126,9 +126,9 @@ public class BeanTaiKhoan implements Serializable {
                     break;
                 }
             }
-            msg.Message.addMessage("Thành Công", "Xóa Tài Khoản Thành Công!");
+            pf.Message.addMessage("Thành Công", "Xóa Tài Khoản Thành Công!");
         } catch (Exception e) {
-            msg.Message.errorMessage("Thất Bại", "Xóa Tài Khoản Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Xóa Tài Khoản Thất Bại!");
         }
     }
 
