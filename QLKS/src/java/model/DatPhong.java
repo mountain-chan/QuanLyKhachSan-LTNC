@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class DatPhong implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 5436453121L;
     
     int Id;
     String TaiKhoan;

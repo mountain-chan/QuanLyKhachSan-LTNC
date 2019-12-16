@@ -14,7 +14,7 @@ import javax.faces.bean.ManagedBean;
 @ApplicationScoped
 public class BeanTaiKhoan implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 45438764L;
     
     TaiKhoan taiKhoan;
     ArrayList<TaiKhoan> listTaiKhoan;

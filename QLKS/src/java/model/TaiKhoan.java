@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class TaiKhoan implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 45312311L;
     
     String TenTaiKhoan;
     String MatKhau;

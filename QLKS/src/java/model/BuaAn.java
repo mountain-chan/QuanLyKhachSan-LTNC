@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class BuaAn implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1124521354L;
     
     int Id;
     String Ten;

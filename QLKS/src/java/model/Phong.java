@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Phong implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1453432L;
     
     int Id;
     String Ten;

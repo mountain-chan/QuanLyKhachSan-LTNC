@@ -11,7 +11,7 @@ import model.*;
 @RequestScoped
 public class BeanNavigation implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 16533786L;
     
     @ManagedProperty(value = "#{param.pageId}")
     private int pageId;

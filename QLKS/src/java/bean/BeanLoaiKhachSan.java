@@ -15,7 +15,7 @@ import javax.faces.bean.ManagedBean;
 @ApplicationScoped
 public class BeanLoaiKhachSan implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 185755L;
     
     public static HashMap<Integer, String> hashLoaiKhachSan;
 
