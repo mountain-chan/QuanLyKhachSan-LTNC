@@ -2,11 +2,6 @@ package filter;
 
 import dao.SQLConnection;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -38,15 +33,12 @@ public class MyFilter implements Filter {
             Cookie[] cookies = req.getCookies();
             String TenTaiKhoan = null, MatKhau = null;
             if (cookies != null) {
-                System.out.println("asdasdon roi");
-                Cookie tmp;
-                for (int i = 0; i < cookies.length; i++) {
-                    tmp = cookies[i];
-                    System.out.println("Value: " + tmp.getValue());
-                    if (tmp.getName().equals("TenTaiKhoan")) {
-                        TenTaiKhoan = tmp.getValue();
-                    } else if (tmp.getName().equals("MatKhau")) {
-                        MatKhau = tmp.getValue();
+                for (Cookie cookie : cookies) {
+                    System.out.println("Value: " + cookie.getValue());
+                    if (cookie.getName().equals("TenTaiKhoan")) {
+                        TenTaiKhoan = cookie.getValue();
+                    } else if (cookie.getName().equals("MatKhau")) {
+                        MatKhau = cookie.getValue();
                     }
                 }
                 if (TenTaiKhoan != null && MatKhau != null) {
@@ -55,8 +47,6 @@ public class MyFilter implements Filter {
                 if (tk != null) {
                     session.setAttribute("TaiKhoan", tk);
                 }
-            } else {
-                System.out.println("ko on roi");
             }
         }
         if (tk != null) {

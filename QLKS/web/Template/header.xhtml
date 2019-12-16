@@ -23,7 +23,7 @@
                 <c:otherwise>
                     <h:form>
                         <span style="margin-right: 20px; color: white; font-weight: bold">Chào #{sessionScope['TaiKhoan'].hoTen},</span>
-                        <p:commandLink value="Đăng Xuất"/>
+                        <p:commandLink value="Đăng Xuất" action="#{beanDangNhap.DangXuat()}"/>
                     </h:form>
                 </c:otherwise>
             </c:choose>

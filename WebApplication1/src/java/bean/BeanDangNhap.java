@@ -28,7 +28,7 @@ public class BeanDangNhap implements Serializable {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
             HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-//            response.setContentType("text/html");
+            response.setContentType("text/html");
             Cookie cookie = new Cookie("TenTaiKhoan", tk.getTenTaiKhoan());
             cookie.setMaxAge(3600);
             cookie.setPath("/");
@@ -49,24 +49,6 @@ public class BeanDangNhap implements Serializable {
             }
         } else {
             msg.Message.addMessage("Thất Bại", "Sai tên tài khoản hoặc mật khẩu!");
-        }
-    }
-
-    public void DangXuat() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
-        HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-        HttpSession session = request.getSession();
-        session.invalidate();
-        Cookie cookie = new Cookie("TenTaiKhoan", "");
-        cookie.setMaxAge(-1);
-        cookie.setPath("/");
-        response.addCookie(cookie);
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        try {
-            ec.redirect(ec.getRequestContextPath() + "/faces/index.xhtml");
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
