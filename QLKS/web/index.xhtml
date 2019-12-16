@@ -8,7 +8,7 @@
     <f:view contentType="text/html">
         <h:head>
             <title>Đặt Phòng Khách Sạn</title>
-            <link rel="stylesheet" href="Content/css/carousel.css"/>
+            <link type="text/css" rel="stylesheet" href="Content/css/carousel.css"/>
         </h:head>
         <h:body>
             <ui:composition template="Template/template.xhtml">
@@ -157,10 +157,10 @@
                                     <h:form>
                                         <h:commandLink action = "#{beanNavigation.LoaiKhachSan}">
                                             <f:param name = "pageId" value = "#{item.id}" />
-                                            <div class="div-zoom">
-                                                <img style="height: 250px" src="Content/Images/KhachSan/#{item.id}.jpg" alt="Img"/>
+                                            <div class="div-ks">
+                                                <img style="height: 220px" src="Content/Images/KhachSan/#{item.id}.jpg" alt="Img"/>
                                             </div>
-                                            <div style="font-size: 18px; font-weight: bold; font-color: #000000 !important;">#{item.ten}</div>
+                                            <div style="font-size: 18px; font-weight: bold; color: #000000 !important;">#{item.ten}</div>
                                             <div style="font-size: 14px; ">#{item.tenThanhPho}</div>
                                             <div style="font-size: 14px">#{item.tenLoaiKhachSan}</div>
                                             <div style="font-size: 15px">#{item.danhGia} &#9734;</div>

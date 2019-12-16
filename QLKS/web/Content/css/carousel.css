@@ -1,7 +1,7 @@
 .MultiCarousel {
     float: left;
     overflow: hidden;
-    padding: 15px 0px;
+    /*padding: 0px 0px;*/
     width: 100%;
     position: relative;
 }
@@ -18,8 +18,8 @@
 
 .MultiCarousel .MultiCarousel-inner .item>div {
     text-align: center;
-    padding: 10px;
-    margin: 10px;
+    /*padding: 0px;*/
+    /*margin: 0px;*/
     background: #f1f1f1;
     color: #666;
 }

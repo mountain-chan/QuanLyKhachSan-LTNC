@@ -35,13 +35,6 @@ font-family: 'Roboto Slab'
     box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
 }
 
-.div-ks{
-    border-radius: 6px;
-    overflow: hidden;
-    margin-bottom: 10px;
-    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
-}
-
 .img-zoom:hover{
     transform: scale(1.2);
     opacity: 0.8;
