@@ -16,12 +16,13 @@ import javax.faces.bean.ManagedBean;
 public class BeanKhachSan implements Serializable {
 
     private static final long serialVersionUID = 1786783L;
-    
+
     KhachSan khachSan;
     ArrayList<KhachSan> listKhachSan;
-    ArrayList<KhachSan> listKhachSanNoiBat;
     ArrayList<BuaAn> listBuaAn;
     Connection con;
+
+    String[] strDanhGia = {"Dở tệ", "Bình thường", "Chất lượng", "Sang trọng", "Tuyệt vời", "Xuất sắc"};
 
     public KhachSan getKhachSan() {
         return khachSan;
@@ -39,10 +40,6 @@ public class BeanKhachSan implements Serializable {
         return listBuaAn;
     }
 
-    public ArrayList<KhachSan> getListKhachSanNoiBat() {
-        return listKhachSanNoiBat;
-    }
-
     public BeanKhachSan() {
         listBuaAn = new ArrayList();
         listBuaAn.add(new BuaAn(0, "Không có"));
@@ -52,9 +49,7 @@ public class BeanKhachSan implements Serializable {
         listBuaAn.add(new BuaAn(4, "Cả Ba Bữa"));
         khachSan = new KhachSan();
         try {
-            int index = 0;
             listKhachSan = new ArrayList();
-            listKhachSanNoiBat = new ArrayList();
             con = dao.SQLConnection.getConnection();
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("select K.Id as Id, K.Ten as Ten, DiaChi,"
@@ -77,10 +72,6 @@ public class BeanKhachSan implements Serializable {
                 tmp.setIdLoaiKhachSan(rs.getInt("IdLoaiKhachSan"));
                 tmp.setTenLoaiKhachSan(rs.getString("TenLoaiKhachSan"));
                 listKhachSan.add(tmp);
-                if (index < 4) {
-                    listKhachSanNoiBat.add(tmp);
-                    index++;
-                }
             }
             con.close();
         } catch (Exception e) {
@@ -179,6 +170,14 @@ public class BeanKhachSan implements Serializable {
         } catch (Exception e) {
             pf.Message.errorMessage("Thất Bại", "Xóa Khách Sạn Thất Bại!");
         }
+    }
+
+    public String[] getStrDanhGia() {
+        return strDanhGia;
+    }
+
+    public void setStrDanhGia(String[] strDanhGia) {
+        this.strDanhGia = strDanhGia;
     }
 
 }

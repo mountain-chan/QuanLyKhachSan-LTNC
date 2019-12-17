@@ -3,11 +3,12 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <f:view contentType="text/html">
         <h:head>
-            <title>Đặt Phòng Khách Sạn</title>
+            <title>Quản lý Khách sạn</title>
             <link type="text/css" rel="stylesheet" href="Content/css/carousel.css"/>
         </h:head>
         <h:body>
@@ -34,86 +35,40 @@
                         <h2>Tìm theo Thành phố</h2>
                         <div class="row">
                             <h:form>
-                                <h:commandLink action = "#{beanNavigation.ThanhPho}">
-                                    <f:param name = "pageId" value = "#{beanThanhPho.listThanhPho.get(0).id}" />
-                                    <div class="col-md-6">
-                                        <div class="div-zoom">
-                                            <img class="img-zoom" src="#{beanThanhPho.listThanhPho.get(0).urlHinhAnh}" alt="Img"/>
+                                <c:forEach items="#{beanThanhPho.listThanhPho}" var="item" begin="0" end="1">
+                                    <h:commandLink action = "#{beanNavigation.ThanhPho(item.id)}">
+                                        <div class="col-md-6">
+                                            <div class="div-zoom">
+                                                <img class="img-zoom" src="#{item.urlHinhAnh}" alt="Img"/>
+                                            </div>
+                                            <div class="chu-goc-trai">
+                                                <span style="font-size: 28px; font-weight: bold;">#{item.ten}</span>
+                                                <img src="Content/Images/VietNamFlag.png" alt="VietNam" valign="middle"/>
+                                                <br/>
+                                                <span style="font-size: 16px;">1,100 chỗ ở</span>
+                                            </div>
                                         </div>
-                                        <div class="chu-goc-trai">
-                                            <span style="font-size: 28px; font-weight: bold;">#{beanThanhPho.listThanhPho.get(0).ten}</span>
-                                            <img src="Content/Images/VietNamFlag.png" alt="VietNam" valign="middle"/>
-                                            <br/>
-                                            <span style="font-size: 16px;">1,100 chỗ ở</span>
-                                        </div>
-                                    </div>
-                                </h:commandLink>
-                            </h:form>
-                            <h:form>
-                                <h:commandLink action = "#{beanNavigation.ThanhPho}">
-                                    <f:param name = "pageId" value = "#{beanThanhPho.listThanhPho.get(1).id}" />
-                                    <div class="col-md-6">
-                                        <div class="div-zoom">
-                                            <img class="img-zoom" src="#{beanThanhPho.listThanhPho.get(1).urlHinhAnh}" alt="Img"/>
-                                        </div>
-                                        <div class="chu-goc-trai">
-                                            <span style="font-size: 28px; font-weight: bold;">#{beanThanhPho.listThanhPho.get(1).ten}</span>
-                                            <img src="Content/Images/VietNamFlag.png" alt="VietNam" valign="middle"/>
-                                            <br/>
-                                            <span style="font-size: 16px;">1,200 chỗ ở</span>
-                                        </div>
-                                    </div>
-                                </h:commandLink>
+                                    </h:commandLink>
+                                </c:forEach>
                             </h:form>
                         </div>
                         <div class="row">
                             <h:form>
-                                <h:commandLink action = "#{beanNavigation.ThanhPho}">
-                                    <f:param name = "pageId" value = "#{beanThanhPho.listThanhPho.get(2).id}" />
-                                    <div class="col-md-4">
-                                        <div class="div-zoom">
-                                            <img class="img-zoom" src="#{beanThanhPho.listThanhPho.get(2).urlHinhAnh}" alt="Img"/>
+                                <c:forEach items="#{beanThanhPho.listThanhPho}" var="item" begin="2" end="4">
+                                    <h:commandLink action = "#{beanNavigation.ThanhPho(item.id)}">
+                                        <div class="col-md-4">
+                                            <div class="div-zoom">
+                                                <img class="img-zoom" src="#{item.urlHinhAnh}" alt="Img"/>
+                                            </div>
+                                            <div class="chu-goc-trai">
+                                                <span style="font-size: 28px; font-weight: bold;">#{item.ten}</span>
+                                                <img src="Content/Images/VietNamFlag.png" alt="VietNam" valign="middle"/>
+                                                <br/>
+                                                <span style="font-size: 16px;">1,200 chỗ ở</span>
+                                            </div>
                                         </div>
-                                        <div class="chu-goc-trai">
-                                            <span style="font-size: 28px; font-weight: bold;">#{beanThanhPho.listThanhPho.get(2).ten}</span>
-                                            <img src="Content/Images/VietNamFlag.png" alt="VietNam" valign="middle"/>
-                                            <br/>
-                                            <span style="font-size: 16px;">1,300 chỗ ở</span>
-                                        </div>
-                                    </div>
-                                </h:commandLink>
-                            </h:form>
-                            <h:form>
-                                <h:commandLink action = "#{beanNavigation.ThanhPho}">
-                                    <f:param name = "pageId" value = "#{beanThanhPho.listThanhPho.get(3).id}" />
-                                    <div class="col-md-4">
-                                        <div class="div-zoom">
-                                            <img class="img-zoom" src="#{beanThanhPho.listThanhPho.get(3).urlHinhAnh}" alt="Img"/>
-                                        </div>
-                                        <div class="chu-goc-trai">
-                                            <span style="font-size: 28px; font-weight: bold;">#{beanThanhPho.listThanhPho.get(3).ten}</span>
-                                            <img src="Content/Images/VietNamFlag.png" alt="VietNam" valign="middle"/>
-                                            <br/>
-                                            <span style="font-size: 16px;">1,400 chỗ ở</span>
-                                        </div>
-                                    </div>
-                                </h:commandLink>
-                            </h:form>
-                            <h:form>
-                                <h:commandLink action = "#{beanNavigation.ThanhPho}">
-                                    <f:param name = "pageId" value = "#{beanThanhPho.listThanhPho.get(4).id}" />
-                                    <div class="col-md-4">
-                                        <div class="div-zoom">
-                                            <img class="img-zoom" src="#{beanThanhPho.listThanhPho.get(4).urlHinhAnh}" alt="Img"/>
-                                        </div>
-                                        <div class="chu-goc-trai">
-                                            <span style="font-size: 28px; font-weight: bold;">#{beanThanhPho.listThanhPho.get(4).ten}</span>
-                                            <img src="Content/Images/VietNamFlag.png" alt="VietNam" valign="middle"/>
-                                            <br/>
-                                            <span style="font-size: 16px;">1,500 chỗ ở</span>
-                                        </div>
-                                    </div>
-                                </h:commandLink>
+                                    </h:commandLink>
+                                </c:forEach>
                             </h:form>
                         </div>
                     </div>
@@ -124,11 +79,10 @@
                         <div class="row">
                             <div class="MultiCarousel" data-items="1,2,3,4" data-slide="1" id="MultiCarousel" data-interval="1000">
                                 <div class="MultiCarousel-inner">
-                                    <c:forEach items="#{beanLoaiKhachSan.listLoaiKhachSan}" var="item">
-                                        <div class="item">
-                                            <h:form>
-                                                <h:commandLink action = "#{beanNavigation.LoaiKhachSan}">
-                                                    <f:param name = "pageId" value = "#{item.id}" />
+                                    <h:form>
+                                        <c:forEach items="#{beanLoaiKhachSan.listLoaiKhachSan}" var="item">
+                                            <div class="item">
+                                                <h:commandLink action = "#{beanNavigation.LoaiKhachSan(item.id)}">
                                                     <div class="img-loaiks"><img src="#{item.urlHinhAnh}" alt="Img"/></div>
                                                     <br/>
                                                     <div style="padding-left: 10px;">
@@ -137,9 +91,9 @@
                                                         <span style="font-size: 16px;">#{item.id} khách sạn</span>
                                                     </div>
                                                 </h:commandLink>
-                                            </h:form>
-                                        </div>
-                                    </c:forEach>
+                                            </div>
+                                        </c:forEach>
+                                    </h:form>
                                 </div>
                                 <button class="btn btn-primary leftLst"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
                                 <button class="btn btn-primary rightLst"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
@@ -152,18 +106,17 @@
                     <div class="c80">
                         <h2>Các Khách sạn nổi bật</h2>
                         <div class="row">
-                            <c:forEach items="#{beanKhachSan.listKhachSanNoiBat}" var="item">
+                            <c:forEach items="#{beanKhachSan.listKhachSan}" begin="0" end="3" var="item">
                                 <div class="col-md-3 ks-noibat">
                                     <h:form>
-                                        <h:commandLink action = "#{beanNavigation.LoaiKhachSan}">
-                                            <f:param name = "pageId" value = "#{item.id}" />
+                                        <h:commandLink action = "#{beanNavigation.KhachSan(item.id)}">
                                             <div class="div-ks">
                                                 <img style="height: 220px" src="Content/Images/KhachSan/#{item.id}.jpg" alt="Img"/>
                                             </div>
-                                            <div style="font-size: 18px; font-weight: bold; color: #000000 !important;">#{item.ten}</div>
-                                            <div style="font-size: 14px; ">#{item.tenThanhPho}</div>
-                                            <div style="font-size: 14px">#{item.tenLoaiKhachSan}</div>
-                                            <div style="font-size: 15px">#{item.danhGia} &#9734;</div>
+                                            <div style="font-size: 18px; font-weight: bold; color: #0077CC">#{item.ten}</div>
+                                            <div style="font-size: 14px; color: #777777 ">#{item.tenThanhPho}</div>
+                                            <div style="font-size: 14px; color: #777777">#{item.tenLoaiKhachSan}</div>
+                                            <div style="font-size: 16px; font-weight: bold; color: #003580">#{item.danhGia} &#9733; - #{beanKhachSan.strDanhGia[item.danhGia]}</div>
                                         </h:commandLink>
                                     </h:form>
                                 </div>

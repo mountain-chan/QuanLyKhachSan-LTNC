@@ -34,7 +34,6 @@ public class MyFilter implements Filter {
             String TenTaiKhoan = null, MatKhau = null;
             if (cookies != null) {
                 for (Cookie cookie : cookies) {
-                    System.out.println("Value: " + cookie.getValue());
                     if (cookie.getName().equals("TenTaiKhoan")) {
                         TenTaiKhoan = cookie.getValue();
                     } else if (cookie.getName().equals("MatKhau")) {
