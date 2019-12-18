@@ -223,15 +223,33 @@ font-family: 'Roboto Slab'
     border-color: #FEBB02;
 }
 
-.tim-kiem .ui-inputfield:hover{
+.tim-kiem .ui-inputfield:hover {
     border-color: #007AD9 !important;
 }
 
-.ks-noibat a{
+.ks-noibat a {
     /*color: #000000 !important;*/
 }
 
-.ks-noibat a:hover{
+.ks-noibat a:hover {
     text-decoration: none !important;
 }
 
+.form-dskhachsan .ui-paginator {
+    border: none !important;
+}
+
+.khoi-loc {
+    border-top: 1px solid #c0c0c0;
+    padding-bottom: 10px;
+}
+
+.khoi-loc .head {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 10px 0 5px 20px;
+}
+
+.khoi-loc div{
+    margin: 0 0 6px 10px;
+}

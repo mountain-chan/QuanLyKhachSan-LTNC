@@ -21,6 +21,10 @@ public class BeanDangNhap implements Serializable {
 
     private TaiKhoan dangNhap;
 
+    public BeanDangNhap() {
+        dangNhap = new TaiKhoan();
+    }
+
     public void DangNhap() {
         TaiKhoan tk = SQLConnection.getTaiKhoan(dangNhap.getTenTaiKhoan(), dangNhap.getMatKhau());
         if (tk != null) {
@@ -28,7 +32,6 @@ public class BeanDangNhap implements Serializable {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
             HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-//            response.setContentType("text/html");
             Cookie cookie = new Cookie("TenTaiKhoan", tk.getTenTaiKhoan());
             cookie.setMaxAge(3600);
             cookie.setPath("/");
@@ -70,10 +73,9 @@ public class BeanDangNhap implements Serializable {
         }
     }
 
-    public BeanDangNhap() {
-        dangNhap = new TaiKhoan();
-    }
-
+    //
+    // Get - Set, Don't care
+    //
     public TaiKhoan getDangNhap() {
         return dangNhap;
     }

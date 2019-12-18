@@ -21,32 +21,13 @@ public class BeanKhachSan implements Serializable {
     ArrayList<KhachSan> listKhachSan;
     ArrayList<BuaAn> listBuaAn;
     Connection con;
-
-    String[] strDanhGia = {"Dở tệ", "Bình thường", "Chất lượng", "Sang trọng", "Tuyệt vời", "Xuất sắc"};
-
-    public KhachSan getKhachSan() {
-        return khachSan;
-    }
-
-    public void setKhachSan(KhachSan khachSan) {
-        this.khachSan = khachSan;
-    }
-
-    public ArrayList<KhachSan> getListKhachSan() {
-        return listKhachSan;
-    }
-
-    public ArrayList<BuaAn> getListBuaAn() {
-        return listBuaAn;
-    }
+    String[] strDanhGia = {"Bình thường", "Khá ổn", "Chất lượng", "Sang trọng", "Tuyệt vời", "Xuất sắc"};
 
     public BeanKhachSan() {
         listBuaAn = new ArrayList();
-        listBuaAn.add(new BuaAn(0, "Không có"));
-        listBuaAn.add(new BuaAn(1, "Bữa Sáng"));
-        listBuaAn.add(new BuaAn(2, "Bữa Sáng Và Trưa"));
-        listBuaAn.add(new BuaAn(3, "Bữa Sáng Và Tối"));
-        listBuaAn.add(new BuaAn(4, "Cả Ba Bữa"));
+        for (BuaAn tmp : BuaAn.listBuaAn) {
+            listBuaAn.add(tmp);
+        }
         khachSan = new KhachSan();
         try {
             listKhachSan = new ArrayList();
@@ -170,6 +151,33 @@ public class BeanKhachSan implements Serializable {
         } catch (Exception e) {
             pf.Message.errorMessage("Thất Bại", "Xóa Khách Sạn Thất Bại!");
         }
+    }
+
+    //
+    // Get - Set, Don't care
+    //
+    public KhachSan getKhachSan() {
+        return khachSan;
+    }
+
+    public void setKhachSan(KhachSan khachSan) {
+        this.khachSan = khachSan;
+    }
+
+    public ArrayList<KhachSan> getListKhachSan() {
+        return listKhachSan;
+    }
+
+    public void setListKhachSan(ArrayList<KhachSan> listKhachSan) {
+        this.listKhachSan = listKhachSan;
+    }
+
+    public ArrayList<BuaAn> getListBuaAn() {
+        return listBuaAn;
+    }
+
+    public void setListBuaAn(ArrayList<BuaAn> listBuaAn) {
+        this.listBuaAn = listBuaAn;
     }
 
     public String[] getStrDanhGia() {

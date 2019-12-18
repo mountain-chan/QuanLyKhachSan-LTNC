@@ -15,23 +15,11 @@ import javax.faces.bean.ManagedBean;
 public class BeanTaiKhoan implements Serializable {
 
     private static final long serialVersionUID = 45438764L;
-    
+
     TaiKhoan taiKhoan;
     ArrayList<TaiKhoan> listTaiKhoan;
     Connection con;
-    
-    public TaiKhoan getTaiKhoan() {
-        return taiKhoan;
-    }
 
-    public void setTaiKhoan(TaiKhoan taiKhoan) {
-        this.taiKhoan = taiKhoan;
-    }
-
-    public ArrayList<TaiKhoan> getListTaiKhoan() {
-        return listTaiKhoan;
-    }
-    
     public BeanTaiKhoan() {
         taiKhoan = new TaiKhoan();
         try {
@@ -65,7 +53,7 @@ public class BeanTaiKhoan implements Serializable {
         taiKhoan.setEmail("");
         taiKhoan.setIsAdmin(false);
     }
-    
+
     public void insert(TaiKhoan tmp) {
         try {
             con = dao.SQLConnection.getConnection();
@@ -86,7 +74,7 @@ public class BeanTaiKhoan implements Serializable {
             pf.Message.errorMessage("Thất Bại", "Thêm Tài Khoản Thất Bại!");
         }
     }
-    
+
     public void update(TaiKhoan tmp) {
         try {
             con = dao.SQLConnection.getConnection();
@@ -112,7 +100,7 @@ public class BeanTaiKhoan implements Serializable {
             pf.Message.errorMessage("Thất Bại", "Sửa Tài Khoản Thất Bại!");
         }
     }
-    
+
     public void delete(String TenTaiKhoan) {
         try {
             con = dao.SQLConnection.getConnection();
@@ -130,6 +118,25 @@ public class BeanTaiKhoan implements Serializable {
         } catch (Exception e) {
             pf.Message.errorMessage("Thất Bại", "Xóa Tài Khoản Thất Bại!");
         }
+    }
+
+    //
+    // Get - Set, Don't care
+    //
+    public TaiKhoan getTaiKhoan() {
+        return taiKhoan;
+    }
+
+    public void setTaiKhoan(TaiKhoan taiKhoan) {
+        this.taiKhoan = taiKhoan;
+    }
+
+    public ArrayList<TaiKhoan> getListTaiKhoan() {
+        return listTaiKhoan;
+    }
+
+    public void setListTaiKhoan(ArrayList<TaiKhoan> listTaiKhoan) {
+        this.listTaiKhoan = listTaiKhoan;
     }
 
 }

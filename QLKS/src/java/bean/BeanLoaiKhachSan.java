@@ -16,24 +16,11 @@ import javax.faces.bean.ManagedBean;
 public class BeanLoaiKhachSan implements Serializable {
 
     private static final long serialVersionUID = 185755L;
-    
-    public static HashMap<Integer, String> hashLoaiKhachSan;
 
+    public static HashMap<Integer, String> hashLoaiKhachSan;
     LoaiKhachSan loaiKhachSan;
     ArrayList<LoaiKhachSan> listLoaiKhachSan;
     Connection con;
-
-    public LoaiKhachSan getLoaiKhachSan() {
-        return loaiKhachSan;
-    }
-
-    public void setLoaiKhachSan(LoaiKhachSan loaiKhachSan) {
-        this.loaiKhachSan = loaiKhachSan;
-    }
-
-    public ArrayList<LoaiKhachSan> getListLoaiKhachSan() {
-        return listLoaiKhachSan;
-    }
 
     public BeanLoaiKhachSan() {
         try {
@@ -124,6 +111,25 @@ public class BeanLoaiKhachSan implements Serializable {
         } catch (Exception e) {
             pf.Message.errorMessage("Thất Bại", "Xóa Thành Phố Thất Bại!");
         }
+    }
+
+    //
+    // Get - Set, Don't care
+    //
+    public LoaiKhachSan getLoaiKhachSan() {
+        return loaiKhachSan;
+    }
+
+    public void setLoaiKhachSan(LoaiKhachSan loaiKhachSan) {
+        this.loaiKhachSan = loaiKhachSan;
+    }
+
+    public ArrayList<LoaiKhachSan> getListLoaiKhachSan() {
+        return listLoaiKhachSan;
+    }
+
+    public void setListLoaiKhachSan(ArrayList<LoaiKhachSan> listLoaiKhachSan) {
+        this.listLoaiKhachSan = listLoaiKhachSan;
     }
 
 }

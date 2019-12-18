@@ -22,9 +22,9 @@
                             <h5>Từ những khu nghỉ dưỡng thanh bình đến những căn hộ hạng sang hiện đại</h5>
                             <h:form>
                                 <div class="tim-kiem">
-                                    <p:inputText placeholder="Nhập thành phố" value="" />
-                                    <p:datePicker placeholder="Ngày đến - Ngày đi" selectionMode="range" value="#{calendarView.range}" pattern="dd.MM.yyyy" mindate="#{calendarView.minDate}" readonlyInput="true" />
-                                    <p:commandButton value="Tìm" style="width: 110px; height: 60px; font-size: 20px !important; font-weight: 100" />
+                                    <p:inputText placeholder="Nhập thành phố" value="#{beanNavigation.tenThanhPhoTimKiem}" />
+                                    <p:datePicker placeholder="Ngày đến - Ngày đi" selectionMode="range" value="#{beanNavigation.thoiGianTimKiem}" pattern="dd.MM.yyyy" mindate="#{beanNavigation.minDate}" readonlyInput="true" />
+                                    <p:commandButton value="Tìm" style="width: 110px; height: 60px; font-size: 20px !important; font-weight: 100" action="#{beanNavigation.TimKiem()}" />
                                 </div>
                             </h:form>
                         </div>

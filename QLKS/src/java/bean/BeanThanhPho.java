@@ -16,25 +16,12 @@ import javax.faces.bean.ManagedBean;
 public class BeanThanhPho implements Serializable {
 
     private static final long serialVersionUID = 1124771L;
-    
-    public static HashMap<Integer, String> hashThanhPho;
 
+    public static HashMap<Integer, String> hashThanhPho;
     ThanhPho thanhPho;
     ArrayList<ThanhPho> listThanhPho;
     Connection con;
 
-    public ThanhPho getThanhPho() {
-        return thanhPho;
-    }
-
-    public void setThanhPho(ThanhPho thanhPho) {
-        this.thanhPho = thanhPho;
-    }
-
-    public ArrayList<ThanhPho> getListThanhPho() {
-        return listThanhPho;
-    }
-    
     public BeanThanhPho() {
         try {
             thanhPho = new ThanhPho();
@@ -124,6 +111,25 @@ public class BeanThanhPho implements Serializable {
         } catch (Exception e) {
             pf.Message.errorMessage("Thất Bại", "Xóa Thành Phố Thất Bại!");
         }
+    }
+
+    //
+    // Get - Set, Don't care
+    //
+    public ThanhPho getThanhPho() {
+        return thanhPho;
+    }
+
+    public void setThanhPho(ThanhPho thanhPho) {
+        this.thanhPho = thanhPho;
+    }
+
+    public ArrayList<ThanhPho> getListThanhPho() {
+        return listThanhPho;
+    }
+
+    public void setListThanhPho(ArrayList<ThanhPho> listThanhPho) {
+        this.listThanhPho = listThanhPho;
     }
 
 }

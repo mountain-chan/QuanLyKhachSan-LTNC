@@ -16,24 +16,73 @@
 
                     <div class="c80">
                         <div class="row">
-                            <div class="col-md-3" style="background-color: #d0d0d0; margin-top: 30px">
-                                <div>Column Left</div>
-                                <div>Column Left</div>
-                                <div>Column Left</div>
-                                <div>Column Left</div>
-                                <h:form>
-                                    <p:commandButton value="A" action="#{beanNavigation.ThanhPho(1)}" update="dskhachsan">
-                                    </p:commandButton>
-                                </h:form>
+                            <div class="col-md-3">
+                                <div style="border: 1px solid #c0c0c0; border-radius: 5px; margin-top: 20px">
+                                    <h:form>
+                                        <div style="padding: 10px 0 8px 20px">
+                                            <span style="font-size: 16px; font-weight: bold">Chọn lọc theo</span>
+                                        </div>
+                                        <div class="khoi-loc">
+                                            <div class="head">Xếp hạng</div>
+                                            <c:forEach items="#{beanNavigation.listXepHang}" var="item">
+                                                <div>
+                                                    <p:selectBooleanCheckbox value="#{item.checked}" itemLabel="#{item.label}">
+                                                        <p:ajax update="form:ds-khachsan" listener="#{beanNavigation.Loc}" />
+                                                    </p:selectBooleanCheckbox>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                        <div class="khoi-loc">
+                                            <div class="head">Loại khách sạn</div>
+                                            <c:forEach items="#{beanNavigation.listLoaiKhachSan}" var="item">
+                                                <div>
+                                                    <p:selectBooleanCheckbox value="#{item.checked}" itemLabel="#{item.label}">
+                                                        <p:ajax update="form:ds-khachsan" listener="#{beanNavigation.Loc}" />
+                                                    </p:selectBooleanCheckbox>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                        <div class="khoi-loc">
+                                            <div class="head">Bữa ăn</div>
+                                            <c:forEach items="#{beanNavigation.listBuaAn}" var="item">
+                                                <div>
+                                                    <p:selectBooleanCheckbox value="#{item.checked}" itemLabel="#{item.label}">
+                                                        <p:ajax update="form:ds-khachsan" listener="#{beanNavigation.Loc}" />
+                                                    </p:selectBooleanCheckbox>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                        <div class="khoi-loc">
+                                            <div class="head">Cách trung tâm</div>
+                                            <c:forEach items="#{beanNavigation.listCachTrungTam}" var="item">
+                                                <div>
+                                                    <p:selectBooleanCheckbox value="#{item.checked}" itemLabel="#{item.label}">
+                                                        <p:ajax update="form:ds-khachsan" listener="#{beanNavigation.Loc}" />
+                                                    </p:selectBooleanCheckbox>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                        <div class="khoi-loc">
+                                            <div class="head">Giáp biển</div>
+                                            <c:forEach items="#{beanNavigation.listGiapBien}" var="item">
+                                                <div>
+                                                    <p:selectBooleanCheckbox value="#{item.checked}" itemLabel="#{item.label}">
+                                                        <p:ajax update="form:ds-khachsan" listener="#{beanNavigation.Loc}" />
+                                                    </p:selectBooleanCheckbox>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                    </h:form>
+                                </div>
                             </div>
-                            <div jsf:id="dskhachsan" class="col-md-9">
-                                <h:form>
-                                    <ui:repeat value="#{beanNavigation.listKhachSan}" var="item">
+                            <div class="col-md-9">
+                                <h:form id="form" class="form-dskhachsan">
+                                    <p:dataList id="ds-khachsan" value="#{beanNavigation.listKhachSan}" var="item" type="unordered" itemType="none" paginator="true" rows="10" styleClass="paginated" paginatorPosition="bottom" emptyMessage="Không tồn tại Khách sạn bạn mong muốn">
                                         <h:commandLink action="#{beanNavigation.KhachSan(item.id)}">
-                                            <div style="height: 240px; border-style: solid; border-radius: 10px; border-width: 1px; border-color: #c0c0c0; margin-top: 20px">
+                                            <div style="height: 240px; border: 1px solid #c0c0c0; border-radius: 5px; margin-top: 20px">
                                                 <div class="row">
                                                     <div class="col-md-4" style="margin: 20px 0 0 20px; width: 240px">
-                                                        <div style="border-radius: 5px; width: 220px; overflow: hidden">
+                                                        <div style="border-radius: 3px; width: 220px; overflow: hidden">
                                                             <img style="height: 200px" src="Content/Images/KhachSan/#{item.id}.jpg" alt="Img"/>
                                                         </div>
                                                     </div>
@@ -46,7 +95,7 @@
                                                 </div>
                                             </div>
                                         </h:commandLink>
-                                    </ui:repeat>
+                                    </p:dataList>
                                 </h:form>
                             </div>
                         </div>
