@@ -1,6 +1,8 @@
-# QuanLyKhachSan
+# Project Quản Lý Khách Sạn
 
-Quan Ly Khach San By Java
+Quản Lý Khách Sạn - Hotel Booking By Java
+
+BTL Môn Lập Trình Nâng Cao
 
 --------------
 
