@@ -250,6 +250,34 @@ font-family: 'Roboto Slab'
     margin: 10px 0 5px 20px;
 }
 
-.khoi-loc div{
+.khoi-loc div {
     margin: 0 0 6px 10px;
+}
+
+.danh-gia-star {
+    position: absolute; 
+    float: right;
+    right: -8px; 
+    top: 0px; 
+    font-size: 20px;
+    font-weight: bold;
+    color: #003580;
+}
+
+.danh-gia-label {
+    position: absolute; 
+    float: right;
+    right: -26px; 
+    top: 30px; 
+    font-size: 16px;
+    font-weight: bold;
+    color: #003580;
+}
+
+.form-dskhachsan .ui-datalist-data {
+    padding-left: 10px !important;
+}
+
+.aa .bb:hover {
+    background: #E9F0FA !important;
 }

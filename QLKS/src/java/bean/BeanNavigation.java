@@ -1,7 +1,6 @@
 package bean;
 
 import java.io.Serializable;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +20,7 @@ public class BeanNavigation implements Serializable {
     private ArrayList<KhachSan> lstKS;
     private ArrayList<KhachSan> listKhachSan;
     private ArrayList<KhachSan> listKhachSanSave;
+    private KhachSan khachSan;
     private String tenThanhPhoTimKiem;
     private List<Date> thoiGianTimKiem;
     private Date minDate;
@@ -61,29 +61,29 @@ public class BeanNavigation implements Serializable {
         listGiapBien.add(new Checkbox("Có giáp"));
     }
 
+    // Reset Các thông tin tìm kiếm
+    private void resetTimKiem() {
+        listXepHang.forEach((tmp) -> {
+            tmp.setChecked(false);
+        });
+        listLoaiKhachSan.forEach((tmp) -> {
+            tmp.setChecked(false);
+        });
+        listBuaAn.forEach((tmp) -> {
+            tmp.setChecked(false);
+        });
+        listCachTrungTam.forEach((tmp) -> {
+            tmp.setChecked(false);
+        });
+        listGiapBien.forEach((tmp) -> {
+            tmp.setChecked(false);
+        });
+        listKhachSanSave = listKhachSan;
+    }
+
     // Các link trên Header
     public String TrangChu() {
         return "index";
-    }
-
-    // Reset Các thông tin tìm kiếm
-    private void resetTimKiem() {
-        for (Checkbox tmp : listXepHang) {
-            tmp.setChecked(false);
-        }
-        for (Checkbox tmp : listLoaiKhachSan) {
-            tmp.setChecked(false);
-        }
-        for (Checkbox tmp : listBuaAn) {
-            tmp.setChecked(false);
-        }
-        for (Checkbox tmp : listCachTrungTam) {
-            tmp.setChecked(false);
-        }
-        for (Checkbox tmp : listGiapBien) {
-            tmp.setChecked(false);
-        }
-        listKhachSanSave = listKhachSan;
     }
 
     public String ToanBoKhachSan() {
@@ -146,16 +146,13 @@ public class BeanNavigation implements Serializable {
     }
 
     public String KhachSan(int pageId) {
-        System.out.println("???88");
-        listKhachSan = new ArrayList();
         for (KhachSan tmp : lstKS) {
             if (tmp.getId() == pageId) {
-                listKhachSan.add(tmp);
+                khachSan = tmp;
                 break;
             }
         }
-        resetTimKiem();
-        return "dskhachsan";
+        return "khachsan";
     }
 
     // Các hàm lọc
@@ -179,10 +176,7 @@ public class BeanNavigation implements Serializable {
                 }
             }
         }
-        if (!check) {
-            return true;
-        }
-        return false;
+        return !check;
     }
 
     private boolean locLoaiKhachSan(KhachSan ks) {
@@ -195,10 +189,7 @@ public class BeanNavigation implements Serializable {
                 }
             }
         }
-        if (!check) {
-            return true;
-        }
-        return false;
+        return !check;
     }
 
     private boolean locBuaAn(KhachSan ks) {
@@ -211,18 +202,49 @@ public class BeanNavigation implements Serializable {
                 }
             }
         }
-        if (!check) {
-            return true;
-        }
-        return false;
+        return !check;
     }
 
     private boolean locCachTrungTam(KhachSan ks) {
-        return true;
+        boolean check = false;
+        int khoangCach = ks.getCachTrungTam();
+        if (listCachTrungTam.get(0).isChecked()) {
+            check = true;
+            if (khoangCach < 1000) {
+                return true;
+            }
+        }
+        if (listCachTrungTam.get(1).isChecked()) {
+            check = true;
+            if (khoangCach < 3000) {
+                return true;
+            }
+        }
+        if (listCachTrungTam.get(2).isChecked()) {
+            check = true;
+            if (khoangCach < 5000) {
+                return true;
+            }
+        }
+        return !check;
     }
 
     private boolean locGiapBien(KhachSan ks) {
-        return true;
+        boolean check = false;
+        boolean giapBien = ks.isGiapBien();
+        if (listGiapBien.get(0).isChecked()) {
+            check = true;
+            if (giapBien == false) {
+                return true;
+            }
+        }
+        if (listGiapBien.get(1).isChecked()) {
+            check = true;
+            if (giapBien == true) {
+                return true;
+            }
+        }
+        return !check;
     }
 
     //
@@ -306,6 +328,14 @@ public class BeanNavigation implements Serializable {
 
     public void setListGiapBien(ArrayList<Checkbox> listGiapBien) {
         this.listGiapBien = listGiapBien;
+    }
+
+    public KhachSan getKhachSan() {
+        return khachSan;
+    }
+
+    public void setKhachSan(KhachSan khachSan) {
+        this.khachSan = khachSan;
     }
 
 }
