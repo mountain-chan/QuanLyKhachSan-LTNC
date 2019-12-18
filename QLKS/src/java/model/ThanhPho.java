@@ -6,65 +6,75 @@ public class ThanhPho implements Serializable {
 
     private static final long serialVersionUID = 1453123L;
     
-    int Id;
-    String Ten;
-    String MoTa;
-    String UrlHinhAnh;
-
-    public int getId() {
-        return Id;
-    }
-
-    public void setId(int Id) {
-        this.Id = Id;
-    }
-
-    public String getTen() {
-        return Ten;
-    }
-
-    public void setTen(String Ten) {
-        this.Ten = Ten;
-    }
-
-    public String getMoTa() {
-        return MoTa;
-    }
-
-    public void setMoTa(String MoTa) {
-        this.MoTa = MoTa;
-    }
-
-    public String getUrlHinhAnh() {
-        return UrlHinhAnh;
-    }
-
-    public void setUrlHinhAnh(String UrlHinhAnh) {
-        this.UrlHinhAnh = UrlHinhAnh;
-    }
+    int id;
+    String ten;
+    String moTa;
+    String urlHinhAnh;
+    String soKhachSan;
 
     public ThanhPho() {
-
     }
 
-    public ThanhPho(int Id, String Ten, String MoTa, String UrlHinhAnh) {
-        this.Id = Id;
-        this.Ten = Ten;
-        this.MoTa = MoTa;
-        this.UrlHinhAnh = UrlHinhAnh;
+    public ThanhPho(int id, String ten, String moTa, String urlHinhAnh, String soKhachSan) {
+        this.id = id;
+        this.ten = ten;
+        this.moTa = moTa;
+        this.urlHinhAnh = urlHinhAnh;
+        this.soKhachSan = soKhachSan;
     }
 
     public ThanhPho(ThanhPho tp) {
-        this.Id = tp.Id;
-        this.Ten = tp.Ten;
-        this.MoTa = tp.MoTa;
-        this.UrlHinhAnh = tp.UrlHinhAnh;
+        this.id = tp.id;
+        this.ten = tp.ten;
+        this.moTa = tp.moTa;
+        this.urlHinhAnh = tp.urlHinhAnh;
     }
 
-    public void reload(int Id, String Ten, String MoTa, String UrlHinhAnh) {
-        this.Id = Id;
-        this.Ten = Ten;
-        this.MoTa = MoTa;
-        this.UrlHinhAnh = UrlHinhAnh;
+    public void reload(int id, String ten, String moTa, String urlHinhAnh) {
+        this.id = id;
+        this.ten = ten;
+        this.moTa = moTa;
+        this.urlHinhAnh = urlHinhAnh;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTen() {
+        return ten;
+    }
+
+    public void setTen(String ten) {
+        this.ten = ten;
+    }
+
+    public String getMoTa() {
+        return moTa;
+    }
+
+    public void setMoTa(String moTa) {
+        this.moTa = moTa;
+    }
+
+    public String getUrlHinhAnh() {
+        return urlHinhAnh;
+    }
+
+    public void setUrlHinhAnh(String urlHinhAnh) {
+        this.urlHinhAnh = urlHinhAnh;
+    }
+
+    public String getSoKhachSan() {
+        return soKhachSan;
+    }
+
+    public void setSoKhachSan(String soKhachSan) {
+        this.soKhachSan = soKhachSan;
+    }
+
 }

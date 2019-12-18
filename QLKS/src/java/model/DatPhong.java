@@ -7,13 +7,15 @@ public class DatPhong implements Serializable {
 
     private static final long serialVersionUID = 5436453121L;
     
-    int Id;
-    String TaiKhoan;
-    int IdPhong;
-    Date NgayDat;
-    Date NgayDen;
-    Date NgayTra;
-    String DichVu;
-    String GhiChu;
-    int ThanhTien;
+    int id;
+    String taiKhoan;
+    int idPhong;
+    Date ngayDat;
+    Date ngayDen;
+    Date ngayTra;
+    String dichVu;
+    String ghiChu;
+    int thanhTien;
+    
+    
 }

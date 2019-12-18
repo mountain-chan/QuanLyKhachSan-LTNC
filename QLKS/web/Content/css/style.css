@@ -157,6 +157,14 @@ font-family: 'Roboto Slab'
     margin-top: 5px;
 }
 
+.form-dang-ky {
+    width: 90%; margin: auto; text-align: left;
+}
+
+.form-dang-ky > *{
+    margin-top: 5px;
+}
+
 .ui-layout-pane-north {
     border: 0 !important;
     padding: 0 0 0 0 !important;
@@ -278,6 +286,11 @@ font-family: 'Roboto Slab'
     padding-left: 10px !important;
 }
 
-.aa .bb:hover {
+.link-khachsan .div-khachsan:hover {
     background: #E9F0FA !important;
+}
+
+.form-dskhachsan .ui-datalist-empty-message{
+   margin: 50px 0 0 80px;
+   font-size: 20px !important;
 }

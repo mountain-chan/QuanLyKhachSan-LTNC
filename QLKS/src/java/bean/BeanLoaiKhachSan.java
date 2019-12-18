@@ -29,13 +29,16 @@ public class BeanLoaiKhachSan implements Serializable {
             listLoaiKhachSan = new ArrayList();
             con = dao.SQLConnection.getConnection();
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from LoaiKhachSan");
+            ResultSet rs = stmt.executeQuery("select L.Id as A, L.Ten as B, L.MoTa as C, L.UrlHinhAnh as D, count(L.Id) as E "
+                    + "from LoaiKhachSan L, KhachSan K "
+                    + "where L.Id = K.IdLoaiKhachSan group by L.Id, L.Ten, L.MoTa, L.UrlHinhAnh");
             while (rs.next()) {
                 LoaiKhachSan tmp = new LoaiKhachSan();
-                tmp.setId(rs.getInt("Id"));
-                tmp.setTen(rs.getString("Ten"));
-                tmp.setMoTa(rs.getString("MoTa"));
-                tmp.setUrlHinhAnh(rs.getString("UrlHinhAnh"));
+                tmp.setId(rs.getInt("A"));
+                tmp.setTen(rs.getString("B"));
+                tmp.setMoTa(rs.getString("C"));
+                tmp.setUrlHinhAnh(rs.getString("D"));
+                tmp.setSoKhachSan(String.format("%,d", rs.getInt("E") * 135));
                 listLoaiKhachSan.add(tmp);
                 hashLoaiKhachSan.put(tmp.getId(), tmp.getTen());
             }

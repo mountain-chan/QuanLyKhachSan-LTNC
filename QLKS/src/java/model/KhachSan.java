@@ -6,173 +6,173 @@ public class KhachSan implements Serializable  {
 
     private static final long serialVersionUID = 1234551L;
     
-    int Id;
-    String Ten;
-    String DiaChi;
-    String SoDienThoai;
-    int CachTrungTam;
-    String MoTa;
-    boolean GiapBien;
-    int DanhGia;
-    int BuaAn;
-    int IdThanhPho;
-    String TenThanhPho;
-    int IdLoaiKhachSan;
-    String TenLoaiKhachSan;
-
-    public int getId() {
-        return Id;
-    }
-
-    public void setId(int Id) {
-        this.Id = Id;
-    }
-
-    public String getTen() {
-        return Ten;
-    }
-
-    public void setTen(String Ten) {
-        this.Ten = Ten;
-    }
-
-    public String getDiaChi() {
-        return DiaChi;
-    }
-
-    public void setDiaChi(String DiaChi) {
-        this.DiaChi = DiaChi;
-    }
-
-    public String getSoDienThoai() {
-        return SoDienThoai;
-    }
-
-    public void setSoDienThoai(String SoDienThoai) {
-        this.SoDienThoai = SoDienThoai;
-    }
-
-    public int getCachTrungTam() {
-        return CachTrungTam;
-    }
-
-    public void setCachTrungTam(int CachTrungTam) {
-        this.CachTrungTam = CachTrungTam;
-    }
-
-    public String getMoTa() {
-        return MoTa;
-    }
-
-    public void setMoTa(String MoTa) {
-        this.MoTa = MoTa;
-    }
-
-    public boolean isGiapBien() {
-        return GiapBien;
-    }
-
-    public void setGiapBien(boolean GiapBien) {
-        this.GiapBien = GiapBien;
-    }
-
-    public int getDanhGia() {
-        return DanhGia;
-    }
-
-    public void setDanhGia(int DanhGia) {
-        this.DanhGia = DanhGia;
-    }
-
-    public int getBuaAn() {
-        return BuaAn;
-    }
-
-    public void setBuaAn(int BuaAn) {
-        this.BuaAn = BuaAn;
-    }
-
-    public int getIdThanhPho() {
-        return IdThanhPho;
-    }
-
-    public void setIdThanhPho(int IdThanhPho) {
-        this.IdThanhPho = IdThanhPho;
-    }
-
-    public void setTenThanhPho(String TenThanhPho) {
-        this.TenThanhPho = TenThanhPho;
-    }
-
-    public String getTenThanhPho() {
-        return TenThanhPho;
-    }
-
-    public int getIdLoaiKhachSan() {
-        return IdLoaiKhachSan;
-    }
-
-    public void setIdLoaiKhachSan(int IdLoaiKhachSan) {
-        this.IdLoaiKhachSan = IdLoaiKhachSan;
-    }
-
-    public String getTenLoaiKhachSan() {
-        return TenLoaiKhachSan;
-    }
-
-    public void setTenLoaiKhachSan(String TenLoaiKhachSan) {
-        this.TenLoaiKhachSan = TenLoaiKhachSan;
-    }
+    int id;
+    String ten;
+    String diaChi;
+    String soDienThoai;
+    int cachTrungTam;
+    String moTa;
+    boolean giapBien;
+    int danhGia;
+    int buaAn;
+    int idThanhPho;
+    String tenThanhPho;
+    int idLoaiKhachSan;
+    String tenLoaiKhachSan;
 
     public KhachSan() {
     }
 
-    public KhachSan(int Id, String Ten, String DiaChi, String SoDienThoai, int CachTrungTam, String MoTa, boolean GiapBien, int DanhGia, int BuaAn, int IdThanhPho, String TenThanhPho, int IdLoaiKhachSan, String TenLoaiKhachSan) {
-        this.Id = Id;
-        this.Ten = Ten;
-        this.DiaChi = DiaChi;
-        this.SoDienThoai = SoDienThoai;
-        this.CachTrungTam = CachTrungTam;
-        this.MoTa = MoTa;
-        this.GiapBien = GiapBien;
-        this.DanhGia = DanhGia;
-        this.BuaAn = BuaAn;
-        this.IdThanhPho = IdThanhPho;
-        this.TenThanhPho = TenThanhPho;
-        this.IdLoaiKhachSan = IdLoaiKhachSan;
-        this.TenLoaiKhachSan = TenLoaiKhachSan;
+    public KhachSan(int id, String ten, String diaChi, String soDienThoai, int cachTrungTam, String moTa, boolean giapBien, int danhGia, int buaAn, int idThanhPho, String tenThanhPho, int idLoaiKhachSan, String tenLoaiKhachSan) {
+        this.id = id;
+        this.ten = ten;
+        this.diaChi = diaChi;
+        this.soDienThoai = soDienThoai;
+        this.cachTrungTam = cachTrungTam;
+        this.moTa = moTa;
+        this.giapBien = giapBien;
+        this.danhGia = danhGia;
+        this.buaAn = buaAn;
+        this.idThanhPho = idThanhPho;
+        this.tenThanhPho = tenThanhPho;
+        this.idLoaiKhachSan = idLoaiKhachSan;
+        this.tenLoaiKhachSan = tenLoaiKhachSan;
     }
 
     public KhachSan(KhachSan ks) {
-        this.Id = ks.Id;
-        this.Ten = ks.Ten;
-        this.DiaChi = ks.DiaChi;
-        this.SoDienThoai = ks.SoDienThoai;
-        this.CachTrungTam = ks.CachTrungTam;
-        this.MoTa = ks.MoTa;
-        this.GiapBien = ks.GiapBien;
-        this.DanhGia = ks.DanhGia;
-        this.BuaAn = ks.BuaAn;
-        this.IdThanhPho = ks.IdThanhPho;
-        this.TenThanhPho = ks.TenThanhPho;
-        this.IdLoaiKhachSan = ks.IdLoaiKhachSan;
-        this.TenLoaiKhachSan = ks.TenLoaiKhachSan;
+        this.id = ks.id;
+        this.ten = ks.ten;
+        this.diaChi = ks.diaChi;
+        this.soDienThoai = ks.soDienThoai;
+        this.cachTrungTam = ks.cachTrungTam;
+        this.moTa = ks.moTa;
+        this.giapBien = ks.giapBien;
+        this.danhGia = ks.danhGia;
+        this.buaAn = ks.buaAn;
+        this.idThanhPho = ks.idThanhPho;
+        this.tenThanhPho = ks.tenThanhPho;
+        this.idLoaiKhachSan = ks.idLoaiKhachSan;
+        this.tenLoaiKhachSan = ks.tenLoaiKhachSan;
     }
     
-    public void reload(int Id, String Ten, String DiaChi, String SoDienThoai, int CachTrungTam, String MoTa, boolean GiapBien, int DanhGia, int BuaAn, int IdThanhPho, String TenThanhPho, int IdLoaiKhachSan, String TenLoaiKhachSan) {
-        this.Id = Id;
-        this.Ten = Ten;
-        this.DiaChi = DiaChi;
-        this.SoDienThoai = SoDienThoai;
-        this.CachTrungTam = CachTrungTam;
-        this.MoTa = MoTa;
-        this.GiapBien = GiapBien;
-        this.DanhGia = DanhGia;
-        this.BuaAn = BuaAn;
-        this.IdThanhPho = IdThanhPho;
-        this.TenThanhPho = TenThanhPho;
-        this.IdLoaiKhachSan = IdLoaiKhachSan;
-        this.TenLoaiKhachSan = TenLoaiKhachSan;
+    public void reload(int id, String ten, String diaChi, String soDienThoai, int cachTrungTam, String moTa, boolean giapBien, int danhGia, int buaAn, int idThanhPho, String tenThanhPho, int idLoaiKhachSan, String tenLoaiKhachSan) {
+        this.id = id;
+        this.ten = ten;
+        this.diaChi = diaChi;
+        this.soDienThoai = soDienThoai;
+        this.cachTrungTam = cachTrungTam;
+        this.moTa = moTa;
+        this.giapBien = giapBien;
+        this.danhGia = danhGia;
+        this.buaAn = buaAn;
+        this.idThanhPho = idThanhPho;
+        this.tenThanhPho = tenThanhPho;
+        this.idLoaiKhachSan = idLoaiKhachSan;
+        this.tenLoaiKhachSan = tenLoaiKhachSan;
     }
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTen() {
+        return ten;
+    }
+
+    public void setTen(String ten) {
+        this.ten = ten;
+    }
+
+    public String getDiaChi() {
+        return diaChi;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
+
+    public String getSoDienThoai() {
+        return soDienThoai;
+    }
+
+    public void setSoDienThoai(String soDienThoai) {
+        this.soDienThoai = soDienThoai;
+    }
+
+    public int getCachTrungTam() {
+        return cachTrungTam;
+    }
+
+    public void setCachTrungTam(int cachTrungTam) {
+        this.cachTrungTam = cachTrungTam;
+    }
+
+    public String getMoTa() {
+        return moTa;
+    }
+
+    public void setMoTa(String moTa) {
+        this.moTa = moTa;
+    }
+
+    public boolean isGiapBien() {
+        return giapBien;
+    }
+
+    public void setGiapBien(boolean giapBien) {
+        this.giapBien = giapBien;
+    }
+
+    public int getDanhGia() {
+        return danhGia;
+    }
+
+    public void setDanhGia(int danhGia) {
+        this.danhGia = danhGia;
+    }
+
+    public int getBuaAn() {
+        return buaAn;
+    }
+
+    public void setBuaAn(int buaAn) {
+        this.buaAn = buaAn;
+    }
+
+    public int getIdThanhPho() {
+        return idThanhPho;
+    }
+
+    public void setIdThanhPho(int idThanhPho) {
+        this.idThanhPho = idThanhPho;
+    }
+
+    public String getTenThanhPho() {
+        return tenThanhPho;
+    }
+
+    public void setTenThanhPho(String tenThanhPho) {
+        this.tenThanhPho = tenThanhPho;
+    }
+
+    public int getIdLoaiKhachSan() {
+        return idLoaiKhachSan;
+    }
+
+    public void setIdLoaiKhachSan(int idLoaiKhachSan) {
+        this.idLoaiKhachSan = idLoaiKhachSan;
+    }
+
+    public String getTenLoaiKhachSan() {
+        return tenLoaiKhachSan;
+    }
+
+    public void setTenLoaiKhachSan(String tenLoaiKhachSan) {
+        this.tenLoaiKhachSan = tenLoaiKhachSan;
+    }
+
 }

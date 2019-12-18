@@ -2,7 +2,6 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class BuaAn implements Serializable {
 
@@ -18,31 +17,31 @@ public class BuaAn implements Serializable {
         }
     };
 
-    int Id;
-    String Ten;
-
-    public int getId() {
-        return Id;
-    }
-
-    public void setId(int Id) {
-        this.Id = Id;
-    }
-
-    public String getTen() {
-        return Ten;
-    }
-
-    public void setTen(String Ten) {
-        this.Ten = Ten;
-    }
+    int id;
+    String ten;
 
     public BuaAn() {
     }
 
-    public BuaAn(int Id, String Ten) {
-        this.Id = Id;
-        this.Ten = Ten;
+    public BuaAn(int id, String ten) {
+        this.id = id;
+        this.ten = ten;
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTen() {
+        return ten;
+    }
+
+    public void setTen(String ten) {
+        this.ten = ten;
     }
 
 }

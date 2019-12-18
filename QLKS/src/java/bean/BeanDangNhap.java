@@ -3,6 +3,8 @@ package bean;
 import dao.SQLConnection;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -20,6 +22,8 @@ public class BeanDangNhap implements Serializable {
     private static final long serialVersionUID = 1437123L;
 
     private TaiKhoan dangNhap;
+    private String nhapLaiMatKhau;
+    Connection con;
 
     public BeanDangNhap() {
         dangNhap = new TaiKhoan();
@@ -55,6 +59,33 @@ public class BeanDangNhap implements Serializable {
         }
     }
 
+    public void DangKy() {
+        if (dangNhap.getTenTaiKhoan().isEmpty() || dangNhap.getMatKhau().isEmpty()) {
+            pf.Message.addMessage("Thất Bại", "Không được để trống tài khoản hoặc mật khẩu!");
+            return;
+        }
+        if (!dangNhap.getMatKhau().equals(nhapLaiMatKhau)) {
+            pf.Message.addMessage("Thất Bại", "Mật khẩu không khớp!");
+            return;
+        }
+        try {
+            con = dao.SQLConnection.getConnection();
+            PreparedStatement stmt = con.prepareStatement("insert into TaiKhoan values(?,?,?,?,?,?,?)");
+            stmt.setString(1, dangNhap.getTenTaiKhoan());
+            stmt.setString(2, dangNhap.getMatKhau());
+            stmt.setString(3, dangNhap.getHoTen());
+            stmt.setBoolean(4, dangNhap.isGioiTinh());
+            stmt.setString(5, dangNhap.getSoDienThoai());
+            stmt.setString(6, dangNhap.getEmail());
+            stmt.setBoolean(7, false);
+            stmt.executeUpdate();
+            con.close();
+            pf.Message.addMessage("Thành Công", "Đăng ký thành công!");
+        } catch (Exception e) {
+            pf.Message.errorMessage("Thất Bại", "Tên tài khoản đã được sử dụng!");
+        }
+    }
+
     public void DangXuat() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
@@ -82,6 +113,14 @@ public class BeanDangNhap implements Serializable {
 
     public void setDangNhap(TaiKhoan dangNhap) {
         this.dangNhap = dangNhap;
+    }
+
+    public String getNhapLaiMatKhau() {
+        return nhapLaiMatKhau;
+    }
+
+    public void setNhapLaiMatKhau(String nhapLaiMatKhau) {
+        this.nhapLaiMatKhau = nhapLaiMatKhau;
     }
 
 }

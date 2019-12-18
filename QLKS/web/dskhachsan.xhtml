@@ -79,9 +79,9 @@
                             </div>
                             <div class="col-md-9">
                                 <h:form id="form" class="form-dskhachsan">
-                                    <p:dataList id="ds-khachsan" value="#{beanNavigation.listKhachSan}" var="item" type="unordered" itemType="none" paginator="true" rows="10" styleClass="paginated" paginatorPosition="bottom" emptyMessage="Không tồn tại Khách sạn bạn mong muốn">
-                                        <h:commandLink class="aa" action="#{beanNavigation.KhachSan(item.id)}">
-                                            <div class="bb" style="height: 240px; border: 1px solid #c0c0c0; border-radius: 5px; margin-top: 20px">
+                                    <p:dataList id="ds-khachsan" value="#{beanNavigation.listKhachSan}" var="item" type="unordered" itemType="none" paginator="true" rows="10" styleClass="paginated" paginatorPosition="bottom" paginatorAlwaysVisible="false" emptyMessage="Không tồn tại Khách sạn bạn mong muốn">
+                                        <h:commandLink class="link-khachsan" action="#{beanNavigation.KhachSan(item.id)}">
+                                            <div class="div-khachsan" style="height: 240px; border: 1px solid #c0c0c0; border-radius: 5px; margin-top: 20px">
                                                 <div class="row">
                                                     <div class="col-md-4" style="margin: 20px 0 0 20px; width: 240px">
                                                         <div style="border-radius: 3px; width: 220px; overflow: hidden">
@@ -95,7 +95,7 @@
                                                         <div style="font-size: 14px">Giáp biển: #{item.giapBien?"Có":"Không"}</div>
                                                         <div class="danh-gia-star">#{item.danhGia} &#9733;</div>
                                                         <div class="danh-gia-label">#{beanKhachSan.strDanhGia[item.danhGia]}</div>
-                                                        <div style="font-size: 13px; color: #777777">#{item.moTa}</div>
+                                                        <div style="font-size: 13px; color: #666666">#{item.moTa}</div>
                                                     </div>
                                                 </div>
                                             </div>

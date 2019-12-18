@@ -20,22 +20,32 @@
                 <p:commandButton value="Đăng Nhập" onclick="PF('dialog_dangnhap').hide()" update="msg-dangnhap head-dangnhap" action="#{beanDangNhap.DangNhap()}" style="width: 100%"/><br/><br/>
                 <span>Nếu chưa có tài khoản, </span><p:commandLink value="Đăng Ký"/>
             </div>
-
         </h:form>
     </p:dialog>
 
-    <p:dialog id="dangky" widgetVar="dialog_dangky" modal="true" resizable="false" width="600" height="515" header="Đăng Ký" showEffect="fade" hideEffect="fade" closable="true" appendTo="@(body)" style="text-align: center">
+    <p:dialog id="dangky" widgetVar="dialog_dangky" modal="true" resizable="false" width="600" height="580" header="Đăng Ký" showEffect="fade" hideEffect="fade" closable="true" appendTo="@(body)" style="text-align: center">
         <h:form>
-            <h:panelGrid columns="2" width="100%" cellspacing="10px">
-                <p:outputLabel value="Tên"/>
-                <p:inputText style="width: 320px" value="" placeholder="Tên Khách Sạn"/>
-                <p:outputLabel value="Địa Chỉ"/>
-                <p:inputText style="width: 320px" value="" placeholder="Địa Chỉ"/>
-                <p:outputLabel value="Giáp Biển"/>
-                <p:selectBooleanCheckbox value=""/>
-            </h:panelGrid>
-            <p:commandButton value="Thêm" icon="pi pi-check" onclick="PF('dialog_dangky').hide()" update="msg-dangnhap" style="margin-right:20px; height: 100px"/>
-            <p:commandButton value="Hủy" icon="pi pi-times" onclick="PF('dialog_dangky').hide()"/>
+            <div class="form-dang-ky">
+                <p:outputLabel value="Tài Khoản"/><br/>
+                <p:inputText style="width: 100%" value="#{beanDangNhap.dangNhap.tenTaiKhoan}" placeholder="Tên Tên Khoản ..."/><br/>
+                <p:outputLabel value="Mật Khẩu"/><br/>
+                <p:password style="width: 100%" value="#{beanDangNhap.dangNhap.matKhau}" placeholder="Mật Khẩu ..."/><br/>
+                <p:outputLabel value="Nhập lại Mật Khẩu"/><br/>
+                <p:password style="width: 100%" value="#{beanDangNhap.nhapLaiMatKhau}" placeholder="Nhập lại Mật Khẩu ..."/><br/>
+                <p:outputLabel value="Họ Tên"/><br/>
+                <p:inputText style="width: 100%" value="#{beanDangNhap.dangNhap.hoTen}" placeholder="Tên của bạn ..."/><br/>
+                <div style="margin: 15px 0px 5px 5px">
+                    <p:outputLabel value="Giới Tính"/>
+                    <p:selectBooleanCheckbox value="#{beanDangNhap.dangNhap.gioiTinh}" style="margin: 0 15px 0 15px"/>
+                    <span>Tích vào nếu là Nam</span>
+                </div>
+                <p:outputLabel value="Số Điện Thoại"/><br/>
+                <p:inputText style="width: 100%" value="#{beanDangNhap.dangNhap.soDienThoai}" placeholder="Số điện thoại ..."/><br/>
+                <p:outputLabel value="Email"/><br/>
+                <p:inputText style="width: 100%; margin-bottom: 20px" value="#{beanDangNhap.dangNhap.email}" placeholder="Email ..."/><br/>
+                <p:commandButton value="Đăng Ký" onclick="PF('dialog_dangky').hide()" update="msg-dangnhap" action="#{beanDangNhap.DangKy()}" style="width: 100%"/><br/><br/>
+                <span>Nếu đã có tài khoản, </span><p:commandLink value="Đăng Nhập"/>
+            </div>
         </h:form>
     </p:dialog>
 
