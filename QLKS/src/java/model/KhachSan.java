@@ -19,11 +19,12 @@ public class KhachSan implements Serializable  {
     String tenThanhPho;
     int idLoaiKhachSan;
     String tenLoaiKhachSan;
+    String urlHinhAnhThanhPho;
 
     public KhachSan() {
     }
 
-    public KhachSan(int id, String ten, String diaChi, String soDienThoai, int cachTrungTam, String moTa, boolean giapBien, int danhGia, int buaAn, int idThanhPho, String tenThanhPho, int idLoaiKhachSan, String tenLoaiKhachSan) {
+    public KhachSan(int id, String ten, String diaChi, String soDienThoai, int cachTrungTam, String moTa, boolean giapBien, int danhGia, int buaAn, int idThanhPho, String tenThanhPho, int idLoaiKhachSan, String tenLoaiKhachSan, String urlAnhThanhPho) {
         this.id = id;
         this.ten = ten;
         this.diaChi = diaChi;
@@ -173,6 +174,14 @@ public class KhachSan implements Serializable  {
 
     public void setTenLoaiKhachSan(String tenLoaiKhachSan) {
         this.tenLoaiKhachSan = tenLoaiKhachSan;
+    }
+
+    public String getUrlHinhAnhThanhPho() {
+        return urlHinhAnhThanhPho;
+    }
+
+    public void setUrlHinhAnhThanhPho(String urlHinhAnhThanhPho) {
+        this.urlHinhAnhThanhPho = urlHinhAnhThanhPho;
     }
 
 }

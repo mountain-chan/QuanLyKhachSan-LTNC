@@ -4,8 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Program/Github/QuanLyKhachSan-LTNC/QLKS/web/Template/header.xhtml</file>
+            <file>file:/D:/Program/Github/QuanLyKhachSan-LTNC/QLKS/src/java/bean/BeanTaiKhoan.java</file>
             <file>file:/D:/Program/Github/QuanLyKhachSan-LTNC/QLKS/src/java/bean/BeanDangNhap.java</file>
             <file>file:/D:/Program/Github/QuanLyKhachSan-LTNC/QLKS/src/java/model/KhachSan.java</file>
+            <file>file:/D:/Program/Github/QuanLyKhachSan-LTNC/QLKS/web/Template/footer.xhtml</file>
             <file>file:/D:/Program/Github/QuanLyKhachSan-LTNC/QLKS/web/Template/form.xhtml</file>
             <file>file:/D:/Program/Github/QuanLyKhachSan-LTNC/QLKS/src/java/filter/MyFilter.java</file>
             <file>file:/D:/Program/Github/QuanLyKhachSan-LTNC/QLKS/web/Template/template.xhtml</file>
@@ -13,6 +15,7 @@
             <file>file:/D:/Program/Github/QuanLyKhachSan-LTNC/QLKS/src/java/model/BuaAn.java</file>
             <file>file:/D:/Program/Github/QuanLyKhachSan-LTNC/QLKS/web/dskhachsan.xhtml</file>
             <file>file:/D:/Program/Github/QuanLyKhachSan-LTNC/QLKS/src/java/bean/BeanKhachSan.java</file>
+            <file>file:/D:/Program/Github/QuanLyKhachSan-LTNC/QLKS/src/java/model/ThanhPho.java</file>
             <file>file:/D:/Program/Github/QuanLyKhachSan-LTNC/QLKS/web/khachsan.xhtml</file>
             <file>file:/D:/Program/Github/QuanLyKhachSan-LTNC/QLKS/src/java/bean/BeanLoaiKhachSan.java</file>
             <file>file:/D:/Program/Github/QuanLyKhachSan-LTNC/QLKS/web/Content/css/style.css</file>

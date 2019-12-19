@@ -294,3 +294,15 @@ font-family: 'Roboto Slab'
    margin: 50px 0 0 80px;
    font-size: 20px !important;
 }
+
+.middle2 {
+    height: 80px;
+    border-radius: 5px;
+    background-color: #E9F0FA;
+    border: 1px solid #CCE1FF;
+    text-align: center;
+}
+
+.middle2 > * {
+    vertical-align: middle;
+}

@@ -32,7 +32,9 @@ public class BeanNavigation implements Serializable {
     private ArrayList<Checkbox> listCachTrungTam;
     private ArrayList<Checkbox> listGiapBien;
 
-    // Khởi tạo
+    // Khởi tạo, khi có session mới, tất cả các Bean SessionScoped sẽ được gọi bao gồm cả hàm này
+    // Lí do Bean này là Session vì mỗi người (trình duyệt) sẽ có một trạng thái checkbox khác nhau
+    // Nếu để ApplicationScoped thì bên máy này tích vào một ô thì máy khác cũng thấy thế
     public BeanNavigation() {
         // Ngày tìm kiếm nhập vào nhỏ nhất là hôm nay (new Date return hôm nay)
         minDate = new Date();
@@ -61,7 +63,9 @@ public class BeanNavigation implements Serializable {
         listGiapBien.add(new Checkbox("Có giáp"));
     }
 
-    // Reset Các thông tin tìm kiếm
+    // Reset Các thông tin tìm kiếm: xóa trạng thái đã tích của check box, nếu hàm này ko được
+    // gọi thì tích vào checkbox nào, load lại trang checkbox vẫn còn, đồng thời hàm lưu lại danh sách
+    // khách sạn đã tìm thấy listKhachSanSave, về sau sẽ lọc trong danh sách này và hiển thị bằng listKhachSan
     private void resetTimKiem() {
         listXepHang.forEach((tmp) -> {
             tmp.setChecked(false);
@@ -108,6 +112,8 @@ public class BeanNavigation implements Serializable {
     }
 
     // Tìm kiếm ở Trang chủ, mới chỉ có tìm theo Thành phố, chưa có theo thời gian
+    // Trước tiên đưa hết từ khóa tìm kiếm về chữ thường, sau đó loại bỏ dấu rồi mới
+    // so sánh với các khách sạn trong danh sách
     public String TimKiem() {
         String tenThanhPhoKoDau = util.VNCharacterUtils.removeAccent(tenThanhPhoTimKiem.toLowerCase());
         String s;
@@ -123,6 +129,8 @@ public class BeanNavigation implements Serializable {
     }
 
     // Các link khi bấm chọn một Thành phố, Loại khách sạn, Khách sạn
+    // Khởi tạo một danh sách, check trong danh sách toàn bộ khách sạn, khách sạn nào có Id thành phố
+    // đúng bằng pageId thì cho vào danh sách, pageId chính là Id thành phố được truyền vào hàm
     public String ThanhPho(int pageId) {
         listKhachSan = new ArrayList();
         for (KhachSan tmp : lstKS) {
@@ -155,7 +163,10 @@ public class BeanNavigation implements Serializable {
         return "khachsan";
     }
 
-    // Các hàm lọc
+    // Các hàm lọc, ý tưởng mỗi hàm lọc là dùng 1 biến check kiểm tra xem có ô nào được tích không
+    // Chạy trong toàn bộ danh sách lọc, ô đó được tích thì xem khách sạn đang check có thỏa mãn ko
+    // Nếu thỏa mãn cho vào danh sách, cuối cùng nếu check=false nghĩa là ko có ô nào được tích
+    // => khách sạn đó thỏa mãn
     public void Loc() {
         ArrayList<KhachSan> lst = new ArrayList();
         for (KhachSan tmp : listKhachSanSave) {

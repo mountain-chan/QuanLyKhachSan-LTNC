@@ -35,7 +35,7 @@ public class BeanKhachSan implements Serializable {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("select K.Id as Id, K.Ten as Ten, DiaChi,"
                     + "SoDienThoai, CachTrungTam, K.MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho,"
-                    + "T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan from KhachSan K, ThanhPho T,"
+                    + "T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh from KhachSan K, ThanhPho T,"
                     + "LoaiKhachSan L where K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id");
             while (rs.next()) {
                 KhachSan tmp = new KhachSan();
@@ -52,6 +52,7 @@ public class BeanKhachSan implements Serializable {
                 tmp.setTenThanhPho(rs.getString("TenThanhPho"));
                 tmp.setIdLoaiKhachSan(rs.getInt("IdLoaiKhachSan"));
                 tmp.setTenLoaiKhachSan(rs.getString("TenLoaiKhachSan"));
+                tmp.setUrlHinhAnhThanhPho(rs.getString("UrlHinhAnh"));
                 listKhachSan.add(tmp);
             }
             con.close();
@@ -130,6 +131,7 @@ public class BeanKhachSan implements Serializable {
             }
             pf.Message.addMessage("Thành Công", "Sửa Khách Sạn Thành Công!");
         } catch (Exception e) {
+            System.out.println(e.toString());
             pf.Message.errorMessage("Thất Bại", "Sửa Khách Sạn Thất Bại!");
         }
     }
