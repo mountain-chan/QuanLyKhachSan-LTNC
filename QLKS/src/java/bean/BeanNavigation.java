@@ -18,9 +18,12 @@ public class BeanNavigation implements Serializable {
 
     @ManagedProperty(value = "#{beanKhachSan.listKhachSan}")
     private ArrayList<KhachSan> lstKS;
+    @ManagedProperty(value = "#{beanPhong.listPhong}")
+    private ArrayList<Phong> lstP;
     private ArrayList<KhachSan> listKhachSan;
     private ArrayList<KhachSan> listKhachSanSave;
     private KhachSan khachSan;
+    private ArrayList<Phong> listPhong;
     private String tenThanhPhoTimKiem;
     private List<Date> thoiGianTimKiem;
     private Date minDate;
@@ -158,6 +161,12 @@ public class BeanNavigation implements Serializable {
             if (tmp.getId() == pageId) {
                 khachSan = tmp;
                 break;
+            }
+        }
+        listPhong = new ArrayList();
+        for (Phong tmp : lstP) {
+            if (tmp.getIdKhachSan() == pageId) {
+                listPhong.add(tmp);
             }
         }
         return "khachsan";
@@ -347,6 +356,22 @@ public class BeanNavigation implements Serializable {
 
     public void setKhachSan(KhachSan khachSan) {
         this.khachSan = khachSan;
+    }
+
+    public ArrayList<Phong> getListPhong() {
+        return listPhong;
+    }
+
+    public void setListPhong(ArrayList<Phong> listPhong) {
+        this.listPhong = listPhong;
+    }
+
+    public ArrayList<Phong> getLstP() {
+        return lstP;
+    }
+
+    public void setLstP(ArrayList<Phong> lstP) {
+        this.lstP = lstP;
     }
 
 }

@@ -1,6 +1,10 @@
 package model;
 
-public class Checkbox {
+import java.io.Serializable;
+
+public class Checkbox implements Serializable {
+
+    private static final long serialVersionUID = 1124521354L;
 
     private boolean checked;
     private String label;

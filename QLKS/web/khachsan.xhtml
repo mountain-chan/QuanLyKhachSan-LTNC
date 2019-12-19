@@ -20,36 +20,36 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div style="margin-top: 20px">
-                                    <div class="middle2">
-                                        <button class="btn btn-default" style="height: 40px">Đặt ngay</button>
+                                    <div class="div-datngay">
+                                        <button class="btn-datngay" onClick="window.location='#phongtrong'">Đặt ngay</button>
                                     </div>
-                                    <div style="height: 300px; border-radius: 5px; border: 1px solid #c0c0c0;">
-                                        <div style="width: 100%; height: 230px; border-radius: 5px; background: linear-gradient(transparent 70%, black), url(#{beanNavigation.khachSan.urlHinhAnhThanhPho}); background-repeat: no-repeat; background-position: center">
+                                    <div style="height: 300px; border-radius: 3px; border: 1px solid #c0c0c0; margin-bottom: 20px">
+                                        <div style="width: 100%; height: 230px; border-radius: 3px; background: linear-gradient(transparent 70%, black), url(#{beanNavigation.khachSan.urlHinhAnhThanhPho}); background-repeat: no-repeat; background-position: center">
                                         </div>
                                         <div style="position: relative; top: -30px; left: 20px; color: white; font-size: 16px">
                                             Cách #{beanNavigation.khachSan.tenThanhPho} #{beanNavigation.khachSan.cachTrungTam}m
                                         </div>
-                                        <div style="margin-top: -10px">
+                                        <div style="margin: -10px 10px 0 10px">
                                             Một trong những khu vực đẹp nhất ở #{beanNavigation.khachSan.tenThanhPho}
                                         </div>
                                     </div>
-                                    <div style="height: 120px; border-radius: 5px; background-color: #E9F0FA; border: 1px solid #CCE1FF;">
+                                    <div style="height: 120px; border-radius: 3px; background-color: #E9F0FA; border: 1px solid #CCE1FF; text-align: center; padding-top: 12px; margin-bottom: 20px">
                                         Bạn thích chỗ nghỉ này, nhưng vẫn chưa chắc chắn?
-                                        <button class="btn btn-default">Xem các khách sạn tương tự</button>
+                                        <button class="btn btn-default" style="margin-top: 10px">Xem các khách sạn tương tự</button>
                                     </div>
-                                    <div style="height: 120px; border-radius: 5px; border: 1px solid #c0c0c0;">
+                                    <div style="height: 120px; border-radius: 3px; border: 1px solid #c0c0c0; text-align: center; padding-top: 10px">
                                         Có thể bạn thắc mắc<br/>
                                         Bạn đang vướng mắc một điều gì đó?<br/>
-                                        <button class="btn btn-default">Đặt câu hỏi</button>
+                                        <button class="btn btn-default" style="margin-top: 15px">Đặt câu hỏi</button>
                                     </div>
-                                    <div>
+                                    <div style="text-align: center; font-size: 18px; font-weight: bold; color: #007AD9; margin-top: 20px">
                                         #{beanNavigation.khachSan.danhGia} &#9733;<br/>
                                         #{beanKhachSan.strDanhGia[beanNavigation.khachSan.danhGia]}
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-9">
-                                <div style="margin-top: 20px">
+                                <div style="margin-top: 20px; background-color: #E9F0FA; border-radius: 3px">
                                     <div style="font-size: 24px; font-weight: bold; margin-bottom: 5px">#{beanNavigation.khachSan.ten}</div>
                                     <div style="font-size: 14px; color: #007AD9; margin-bottom: 10px"><img style="height: 22px" src="Content/Images/Position.png" alt="Img"/> #{beanNavigation.khachSan.diaChi}</div>
                                     <div style="width: 800px; border-bottom: 1px solid #E0E0E0; padding-bottom: 20px; margin-bottom: 20px">
@@ -63,6 +63,43 @@
                                     <div style="font-size: 16px">#{beanNavigation.khachSan.danhGia} &#9733;</div>
                                     <div style="font-size: 16px">#{beanKhachSan.strDanhGia[beanNavigation.khachSan.danhGia]}</div>
                                     <div style="font-size: 16px; color: #222">#{beanNavigation.khachSan.moTa}</div>
+                                </div>
+                                <div>
+                                    <h3 id="phongtrong">Phòng trống</h3>
+                                    <div style="height: 120px; background-color: #FFD257; border: 1px solid #E2AA11">
+                                        <span>Bạn muốn nghỉ tại #{beanNavigation.khachSan.ten} vào lúc nào?</span>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div>Ngày nhận phòng</div>
+                                                <div><input/></div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div>Ngày trả phòng</div>
+                                                <div><input/></div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div>
+                                                    <h:form>
+                                                        <p:commandButton value="Kiểm tra phòng trống"></p:commandButton>
+                                                    </h:form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h:form>
+                                            <ui:repeat value="#{beanNavigation.listPhong}" var="item">
+                                                <div style="height: 120px; border: 1px solid #c0c0c0; border-radius: 3px; margin-top: 20px">
+                                                    <div>#{item.ten}</div>
+                                                    <div>#{item.dienTich}m2</div>
+                                                    <div>#{item.giaThue} VND</div>
+                                                    <div>#{item.loaiGiuong}</div>
+                                                    <div>#{item.moTa}</div>
+                                                    <div>#{item.tienNghi}</div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

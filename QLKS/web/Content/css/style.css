@@ -295,14 +295,29 @@ font-family: 'Roboto Slab'
    font-size: 20px !important;
 }
 
-.middle2 {
+.div-datngay {
     height: 80px;
     border-radius: 5px;
     background-color: #E9F0FA;
     border: 1px solid #CCE1FF;
     text-align: center;
+    margin-bottom: 20px;
 }
 
-.middle2 > * {
-    vertical-align: middle;
+.btn-datngay {
+    color: white;
+    margin-top: 20px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 15px;
+    width: 90%;
+    height: 40px;
+    border: 2px solid white;
+    background-color: #0077CC;
+    box-shadow: 0 0 3px 1px #888888;
+    border-radius: 2px;
+}
+
+.btn-datngay:hover {
+    background-color: #003580;
 }
