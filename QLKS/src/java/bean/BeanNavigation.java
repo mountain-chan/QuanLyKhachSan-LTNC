@@ -3,7 +3,6 @@ package bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Map.Entry;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -25,8 +24,11 @@ public class BeanNavigation implements Serializable {
     private KhachSan khachSan;
     private ArrayList<Phong> listPhong;
     private String tenThanhPhoTimKiem;
-    private List<Date> thoiGianTimKiem;
+    private ArrayList<Date> thoiGianTimKiem;
     private Date minDate;
+    private Date ngayDat;
+    private Date ngayDen;
+    private Date ngayDi;
 
     // Các danh sách lọc
     private ArrayList<Checkbox> listXepHang;
@@ -41,6 +43,8 @@ public class BeanNavigation implements Serializable {
     public BeanNavigation() {
         // Ngày tìm kiếm nhập vào nhỏ nhất là hôm nay (new Date return hôm nay)
         minDate = new Date();
+        ngayDat = new Date();
+        thoiGianTimKiem = new ArrayList();
         // Khởi tạo danh sách lọc
         listXepHang = new ArrayList();
         listXepHang.add(new Checkbox("Không xếp hạng"));
@@ -118,6 +122,7 @@ public class BeanNavigation implements Serializable {
     // Trước tiên đưa hết từ khóa tìm kiếm về chữ thường, sau đó loại bỏ dấu rồi mới
     // so sánh với các khách sạn trong danh sách
     public String TimKiem() {
+        System.out.println("a");
         String tenThanhPhoKoDau = util.VNCharacterUtils.removeAccent(tenThanhPhoTimKiem.toLowerCase());
         String s;
         listKhachSan = new ArrayList();
@@ -294,11 +299,11 @@ public class BeanNavigation implements Serializable {
         this.tenThanhPhoTimKiem = tenThanhPhoTimKiem;
     }
 
-    public List<Date> getThoiGianTimKiem() {
+    public ArrayList<Date> getThoiGianTimKiem() {
         return thoiGianTimKiem;
     }
 
-    public void setThoiGianTimKiem(List<Date> thoiGianTimKiem) {
+    public void setThoiGianTimKiem(ArrayList<Date> thoiGianTimKiem) {
         this.thoiGianTimKiem = thoiGianTimKiem;
     }
 
@@ -372,6 +377,30 @@ public class BeanNavigation implements Serializable {
 
     public void setLstP(ArrayList<Phong> lstP) {
         this.lstP = lstP;
+    }
+
+    public Date getNgayDat() {
+        return ngayDat;
+    }
+
+    public void setNgayDat(Date ngayDat) {
+        this.ngayDat = ngayDat;
+    }
+
+    public Date getNgayDen() {
+        return ngayDen;
+    }
+
+    public void setNgayDen(Date ngayDen) {
+        this.ngayDen = ngayDen;
+    }
+
+    public Date getNgayDi() {
+        return ngayDi;
+    }
+
+    public void setNgayDi(Date ngayDi) {
+        this.ngayDi = ngayDi;
     }
 
 }

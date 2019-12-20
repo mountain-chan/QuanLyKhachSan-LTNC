@@ -291,8 +291,8 @@ font-family: 'Roboto Slab'
 }
 
 .form-dskhachsan .ui-datalist-empty-message{
-   margin: 50px 0 0 80px;
-   font-size: 20px !important;
+    margin: 50px 0 0 80px;
+    font-size: 20px !important;
 }
 
 .div-datngay {
@@ -320,4 +320,42 @@ font-family: 'Roboto Slab'
 
 .btn-datngay:hover {
     background-color: #003580;
+}
+
+.table-dsphong {
+    width: 100%;
+    margin-top: 40px;
+}
+
+.table-dsphong table, th, td {
+    border-left: 1px solid #5BBAFF;
+    border-right: 1px solid #5BBAFF;
+    border-collapse: collapse;
+}
+
+.table-dsphong th {
+    background-color: #4C76B2;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+.table-dsphong td {
+    border-bottom: 2px solid #5BBAFF;
+    padding: 10px;
+    text-align: left;
+}
+
+.btn-kstuongtu {
+    width: 85%;
+    background-color: #F3F7FC;
+    margin-top: 16px;
+    border: 1px solid #0077CC;
+    color: #0077CC;
+}
+
+.btn-kstuongtu:hover {
+    background-color: #C8DDFC;
+    border-color: #0077CC;
+    color: #0067B7;
 }

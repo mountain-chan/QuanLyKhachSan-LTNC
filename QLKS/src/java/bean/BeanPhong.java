@@ -1,5 +1,6 @@
 package bean;
 
+import static bean.BeanKhachSan.hashKhachSan;
 import java.io.Serializable;
 import model.*;
 import java.sql.Connection;
@@ -26,7 +27,9 @@ public class BeanPhong implements Serializable {
             listPhong = new ArrayList();
             con = dao.SQLConnection.getConnection();
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from Phong");
+            ResultSet rs = stmt.executeQuery("select P.Id, P.Ten, P.DienTich, P.GiaThue, P.TienNghi, "
+                    + "P.MoTa, P.LoaiGiuong, P.IdKhachSan, K.Ten as TenKhachSan from Phong P, "
+                    + "KhachSan K where P.IdKhachSan=K.Id");
             while (rs.next()) {
                 Phong tmp = new Phong();
                 tmp.setId(rs.getInt("Id"));
@@ -37,6 +40,7 @@ public class BeanPhong implements Serializable {
                 tmp.setMoTa(rs.getString("MoTa"));
                 tmp.setLoaiGiuong(rs.getInt("LoaiGiuong"));
                 tmp.setIdKhachSan(rs.getInt("IdKhachSan"));
+                tmp.setTenKhachSan(rs.getString("TenKhachSan"));
                 listPhong.add(tmp);
             }
             con.close();
@@ -70,6 +74,7 @@ public class BeanPhong implements Serializable {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 tmp.setId(rs.getInt("Id"));
+                tmp.setTenKhachSan(hashKhachSan.get(tmp.getIdKhachSan()));
             }
             con.close();
             Phong p = new Phong(tmp);
@@ -95,7 +100,7 @@ public class BeanPhong implements Serializable {
             stmt.executeUpdate();
             con.close();
             int Id = tmp.getId();
-//            tmp.setTenKhachSan(hashKhachSan.get(tmp.getIdKhachSan()));
+            tmp.setTenKhachSan(hashKhachSan.get(tmp.getIdKhachSan()));
             for (Phong p : listPhong) {
                 if (p.getId() == Id) {
                     p.reload(Id, tmp.getTen(), tmp.getDienTich(), tmp.getGiaThue(), tmp.getTienNghi(), tmp.getMoTa(), tmp.getLoaiGiuong(), tmp.getIdKhachSan(), tmp.getTenKhachSan());

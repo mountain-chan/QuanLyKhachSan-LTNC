@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
@@ -17,6 +18,7 @@ public class BeanKhachSan implements Serializable {
 
     private static final long serialVersionUID = 1786783L;
 
+    public static HashMap<Integer, String> hashKhachSan;
     KhachSan khachSan;
     ArrayList<KhachSan> listKhachSan;
     ArrayList<BuaAn> listBuaAn;
@@ -25,6 +27,7 @@ public class BeanKhachSan implements Serializable {
 
     public BeanKhachSan() {
         listBuaAn = new ArrayList();
+        hashKhachSan = new HashMap();
         for (BuaAn tmp : BuaAn.listBuaAn) {
             listBuaAn.add(tmp);
         }
@@ -54,6 +57,7 @@ public class BeanKhachSan implements Serializable {
                 tmp.setTenLoaiKhachSan(rs.getString("TenLoaiKhachSan"));
                 tmp.setUrlHinhAnhThanhPho(rs.getString("UrlHinhAnh"));
                 listKhachSan.add(tmp);
+                hashKhachSan.put(tmp.getId(), tmp.getTen());
             }
             con.close();
         } catch (Exception e) {
@@ -107,7 +111,7 @@ public class BeanKhachSan implements Serializable {
     public void update(KhachSan tmp) {
         try {
             con = dao.SQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement("update KhachSan set Ten=?, DiaChi=?, SoDienThoai=?, CachTrungTam=?, MoTa=?, GiapBien=?, DanhGia=?, BuaAn=?, IdThanhPho=?, IdLoaiThanhPho=? where Id=?");
+            PreparedStatement stmt = con.prepareStatement("update KhachSan set Ten=?, DiaChi=?, SoDienThoai=?, CachTrungTam=?, MoTa=?, GiapBien=?, DanhGia=?, BuaAn=?, IdThanhPho=?, IdLoaiKhachSan=? where Id=?");
             stmt.setString(1, tmp.getTen());
             stmt.setString(2, tmp.getDiaChi());
             stmt.setString(3, tmp.getSoDienThoai());

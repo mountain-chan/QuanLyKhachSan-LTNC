@@ -26,9 +26,10 @@ Dùng NetBeans IDE 8.2 mở Project
 
 Chạy thôi
 
-OK!
+## Demo:
 
---------------
+Up lên host thấy nhiều lỗi quá http://whknightz.kilatiron.com/
+
 
 ## Giải thích các Bean:
 

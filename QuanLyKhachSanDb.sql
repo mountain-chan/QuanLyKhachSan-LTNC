@@ -139,19 +139,19 @@ insert into KhachSan values
 GO
 
 insert into Phong values
-(N'Phòng Deluxe Giường Đôi', 20, 500, N'1 Giường đôi lớn', N'This double room has air conditioning and electric kettle.', 1, 1),
+(N'Phòng Tiêu chuẩn', 15, 350, N'1 Giường đơn', N'Phòng này có một số trang thiết bị đơn giản.', 0, 1),
 (N'Phòng Trăng Mật', 15, 400, N'1 Giường đôi', N'Phòng này có máy lạnh, minibar và được cách âm. Phòng này được trang trí bằng hoa và bánh ngọt.', 1, 2),
 (N'Phòng Cao Cấp', 20, 400, N'1 Giường đôi', N'Phòng cách âm này có máy lạnh.', 1, 3),
 (N'Phòng Gia Đình', 25, 500, N'2 Giường đôi', N'Phòng gia đình này có quầy bar mini, truyền hình cáp và máy lạnh.', 1, 4),
 (N'Phòng Trung Cấp', 10, 200, N'1 Giường đơn', N'Phòng trung cấp nên chẳng có gì hết, thích hợp với bọn kiết xác.', 0, 5),
 (N'Phòng Superior', 30, 600, N'1 Giường đôi', N'Phòng cách âm này có nhiều thứ vl.', 1, 6),
-(N'Phòng Tiêu chuẩn', 15, 350, N'2 Giường đơn', N'Phòng này ít thứ vl.', 1, 7),
 (N'Phòng Không', 15, 350, N'2 Giường đơn', N'Phòng không không quân.', 1, 8),
 (N'Phòng Thủ', 15, 350, N'2 Giường đơn', N'Phòng gia đình này có quầy bar mini, truyền hình cáp và máy lạnh.', 1, 9),
 (N'Phòng 4 Người', 15, 350, N'2 Giường đôi', N'Phòng có tivi siêu to khổng lồ.', 1, 10),
 (N'Phòng 3 Người', 15, 350, N'2 Giường đơn', N'Phòng có truyền hình cáp và máy lạnh.', 1, 11),
 (N'Phòng Ban', 15, 350, N'2 Giường đơn', N'Là cơ quan quyền lực cao nhất Công ty, quyết định cơ cấu tổ chức.', 1, 12),
 (N'Phòng Đào Tạo', 25, 350, N'1 Giường đơn', N'Có trách nhiệm trong công tác tuyển sinh, quản lý chương trình đào tạo.', 1, 13),
+(N'Phòng Deluxe Giường Đôi', 20, 500, N'1 Giường đôi lớn', N'This double room has air conditioning and electric kettle.', 1, 1),
 (N'Phòng Tuyến', 18, 350, N'1 Giường đơn', N'Phòng gia đình này có quầy bar mini, truyền hình cáp và máy lạnh.', 1, 14),
 (N'Phòng 2 Người', 25, 350, N'2 Giường đơn', N'Phòng được trang bị 2 máy tính, thích hợp để solo game.', 1, 15),
 (N'Phòng 1 Người', 15, 350, N'1 Giường đơn', N'Phòng dành cho một người.', 1, 16),
@@ -186,7 +186,11 @@ insert into Phong values
 (N'Phòng Đào Tạo', 25, 450, N'1 Giường đơn', N'Có trách nhiệm trong công tác tuyển sinh, quản lý chương trình đào tạo.', 1, 15),
 (N'Phòng Tuyến', 18, 250, N'2 Giường đơn', N'Phòng 2 giường đơn này được trang bị ban công, áo choàng tắm cùng máy lạnh.', 1, 16),
 (N'Phòng 2 Người', 25, 330, N'2 Giường đơn', N'Phòng được trang bị 2 máy tính, thích hợp để solo game.', 1, 1),
-(N'Phòng 1 Người', 15, 350, N'1 Giường đơn', N'Phòng dành cho một người.', 1, 2)
+(N'Phòng 1 Người', 15, 350, N'1 Giường đơn', N'Phòng dành cho một người.', 1, 2),
+(N'Phòng Streamer', 25, 450, N'1 Giường đơn', N'Phòng chuyên dành cho sờ chim mơ.', 0, 2),
+(N'Phòng Vinahouse', 22, 999, N'1 Giường đơn', N'Phòng chuyên dành Khá Bảnh.', 0, 3),
+(N'Phòng Thuốc Lào', 4, 199, N'1 Giường đơn', N'Vào làm vài bi nào mấy em, phê cùng anh.', 0, 4),
+(N'Phòng Trần Dần', 1, 399, N'1 Giường đơn', N'Nhà tiên tri lộn xào vũ trụ Trần Dần và các ba que tụ họp.', 0, 5)
 GO
 
 insert into TaiKhoan values

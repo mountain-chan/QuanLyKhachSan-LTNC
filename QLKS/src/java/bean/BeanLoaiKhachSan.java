@@ -68,9 +68,9 @@ public class BeanLoaiKhachSan implements Serializable {
             con.close();
             LoaiKhachSan tp = new LoaiKhachSan(tmp);
             listLoaiKhachSan.add(tp);
-            pf.Message.addMessage("Thành Công", "Thêm Thành Phố Thành Công!");
+            pf.Message.addMessage("Thành Công", "Thêm Loại Khách Sạn Thành Công!");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Thêm Thành Phố Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Thêm Loại Khách Sạn Thất Bại!");
         }
     }
 
@@ -91,9 +91,9 @@ public class BeanLoaiKhachSan implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Sửa Thành Phố Thành Công!");
+            pf.Message.addMessage("Thành Công", "Sửa Loại Khách Sạn Thành Công!");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Sửa Thành Phố Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Sửa Loại Khách Sạn Thất Bại!");
         }
     }
 
@@ -110,9 +110,9 @@ public class BeanLoaiKhachSan implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Xóa Thành Phố Thành Công!");
+            pf.Message.addMessage("Thành Công", "Xóa Loại Khách Sạn Thành Công!");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Xóa Thành Phố Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Xóa Loại Khách Sạn Thất Bại!");
         }
     }
 
