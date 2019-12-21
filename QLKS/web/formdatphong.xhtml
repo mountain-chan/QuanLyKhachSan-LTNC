@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <p:growl id="msg" showDetail="true"/>
+
+    <p:dialog id="datphong" widgetVar="dialog_datphong" modal="true" resizable="false" width="500" height="280" header="Đặt Phòng" showEffect="fade" hideEffect="fade" closable="true" appendTo="@(body)" style="text-align: center">
+        <h:form>
+            <div class="form-dat-phong">
+                <p:outputLabel value="Tên Phòng: #{beanDatPhong.phongDangDat.ten}"/><br/>
+                <p:outputLabel value="Mô Tả"/>
+                <br/>
+                <!--<p:inputTextarea rows="6" cols="64" autoResize="false" value="" placeholder="Ghi Chú"/>-->
+                <br/>
+                <p:commandButton value="Đặt Phòng" onclick="PF('dialog_datphong').hide()" action="#{beanNavigation.DatPhong(beanDatPhong.phongDangDat)}" update="msg" style="width: 40%"/><br/><br/>
+            </div>
+        </h:form>
+    </p:dialog>
+
+</ui:composition>

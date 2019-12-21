@@ -1,6 +1,9 @@
 package bean;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map.Entry;
@@ -19,17 +22,22 @@ public class BeanNavigation implements Serializable {
     private ArrayList<KhachSan> lstKS;
     @ManagedProperty(value = "#{beanPhong.listPhong}")
     private ArrayList<Phong> lstP;
+    @ManagedProperty(value = "#{beanDatPhong.listDatPhong}")
+    private ArrayList<DatPhong> lstDP;
     private ArrayList<KhachSan> listKhachSan;
     private ArrayList<KhachSan> listKhachSanSave;
     private KhachSan khachSan;
     private ArrayList<Phong> listPhong;
+    private ArrayList<Phong> listPhongSave;
     private String tenThanhPhoTimKiem;
     private ArrayList<Date> thoiGianTimKiem;
     private Date minDate;
     private Date ngayDat;
     private Date ngayDen;
     private Date ngayDi;
-
+    private boolean daKiemTraPhongTrong;
+    Connection con;
+    
     // Các danh sách lọc
     private ArrayList<Checkbox> listXepHang;
     private ArrayList<Checkbox> listLoaiKhachSan;
@@ -44,6 +52,8 @@ public class BeanNavigation implements Serializable {
         // Ngày tìm kiếm nhập vào nhỏ nhất là hôm nay (new Date return hôm nay)
         minDate = new Date();
         ngayDat = new Date();
+        ngayDen = new Date();
+        ngayDi = new Date();
         thoiGianTimKiem = new ArrayList();
         // Khởi tạo danh sách lọc
         listXepHang = new ArrayList();
@@ -174,6 +184,8 @@ public class BeanNavigation implements Serializable {
                 listPhong.add(tmp);
             }
         }
+        daKiemTraPhongTrong = false;
+        listPhongSave = listPhong;
         return "khachsan";
     }
 
@@ -272,6 +284,49 @@ public class BeanNavigation implements Serializable {
         return !check;
     }
 
+    // Check một phòng đã bị đặt trong một khoảng thời gian cho trước chưa
+    public void TimPhongTrong() {
+        daKiemTraPhongTrong = true;
+        listPhong = new ArrayList();
+        for (Phong tmp : listPhongSave) {
+            if (kiemTraPhongTrong(tmp, ngayDen, ngayDi)) {
+                listPhong.add(tmp);
+            }
+        }
+        System.out.println("Â");
+    }
+
+    public boolean kiemTraPhongTrong(Phong p, Date ngayDen, Date ngayDi) {
+        for (DatPhong tmp : lstDP) {
+            if (!tmp.isDaHuy() && tmp.getIdPhong() == p.getId()) {
+                if (!(ngayDen.after(tmp.getNgayTra()) || ngayDi.before(tmp.getNgayDen()))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    // Đặt phòng
+    public void DatPhong(Phong tmp) {
+        if (!daKiemTraPhongTrong){
+            System.out.println(tmp.getTen());
+            pf.Message.addMessage("Thất Bại", "Bạn vẫn chưa kiểm tra phòng trống!");
+        }
+//        try {
+//            // Check đăng nhập trước
+//            con = dao.SQLConnection.getConnection();
+//            PreparedStatement stmt = con.prepareStatement("insert into DatPhong values(?,?,?,?,?,?,?,?,?,?)");
+//            stmt.setString(1, "TaiKhoan");
+//            ResultSet rs = stmt.executeQuery();
+//            con.close();
+//            listPhong.remove(tmp);
+//            pf.Message.addMessage("Thành Công", "Đặt Phòng thành công, vui lòng vào Lịch Sử trong Trang Cá Nhân để xem thông tin Đặt Phòng!");
+//        } catch (Exception e) {
+//            pf.Message.errorMessage("Thất Bại", "Đặt Phòng thất bại!");
+//        }
+    }
+    
     //
     // Get - Set, Don't care
     //
@@ -401,6 +456,22 @@ public class BeanNavigation implements Serializable {
 
     public void setNgayDi(Date ngayDi) {
         this.ngayDi = ngayDi;
+    }
+
+    public ArrayList<DatPhong> getLstDP() {
+        return lstDP;
+    }
+
+    public void setLstDP(ArrayList<DatPhong> lstDP) {
+        this.lstDP = lstDP;
+    }
+
+    public boolean isDaKiemTraPhongTrong() {
+        return daKiemTraPhongTrong;
+    }
+
+    public void setDaKiemTraPhongTrong(boolean daKiemTraPhongTrong) {
+        this.daKiemTraPhongTrong = daKiemTraPhongTrong;
     }
 
 }

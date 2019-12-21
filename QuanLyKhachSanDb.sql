@@ -76,7 +76,8 @@ CREATE TABLE DatPhong(
 	NgayTra date,
 	DichVu nvarchar(200),
 	GhiChu nvarchar(200),
-	ThanhTien int
+	ThanhTien int,
+	DaHuy bit -- True: Chưa hủy, True: Đã hủy
 )
 GO
 
