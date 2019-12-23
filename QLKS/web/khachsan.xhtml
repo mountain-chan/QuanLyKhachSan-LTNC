@@ -16,7 +16,7 @@
                 <ui:define name="content">
 
                     <ui:include src="formdatphong.xhtml"/>
-                    
+
                     <div class="c80">
                         <h3 style="text-align: center; color: #444; margin-bottom: 0px">Thông tin Khách sạn</h3>
                         <div class="row">
@@ -88,15 +88,15 @@
                                             <div class="row" style="margin-top: 10px">
                                                 <div class="col-md-3">
                                                     <div><p:outputLabel>Ngày nhận phòng</p:outputLabel></div>
-                                                    <div><p:datePicker value="#{beanNavigation.ngayDen}" mindate="#{beanNavigation.minDate}" pattern="dd.MM.yyyy" readonlyInput="true"/></div>
+                                                    <div><p:datePicker value="#{beanNavigation.ngayDen}" pattern="dd.MM.yyyy" readonlyInput="true"/></div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div><p:outputLabel>Ngày trả phòng</p:outputLabel></div>
-                                                    <div><p:datePicker value="#{beanNavigation.ngayDi}" mindate="#{beanNavigation.minDate}" pattern="dd.MM.yyyy" readonlyInput="true"/></div>
+                                                    <div><p:datePicker value="#{beanNavigation.ngayTra}" pattern="dd.MM.yyyy" readonlyInput="true"/></div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div style="margin-top: 27px">
-                                                        <p:commandButton value="Kiểm tra phòng trống" action="#{beanNavigation.TimPhongTrong()}" update="form-dsphong"></p:commandButton>
+                                                        <p:commandButton value="Kiểm tra phòng trống" action="#{beanNavigation.TimPhongTrong()}" update="msg form-dsphong"></p:commandButton>
                                                     </div>
                                                 </div>
                                             </div>
@@ -121,8 +121,9 @@
                                                             <div>#{item.giaThue},000 VND</div>
                                                         </td>
                                                         <td>
-                                                    <p:commandButton value="Đặt Phòng" oncomplete="PF('dialog_datphong').show();" action="#{beanDatPhong.ThongTinPhong(item)}" update="datphong"></p:commandButton>
-                                                        </td>
+                                                    <p:commandButton value="Đặt Phòng" oncomplete="PF('dialog_datphong').show();" action="#{beanNavigation.ThongTinPhong(item)}" update="datphong">
+                                                    </p:commandButton>
+                                                    </td>
                                                     </tr>
                                                 </ui:repeat>
                                             </table>

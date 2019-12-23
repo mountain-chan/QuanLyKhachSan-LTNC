@@ -37,11 +37,11 @@ public class BeanDangNhap implements Serializable {
             HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
             HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
             Cookie cookie = new Cookie("TenTaiKhoan", tk.getTenTaiKhoan());
-            cookie.setMaxAge(3600);
+            cookie.setMaxAge(36000);
             cookie.setPath("/");
             response.addCookie(cookie);
             cookie = new Cookie("MatKhau", tk.getMatKhau());
-            cookie.setMaxAge(3600);
+            cookie.setMaxAge(36000);
             cookie.setPath("/");
             response.addCookie(cookie);
             HttpSession session = request.getSession();
@@ -55,17 +55,17 @@ public class BeanDangNhap implements Serializable {
                 }
             }
         } else {
-            pf.Message.addMessage("Thất Bại", "Sai tên tài khoản hoặc mật khẩu!");
+            pf.Message.errorMessage("Thất Bại", "Sai tên tài khoản hoặc mật khẩu!");
         }
     }
 
     public void DangKy() {
         if (dangNhap.getTenTaiKhoan().isEmpty() || dangNhap.getMatKhau().isEmpty()) {
-            pf.Message.addMessage("Thất Bại", "Không được để trống tài khoản hoặc mật khẩu!");
+            pf.Message.errorMessage("Thất Bại", "Không được để trống tài khoản hoặc mật khẩu!");
             return;
         }
         if (!dangNhap.getMatKhau().equals(nhapLaiMatKhau)) {
-            pf.Message.addMessage("Thất Bại", "Mật khẩu không khớp!");
+            pf.Message.errorMessage("Thất Bại", "Mật khẩu không khớp!");
             return;
         }
         try {

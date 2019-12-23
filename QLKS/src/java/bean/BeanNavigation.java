@@ -1,16 +1,23 @@
 package bean;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map.Entry;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import model.*;
+import org.primefaces.PrimeFaces;
 
 @ManagedBean(name = "beanNavigation")
 @SessionScoped
@@ -22,8 +29,6 @@ public class BeanNavigation implements Serializable {
     private ArrayList<KhachSan> lstKS;
     @ManagedProperty(value = "#{beanPhong.listPhong}")
     private ArrayList<Phong> lstP;
-    @ManagedProperty(value = "#{beanDatPhong.listDatPhong}")
-    private ArrayList<DatPhong> lstDP;
     private ArrayList<KhachSan> listKhachSan;
     private ArrayList<KhachSan> listKhachSanSave;
     private KhachSan khachSan;
@@ -34,10 +39,14 @@ public class BeanNavigation implements Serializable {
     private Date minDate;
     private Date ngayDat;
     private Date ngayDen;
-    private Date ngayDi;
+    private Date ngayTra;
     private boolean daKiemTraPhongTrong;
+    private ArrayList<DatPhong> listDatPhong;
+    private Phong phongDangDat;
+    private DatPhong datPhong;
+
     Connection con;
-    
+
     // Các danh sách lọc
     private ArrayList<Checkbox> listXepHang;
     private ArrayList<Checkbox> listLoaiKhachSan;
@@ -53,7 +62,8 @@ public class BeanNavigation implements Serializable {
         minDate = new Date();
         ngayDat = new Date();
         ngayDen = new Date();
-        ngayDi = new Date();
+        ngayTra = new Date();
+        datPhong = new DatPhong();
         thoiGianTimKiem = new ArrayList();
         // Khởi tạo danh sách lọc
         listXepHang = new ArrayList();
@@ -78,6 +88,30 @@ public class BeanNavigation implements Serializable {
         listGiapBien = new ArrayList();
         listGiapBien.add(new Checkbox("Không giáp"));
         listGiapBien.add(new Checkbox("Có giáp"));
+        //Khởi tạo Đặt phòng
+        try {
+            listDatPhong = new ArrayList();
+            con = dao.SQLConnection.getConnection();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from DatPhong");
+            while (rs.next()) {
+                DatPhong tmp = new DatPhong();
+                tmp.setId(rs.getInt("Id"));
+                tmp.setTaiKhoan(rs.getString("TaiKhoan"));
+                tmp.setIdPhong(rs.getInt("IdPhong"));
+                tmp.setNgayDat(rs.getDate("NgayDat"));
+                tmp.setNgayDen(rs.getDate("NgayDen"));
+                tmp.setNgayTra(rs.getDate("NgayTra"));
+                tmp.setDichVu(rs.getString("DichVu"));
+                tmp.setGhiChu(rs.getString("GhiChu"));
+                tmp.setThanhTien(rs.getInt("ThanhTien"));
+                tmp.setDaHuy(rs.getBoolean("DaHuy"));
+                listDatPhong.add(tmp);
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     // Reset Các thông tin tìm kiếm: xóa trạng thái đã tích của check box, nếu hàm này ko được
@@ -116,8 +150,22 @@ public class BeanNavigation implements Serializable {
         return "dskhachsan";
     }
 
-    public String CaNhan() {
-        return "index";
+    public void CaNhan() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpSession session = request.getSession();
+        TaiKhoan tk = (TaiKhoan) session.getAttribute("TaiKhoan");
+        if (tk == null) {
+            pf.Message.addMessage("Thông Báo", "Bạn cần đăng nhập trước!");
+            PrimeFaces current = PrimeFaces.current();
+            current.executeScript("PF('dialog_dangnhap').show();");
+            return;
+        }
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath() + "/faces/canhan.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String TinTuc() {
@@ -284,23 +332,42 @@ public class BeanNavigation implements Serializable {
         return !check;
     }
 
+    // Gán lại phòng đang đặt bằng phòng được chọn
+    public void ThongTinPhong(Phong p) {
+        phongDangDat = p;
+        datPhong.setIdPhong(phongDangDat.getId());
+        datPhong.setNgayDat(ngayDat);
+        datPhong.setNgayDen(ngayDen);
+        datPhong.setNgayTra(ngayTra);
+        datPhong.setDichVu(BuaAn.listBuaAn.get(khachSan.getBuaAn()).getTen());
+        datPhong.setGhiChu("");
+        datPhong.setThanhTien(phongDangDat.getGiaThue());
+        datPhong.setDaHuy(false);
+    }
+
     // Check một phòng đã bị đặt trong một khoảng thời gian cho trước chưa
     public void TimPhongTrong() {
+        Date homNay = new Date();
+        if (ngayDen.before(homNay) || ngayTra.before(homNay) || ngayTra.before(ngayDen)) {
+            pf.Message.errorMessage("Thông Báo", "Ngày nhập vào sai!");
+            return;
+        }
         daKiemTraPhongTrong = true;
         listPhong = new ArrayList();
         for (Phong tmp : listPhongSave) {
-            if (kiemTraPhongTrong(tmp, ngayDen, ngayDi)) {
+            if (kiemTraPhongTrong(tmp, ngayDen, ngayTra)) {
                 listPhong.add(tmp);
             }
         }
-        System.out.println("Â");
     }
 
     public boolean kiemTraPhongTrong(Phong p, Date ngayDen, Date ngayDi) {
-        for (DatPhong tmp : lstDP) {
-            if (!tmp.isDaHuy() && tmp.getIdPhong() == p.getId()) {
-                if (!(ngayDen.after(tmp.getNgayTra()) || ngayDi.before(tmp.getNgayDen()))) {
-                    return false;
+        if (listDatPhong != null) {
+            for (DatPhong tmp : listDatPhong) {
+                if (!tmp.isDaHuy() && tmp.getIdPhong() == p.getId()) {
+                    if (!(ngayDen.after(tmp.getNgayTra()) || ngayDi.before(tmp.getNgayDen()))) {
+                        return false;
+                    }
                 }
             }
         }
@@ -308,25 +375,44 @@ public class BeanNavigation implements Serializable {
     }
 
     // Đặt phòng
-    public void DatPhong(Phong tmp) {
-        if (!daKiemTraPhongTrong){
-            System.out.println(tmp.getTen());
-            pf.Message.addMessage("Thất Bại", "Bạn vẫn chưa kiểm tra phòng trống!");
+    public void DatPhong() {
+        if (!daKiemTraPhongTrong) {
+            System.out.println(phongDangDat.getTen());
+            pf.Message.errorMessage("Thất Bại", "Bạn vẫn chưa kiểm tra phòng trống!");
+            return;
         }
-//        try {
-//            // Check đăng nhập trước
-//            con = dao.SQLConnection.getConnection();
-//            PreparedStatement stmt = con.prepareStatement("insert into DatPhong values(?,?,?,?,?,?,?,?,?,?)");
-//            stmt.setString(1, "TaiKhoan");
-//            ResultSet rs = stmt.executeQuery();
-//            con.close();
-//            listPhong.remove(tmp);
-//            pf.Message.addMessage("Thành Công", "Đặt Phòng thành công, vui lòng vào Lịch Sử trong Trang Cá Nhân để xem thông tin Đặt Phòng!");
-//        } catch (Exception e) {
-//            pf.Message.errorMessage("Thất Bại", "Đặt Phòng thất bại!");
-//        }
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpSession session = request.getSession();
+        TaiKhoan tk = (TaiKhoan) session.getAttribute("TaiKhoan");
+        if (tk == null) {
+            System.out.println(phongDangDat.getTen());
+            pf.Message.errorMessage("Thất Bại", "Bạn cần đăng nhập trước!");
+            return;
+        }
+        try {
+            datPhong.setTaiKhoan(tk.getTenTaiKhoan());
+            con = dao.SQLConnection.getConnection();
+            PreparedStatement stmt = con.prepareStatement("insert into DatPhong values(?,?,?,?,?,?,?,?,?)");
+            stmt.setString(1, datPhong.getTaiKhoan());
+            stmt.setInt(2, datPhong.getIdPhong());
+            stmt.setDate(3, new java.sql.Date(ngayDat.getTime()));
+            stmt.setDate(4, new java.sql.Date(ngayDen.getTime()));
+            stmt.setDate(5, new java.sql.Date(ngayTra.getTime()));
+            stmt.setString(6, datPhong.getDichVu());
+            stmt.setString(7, datPhong.getGhiChu());
+            stmt.setInt(8, datPhong.getThanhTien());
+            stmt.setBoolean(9, datPhong.isDaHuy());
+            stmt.executeUpdate();
+            con.close();
+            listPhong.remove(phongDangDat);
+            listDatPhong.add(datPhong);
+            pf.Message.addMessage("Thành Công", "Đặt Phòng thành công, vui lòng vào Lịch Sử trong Trang Cá Nhân để xem thông tin Đặt Phòng!");
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            pf.Message.errorMessage("Thất Bại", "Đặt Phòng thất bại!");
+        }
     }
-    
+
     //
     // Get - Set, Don't care
     //
@@ -450,20 +536,12 @@ public class BeanNavigation implements Serializable {
         this.ngayDen = ngayDen;
     }
 
-    public Date getNgayDi() {
-        return ngayDi;
+    public Date getNgayTra() {
+        return ngayTra;
     }
 
-    public void setNgayDi(Date ngayDi) {
-        this.ngayDi = ngayDi;
-    }
-
-    public ArrayList<DatPhong> getLstDP() {
-        return lstDP;
-    }
-
-    public void setLstDP(ArrayList<DatPhong> lstDP) {
-        this.lstDP = lstDP;
+    public void setNgayTra(Date ngayTra) {
+        this.ngayTra = ngayTra;
     }
 
     public boolean isDaKiemTraPhongTrong() {
@@ -472,6 +550,30 @@ public class BeanNavigation implements Serializable {
 
     public void setDaKiemTraPhongTrong(boolean daKiemTraPhongTrong) {
         this.daKiemTraPhongTrong = daKiemTraPhongTrong;
+    }
+
+    public ArrayList<DatPhong> getListDatPhong() {
+        return listDatPhong;
+    }
+
+    public void setListDatPhong(ArrayList<DatPhong> listDatPhong) {
+        this.listDatPhong = listDatPhong;
+    }
+
+    public Phong getPhongDangDat() {
+        return phongDangDat;
+    }
+
+    public void setPhongDangDat(Phong phongDangDat) {
+        this.phongDangDat = phongDangDat;
+    }
+
+    public DatPhong getDatPhong() {
+        return datPhong;
+    }
+
+    public void setDatPhong(DatPhong datPhong) {
+        this.datPhong = datPhong;
     }
 
 }

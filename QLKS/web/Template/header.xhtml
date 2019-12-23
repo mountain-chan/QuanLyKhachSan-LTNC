@@ -6,6 +6,8 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:jsf="http://xmlns.jcp.org/jsf">
 
+    <p:growl id="msg" showDetail="true"/>
+    
     <div style="background-color: #003580;">
         <a href="faces/index.xhtml"><img src="Content/Images/Logo.png" width="299" height="62" style="margin: 10px 0px 5px 240px"/></a>
         <ui:include src="form.xhtml"/>
@@ -33,7 +35,7 @@
                 <h:form>
                     <h:commandLink action="#{beanNavigation.TrangChu()}" value="Trang chủ" class="active"></h:commandLink>
                     <h:commandLink action="#{beanNavigation.ToanBoKhachSan()}" value="Khách sạn"></h:commandLink>
-                    <h:commandLink action="#{beanNavigation.CaNhan()}" value="Cá nhân"></h:commandLink>
+                    <p:commandLink action="#{beanNavigation.CaNhan()}" value="Cá nhân" update="msg"></p:commandLink>
                     <h:commandLink action="#{beanNavigation.TinTuc()}" value="Tin tức"></h:commandLink>
                     <h:commandLink action="#{beanNavigation.LienHe()}" value="Liên hệ"></h:commandLink>
                 </h:form>

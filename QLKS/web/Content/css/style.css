@@ -200,7 +200,7 @@ font-family: 'Roboto Slab'
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 16px !important;
     border-bottom: 2px solid transparent;
     margin-bottom: 1px;
     margin-right: 40px;
@@ -227,12 +227,31 @@ font-family: 'Roboto Slab'
     height: 60px !important;
     width: 480px !important;
     font-size: 20px !important;
-    border-width: 3px;
-    border-color: #FEBB02;
+    border: 3px solid #FEBB02;
+    border-radius: 4px;
 }
 
 .tim-kiem .ui-inputfield:hover {
-    border-color: #007AD9 !important;
+    border: 3px solid #FEBB02 !important;
+}
+
+.tim-kiem .ui-inputfield:focus {
+    border: 3px solid #FEBB02 !important;
+}
+
+.btn-timkiem {
+    margin-top: 1px;
+    border-radius: 3px;
+    width: 110px;
+    height: 60px;
+    font-size: 20px !important;
+    background-color: #007AD9;
+    border: none;
+    color: white;
+}
+
+.btn-timkiem:hover {
+    background-color: #005999;
 }
 
 .ks-noibat a {
@@ -308,7 +327,6 @@ font-family: 'Roboto Slab'
     color: white;
     margin-top: 20px;
     font-weight: bold;
-    font-style: italic;
     font-size: 15px;
     width: 90%;
     height: 40px;
