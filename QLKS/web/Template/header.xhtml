@@ -25,7 +25,7 @@
                 <c:otherwise>
                     <h:form>
                         <span style="margin-right: 20px; color: white; font-weight: bold">Chào #{sessionScope['TaiKhoan'].hoTen},</span>
-                        <p:commandLink style="color: #00BBFF; font-weight: bold" value="Đăng Xuất" action="#{beanDangNhap.DangXuat()}"/>
+                        <p:commandLink style="color: #00BBFF; font-weight: bold" value="Đăng Xuất" action="#{beanDangNhap.dangXuat()}"/>
                     </h:form>
                 </c:otherwise>
             </c:choose>
@@ -33,11 +33,11 @@
         <div class="c80">
             <div class="topnav">
                 <h:form>
-                    <h:commandLink action="#{beanNavigation.TrangChu()}" value="Trang chủ" class="active"></h:commandLink>
-                    <h:commandLink action="#{beanNavigation.ToanBoKhachSan()}" value="Khách sạn"></h:commandLink>
-                    <p:commandLink action="#{beanNavigation.CaNhan()}" value="Cá nhân" update="msg"></p:commandLink>
-                    <h:commandLink action="#{beanNavigation.TinTuc()}" value="Tin tức"></h:commandLink>
-                    <h:commandLink action="#{beanNavigation.LienHe()}" value="Liên hệ"></h:commandLink>
+                    <h:commandLink action="#{beanNavigation.trangChu()}" value="Trang chủ" class="active"></h:commandLink>
+                    <h:commandLink action="#{beanNavigation.toanBoKhachSan()}" value="Khách sạn"></h:commandLink>
+                    <p:commandLink action="#{beanNavigation.caNhan()}" value="Cá nhân" update="msg"></p:commandLink>
+                    <h:commandLink action="#{beanNavigation.tinTuc()}" value="Tin tức"></h:commandLink>
+                    <h:commandLink action="#{beanNavigation.lienHe()}" value="Liên hệ"></h:commandLink>
                 </h:form>
             </div> 
         </div>

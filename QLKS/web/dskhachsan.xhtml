@@ -29,7 +29,7 @@
                                             <c:forEach items="#{beanNavigation.listXepHang}" var="item">
                                                 <div>
                                                     <p:selectBooleanCheckbox value="#{item.checked}" itemLabel="#{item.label}">
-                                                        <p:ajax update="form:ds-khachsan" listener="#{beanNavigation.Loc}" />
+                                                        <p:ajax update="form:ds-khachsan" listener="#{beanNavigation.locKhachSan()}" />
                                                     </p:selectBooleanCheckbox>
                                                 </div>
                                             </c:forEach>
@@ -39,7 +39,7 @@
                                             <c:forEach items="#{beanNavigation.listLoaiKhachSan}" var="item">
                                                 <div>
                                                     <p:selectBooleanCheckbox value="#{item.checked}" itemLabel="#{item.label}">
-                                                        <p:ajax update="form:ds-khachsan" listener="#{beanNavigation.Loc}" />
+                                                        <p:ajax update="form:ds-khachsan" listener="#{beanNavigation.locKhachSan()}" />
                                                     </p:selectBooleanCheckbox>
                                                 </div>
                                             </c:forEach>
@@ -49,7 +49,7 @@
                                             <c:forEach items="#{beanNavigation.listBuaAn}" var="item">
                                                 <div>
                                                     <p:selectBooleanCheckbox value="#{item.checked}" itemLabel="#{item.label}">
-                                                        <p:ajax update="form:ds-khachsan" listener="#{beanNavigation.Loc}" />
+                                                        <p:ajax update="form:ds-khachsan" listener="#{beanNavigation.locKhachSan()}" />
                                                     </p:selectBooleanCheckbox>
                                                 </div>
                                             </c:forEach>
@@ -59,7 +59,7 @@
                                             <c:forEach items="#{beanNavigation.listCachTrungTam}" var="item">
                                                 <div>
                                                     <p:selectBooleanCheckbox value="#{item.checked}" itemLabel="#{item.label}">
-                                                        <p:ajax update="form:ds-khachsan" listener="#{beanNavigation.Loc}" />
+                                                        <p:ajax update="form:ds-khachsan" listener="#{beanNavigation.locKhachSan()}" />
                                                     </p:selectBooleanCheckbox>
                                                 </div>
                                             </c:forEach>
@@ -69,7 +69,7 @@
                                             <c:forEach items="#{beanNavigation.listGiapBien}" var="item">
                                                 <div>
                                                     <p:selectBooleanCheckbox value="#{item.checked}" itemLabel="#{item.label}">
-                                                        <p:ajax update="form:ds-khachsan" listener="#{beanNavigation.Loc}" />
+                                                        <p:ajax update="form:ds-khachsan" listener="#{beanNavigation.locKhachSan()}" />
                                                     </p:selectBooleanCheckbox>
                                                 </div>
                                             </c:forEach>
@@ -80,7 +80,7 @@
                             <div class="col-md-9">
                                 <h:form id="form" class="form-dskhachsan">
                                     <p:dataList id="ds-khachsan" value="#{beanNavigation.listKhachSan}" var="item" type="unordered" itemType="none" paginator="true" rows="10" styleClass="paginated" paginatorPosition="bottom" paginatorAlwaysVisible="false" emptyMessage="Không tồn tại Khách sạn bạn mong muốn">
-                                        <h:commandLink class="link-khachsan" action="#{beanNavigation.KhachSan(item.id)}">
+                                        <h:commandLink class="link-khachsan" action="#{beanNavigation.thongTinKhachSan(item.id)}">
                                             <div class="div-khachsan" style="height: 240px; border: 1px solid #c0c0c0; border-radius: 5px; margin-top: 20px">
                                                 <div class="row">
                                                     <div class="col-md-4" style="margin: 20px 0 0 20px; width: 240px">

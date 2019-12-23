@@ -20,16 +20,15 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div style="margin-top: 20px">
-                                    <div style="border-radius: 3px; border: 1px solid #c0c0c0; margin-bottom: 30px; overflow: hidden">
-                                        <div style="background-color: #F4F4F4; font-size: 20px; font-weight: bold; padding: 8px 0 8px 30px">Danh Mục</div>
-                                        <hr style="border: none; height: 1px; background-color: #c0c0c0; margin: 0"/>
-                                        <div class="menu-canhan">
-                                            <h:form>
-                                                <h:commandLink action="#{beanNavigation.caNhan()}"><i style="margin-right: 15px" class="fa fa-id-card"></i>Trang Cá Nhân</h:commandLink>
-                                                <h:commandLink action="#{beanNavigation.lichSu()}"><i style="margin-right: 15px" class="fa fa-history"></i>Lịch Sử</h:commandLink>
-                                                <h:commandLink><i style="margin-right: 15px" class="fa fa-paper-plane"></i>Gửi Báo Cáo</h:commandLink>
-                                                <h:commandLink><i style="margin-right: 15px" class="fa fa-share-alt"></i>Chia Sẻ</h:commandLink>
-                                            </h:form>
+                                    <div style="height: 300px; border-radius: 3px; border: 1px solid #c0c0c0; margin-bottom: 20px">
+                                        <div style="margin: 10px 20px; font-size: 16px; font-weight: bold">Danh Mục</div>
+                                        <div>
+                                            <ul>
+                                                <li><h:commandLink action="#{beanNavigation.caNhan()}" value="Trang Cá Nhân"/></li>
+                                                <li><h:commandLink action="#{beanNavigation.caNhan()}" value="Lịch Sư Đặt Phòng"/></li>
+                                                <li><h:commandLink action="#" value="Gửi Báo Cáo"/></li>
+                                                <li><h:commandLink action="#" value="Chia Sẻ"/></li>
+                                            </ul>
                                         </div>
                                     </div>
                                     <div style="height: 120px; border-radius: 3px; background-color: #E9F0FA; border: 1px solid #CCE1FF; text-align: center; padding-top: 12px; margin-bottom: 20px">
@@ -40,6 +39,10 @@
                                         Có thể bạn thắc mắc<br/>
                                         Bạn đang vướng mắc một điều gì đó?<br/>
                                         <button class="btn btn-default" style="width: 85%; margin-top: 17px; border: 1px solid #0077CC; color: #0077CC">Đặt câu hỏi</button>
+                                    </div>
+                                    <div style="text-align: center; font-size: 18px; font-weight: bold; color: #007AD9; margin-top: 20px">
+                                        #{beanNavigation.khachSan.danhGia} &#9733;<br/>
+                                        #{beanKhachSan.strDanhGia[beanNavigation.khachSan.danhGia]}
                                     </div>
                                 </div>
                             </div>
@@ -76,16 +79,15 @@
                             </div>
                             <div class="col-md-3">
                                 <div style="margin-top: 20px">
-                                    Gợi ý cho bạn
-                                    <div style="border-radius: 3px; border: 1px solid #c0c0c0; margin-bottom: 20px">
-                                        <div style="width: 100%; height: 230px; border-radius: 3px; background: linear-gradient(transparent 70%, black), url(#{beanNavigation.khachSan.urlHinhAnhThanhPho}); background-repeat: no-repeat; background-position: center">
-                                        </div>
-                                        <div style="position: relative; top: -30px; left: 20px; color: white; font-size: 16px">
-                                            Cách #{beanNavigation.khachSan.tenThanhPho} #{beanNavigation.khachSan.cachTrungTam}m
-                                        </div>
-                                        <div style="margin: -10px 10px 0 10px">
-                                            Một trong những khách sạn tuyệt vời nhất của chúng tôi!
-                                            <button class="btn-datngay" onClick="window.location = '#phongtrong'">Đặt ngay</button>
+                                    <div style="height: 300px; border-radius: 3px; border: 1px solid #c0c0c0; margin-bottom: 20px">
+                                        Danh Mục
+                                        <div>
+                                            <ul>
+                                                <li>Trang Cá Nhân</li>
+                                                <li>Lịch Sư Đặt Phòng</li>
+                                                <li>Gửi Báo Cáo</li>
+                                                <li>Chia Sẻ</li>
+                                            </ul>
                                         </div>
                                     </div>
                                     <div style="height: 120px; border-radius: 3px; background-color: #E9F0FA; border: 1px solid #CCE1FF; text-align: center; padding-top: 12px; margin-bottom: 20px">
@@ -96,6 +98,10 @@
                                         Có thể bạn thắc mắc<br/>
                                         Bạn đang vướng mắc một điều gì đó?<br/>
                                         <button class="btn btn-default" style="width: 85%; margin-top: 17px; border: 1px solid #0077CC; color: #0077CC">Đặt câu hỏi</button>
+                                    </div>
+                                    <div style="text-align: center; font-size: 18px; font-weight: bold; color: #007AD9; margin-top: 20px">
+                                        #{beanNavigation.khachSan.danhGia} &#9733;<br/>
+                                        #{beanKhachSan.strDanhGia[beanNavigation.khachSan.danhGia]}
                                     </div>
                                 </div>
                             </div>

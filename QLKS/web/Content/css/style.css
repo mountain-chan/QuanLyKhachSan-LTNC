@@ -345,7 +345,7 @@ font-family: 'Roboto Slab'
     margin-top: 40px;
 }
 
-.table-dsphong table, th, td {
+.table-dsphong table, .table-dsphong th, .table-dsphong td {
     border-left: 1px solid #5BBAFF;
     border-right: 1px solid #5BBAFF;
     border-collapse: collapse;
@@ -376,4 +376,25 @@ font-family: 'Roboto Slab'
     background-color: #C8DDFC;
     border-color: #0077CC;
     color: #0067B7;
+}
+
+.menu-canhan {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #FAFAFA;
+}
+
+.menu-canhan a {
+    font-weight: bold;
+    color: #444444;
+    font-size: 18px;
+    display: block;
+    padding: 12px 0 12px 20px;
+    text-decoration: none;
+}
+
+.menu-canhan a:hover {
+    background-color: #EAEAEA;
 }

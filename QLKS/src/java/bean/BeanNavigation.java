@@ -6,6 +6,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map.Entry;
@@ -24,6 +28,7 @@ import org.primefaces.PrimeFaces;
 public class BeanNavigation implements Serializable {
 
     private static final long serialVersionUID = 16533786L;
+    private static DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 
     @ManagedProperty(value = "#{beanKhachSan.listKhachSan}")
     private ArrayList<KhachSan> lstKS;
@@ -40,6 +45,11 @@ public class BeanNavigation implements Serializable {
     private Date ngayDat;
     private Date ngayDen;
     private Date ngayTra;
+    private String strNgayDat;
+    private String strNgayDen;
+    private String strNgayTra;
+    private String strThanhTien;
+    private int soNgayDatPhong;
     private boolean daKiemTraPhongTrong;
     private ArrayList<DatPhong> listDatPhong;
     private Phong phongDangDat;
@@ -137,11 +147,11 @@ public class BeanNavigation implements Serializable {
     }
 
     // Các link trên Header
-    public String TrangChu() {
+    public String trangChu() {
         return "index";
     }
 
-    public String ToanBoKhachSan() {
+    public String toanBoKhachSan() {
         listKhachSan = new ArrayList();
         for (KhachSan tmp : lstKS) {
             listKhachSan.add(tmp);
@@ -150,7 +160,7 @@ public class BeanNavigation implements Serializable {
         return "dskhachsan";
     }
 
-    public void CaNhan() {
+    public void caNhan() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         HttpSession session = request.getSession();
         TaiKhoan tk = (TaiKhoan) session.getAttribute("TaiKhoan");
@@ -164,23 +174,25 @@ public class BeanNavigation implements Serializable {
         try {
             ec.redirect(ec.getRequestContextPath() + "/faces/canhan.xhtml");
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
-    public String TinTuc() {
+    public String tinTuc() {
         return "index";
     }
 
-    public String LienHe() {
+    public String lienHe() {
         return "index";
     }
 
+    public String lichSu() {
+        return "lichsu";
+    }
+    
     // Tìm kiếm ở Trang chủ, mới chỉ có tìm theo Thành phố, chưa có theo thời gian
     // Trước tiên đưa hết từ khóa tìm kiếm về chữ thường, sau đó loại bỏ dấu rồi mới
     // so sánh với các khách sạn trong danh sách
-    public String TimKiem() {
-        System.out.println("a");
+    public String timKiem() {
         String tenThanhPhoKoDau = util.VNCharacterUtils.removeAccent(tenThanhPhoTimKiem.toLowerCase());
         String s;
         listKhachSan = new ArrayList();
@@ -197,7 +209,8 @@ public class BeanNavigation implements Serializable {
     // Các link khi bấm chọn một Thành phố, Loại khách sạn, Khách sạn
     // Khởi tạo một danh sách, check trong danh sách toàn bộ khách sạn, khách sạn nào có Id thành phố
     // đúng bằng pageId thì cho vào danh sách, pageId chính là Id thành phố được truyền vào hàm
-    public String ThanhPho(int pageId) {
+    // danh sách khách sạn theo thành phố được chọn
+    public String dsTheoThanhPho(int pageId) {
         listKhachSan = new ArrayList();
         for (KhachSan tmp : lstKS) {
             if (tmp.getIdThanhPho() == pageId) {
@@ -208,7 +221,7 @@ public class BeanNavigation implements Serializable {
         return "dskhachsan";
     }
 
-    public String LoaiKhachSan(int pageId) {
+    public String dsTheoLoaiKhachSan(int pageId) {
         listKhachSan = new ArrayList();
         for (KhachSan tmp : lstKS) {
             if (tmp.getIdLoaiKhachSan() == pageId) {
@@ -219,7 +232,7 @@ public class BeanNavigation implements Serializable {
         return "dskhachsan";
     }
 
-    public String KhachSan(int pageId) {
+    public String thongTinKhachSan(int pageId) {
         for (KhachSan tmp : lstKS) {
             if (tmp.getId() == pageId) {
                 khachSan = tmp;
@@ -241,7 +254,7 @@ public class BeanNavigation implements Serializable {
     // Chạy trong toàn bộ danh sách lọc, ô đó được tích thì xem khách sạn đang check có thỏa mãn ko
     // Nếu thỏa mãn cho vào danh sách, cuối cùng nếu check=false nghĩa là ko có ô nào được tích
     // => khách sạn đó thỏa mãn
-    public void Loc() {
+    public void locKhachSan() {
         ArrayList<KhachSan> lst = new ArrayList();
         for (KhachSan tmp : listKhachSanSave) {
             if (locXepHang(tmp) && locLoaiKhachSan(tmp) && locBuaAn(tmp) && locCachTrungTam(tmp) && locGiapBien(tmp)) {
@@ -333,22 +346,31 @@ public class BeanNavigation implements Serializable {
     }
 
     // Gán lại phòng đang đặt bằng phòng được chọn
-    public void ThongTinPhong(Phong p) {
+    public void thongTinPhong(Phong p) {
         phongDangDat = p;
+        strNgayDat = formatter.format(ngayDat);
+        strNgayDen = formatter.format(ngayDen);
+        strNgayTra = formatter.format(ngayTra);
         datPhong.setIdPhong(phongDangDat.getId());
         datPhong.setNgayDat(ngayDat);
         datPhong.setNgayDen(ngayDen);
         datPhong.setNgayTra(ngayTra);
+        LocalDate lNgayDen = LocalDate.of(ngayDen.getYear(), ngayDen.getMonth() + 1, ngayDen.getDate());
+        LocalDate lNgayTra = LocalDate.of(ngayTra.getYear(), ngayTra.getMonth() + 1, ngayTra.getDate());
+        soNgayDatPhong = (int) (ChronoUnit.DAYS.between(lNgayDen, lNgayTra) + 1);
         datPhong.setDichVu(BuaAn.listBuaAn.get(khachSan.getBuaAn()).getTen());
         datPhong.setGhiChu("");
-        datPhong.setThanhTien(phongDangDat.getGiaThue());
+        datPhong.setThanhTien(phongDangDat.getGiaThue() * soNgayDatPhong);
+        strThanhTien = String.format("%,d", datPhong.getThanhTien() * 1000);
         datPhong.setDaHuy(false);
     }
 
     // Check một phòng đã bị đặt trong một khoảng thời gian cho trước chưa
-    public void TimPhongTrong() {
+    public void timPhongTrong() {
         Date homNay = new Date();
-        if (ngayDen.before(homNay) || ngayTra.before(homNay) || ngayTra.before(ngayDen)) {
+        if (util.CompareDate.compareNoTime(ngayDen, homNay) == -1
+                || util.CompareDate.compareNoTime(ngayTra, homNay) == -1
+                || util.CompareDate.compareNoTime(ngayTra, ngayDen) == -1) {
             pf.Message.errorMessage("Thông Báo", "Ngày nhập vào sai!");
             return;
         }
@@ -374,8 +396,8 @@ public class BeanNavigation implements Serializable {
         return true;
     }
 
-    // Đặt phòng
-    public void DatPhong() {
+    // Chọn Đặt phòng
+    public void chonDatPhong() {
         if (!daKiemTraPhongTrong) {
             System.out.println(phongDangDat.getTen());
             pf.Message.errorMessage("Thất Bại", "Bạn vẫn chưa kiểm tra phòng trống!");
@@ -574,6 +596,46 @@ public class BeanNavigation implements Serializable {
 
     public void setDatPhong(DatPhong datPhong) {
         this.datPhong = datPhong;
+    }
+
+    public String getStrNgayDat() {
+        return strNgayDat;
+    }
+
+    public void setStrNgayDat(String strNgayDat) {
+        this.strNgayDat = strNgayDat;
+    }
+
+    public String getStrNgayDen() {
+        return strNgayDen;
+    }
+
+    public void setStrNgayDen(String strNgayDen) {
+        this.strNgayDen = strNgayDen;
+    }
+
+    public String getStrNgayTra() {
+        return strNgayTra;
+    }
+
+    public void setStrNgayTra(String strNgayTra) {
+        this.strNgayTra = strNgayTra;
+    }
+
+    public int getSoNgayDatPhong() {
+        return soNgayDatPhong;
+    }
+
+    public void setSoNgayDatPhong(int soNgayDatPhong) {
+        this.soNgayDatPhong = soNgayDatPhong;
+    }
+
+    public String getStrThanhTien() {
+        return strThanhTien;
+    }
+
+    public void setStrThanhTien(String strThanhTien) {
+        this.strThanhTien = strThanhTien;
     }
 
 }

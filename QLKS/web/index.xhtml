@@ -23,7 +23,7 @@
                                 <h:form>
                                     <p:inputText id="a" placeholder="Nhập thành phố" value="#{beanNavigation.tenThanhPhoTimKiem}" />
                                     <p:datePicker id="b" placeholder="Ngày đến - Ngày trả" selectionMode="range" value="#{beanNavigation.thoiGianTimKiem}" pattern="dd.MM.yyyy" mindate="#{beanNavigation.minDate}" readonlyInput="true"/>
-                                    <h:commandButton value="Tìm" class="btn-timkiem" action="#{beanNavigation.TimKiem()}" />
+                                    <h:commandButton value="Tìm" class="btn-timkiem" action="#{beanNavigation.timKiem()}" />
                                 </h:form>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                         <div class="row">
                             <h:form>
                                 <c:forEach items="#{beanThanhPho.listThanhPho}" var="item" begin="0" end="1">
-                                    <h:commandLink action = "#{beanNavigation.ThanhPho(item.id)}">
+                                    <h:commandLink action = "#{beanNavigation.dsTheoThanhPho(item.id)}">
                                         <div class="col-md-6">
                                             <div class="div-zoom">
                                                 <img class="img-zoom" src="#{item.urlHinhAnh}" alt="Img"/>
@@ -54,7 +54,7 @@
                         <div class="row">
                             <h:form>
                                 <c:forEach items="#{beanThanhPho.listThanhPho}" var="item" begin="2" end="4">
-                                    <h:commandLink action = "#{beanNavigation.ThanhPho(item.id)}">
+                                    <h:commandLink action = "#{beanNavigation.dsTheoThanhPho(item.id)}">
                                         <div class="col-md-4">
                                             <div class="div-zoom">
                                                 <img class="img-zoom" src="#{item.urlHinhAnh}" alt="Img"/>
@@ -81,7 +81,7 @@
                                     <h:form>
                                         <c:forEach items="#{beanLoaiKhachSan.listLoaiKhachSan}" var="item">
                                             <div class="item">
-                                                <h:commandLink action = "#{beanNavigation.LoaiKhachSan(item.id)}">
+                                                <h:commandLink action = "#{beanNavigation.dsTheoLoaiKhachSan(item.id)}">
                                                     <div class="img-loaiks"><img src="#{item.urlHinhAnh}" alt="Img"/></div>
                                                     <br/>
                                                     <div style="padding-left: 10px;">
@@ -108,7 +108,7 @@
                             <c:forEach items="#{beanKhachSan.listKhachSan}" begin="0" end="3" var="item">
                                 <div class="col-md-3 ks-noibat">
                                     <h:form>
-                                        <h:commandLink action = "#{beanNavigation.KhachSan(item.id)}">
+                                        <h:commandLink action = "#{beanNavigation.thongTinKhachSan(item.id)}">
                                             <div class="div-ks">
                                                 <img style="height: 220px" src="Content/Images/KhachSan/#{item.id}.jpg" alt="Img"/>
                                             </div>
