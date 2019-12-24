@@ -6,6 +6,7 @@ public class LichSu implements Serializable {
 
     private static final long serialVersionUID = 54353121L;
 
+    int id;
     String tenPhong;
     int idKhachSan;
     String tenKhachSan;
@@ -20,7 +21,8 @@ public class LichSu implements Serializable {
     public LichSu() {
     }
 
-    public LichSu(String tenPhong, int idKhachSan, String tenKhachSan, String ngayDat, String ngayDen, String ngayTra, String dichVu, String ghiChu, String thanhTien, int trangThai) {
+    public LichSu(int id, String tenPhong, int idKhachSan, String tenKhachSan, String ngayDat, String ngayDen, String ngayTra, String dichVu, String ghiChu, String thanhTien, int trangThai) {
+        this.id = id;
         this.tenPhong = tenPhong;
         this.idKhachSan = idKhachSan;
         this.tenKhachSan = tenKhachSan;
@@ -31,6 +33,14 @@ public class LichSu implements Serializable {
         this.ghiChu = ghiChu;
         this.thanhTien = thanhTien;
         this.trangThai = trangThai;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTenPhong() {

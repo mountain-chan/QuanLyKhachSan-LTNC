@@ -28,7 +28,7 @@ public class BeanNguoiDung implements Serializable {
 
     private static final long serialVersionUID = 1437123L;
     private static final DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-    
+
     @ManagedProperty(value = "#{beanKhachSan.listKhachSan}")
     private ArrayList<KhachSan> lstKS;
     @ManagedProperty(value = "#{beanNavigation.listDatPhong}")
@@ -189,7 +189,7 @@ public class BeanNguoiDung implements Serializable {
                 strNgayDat = formatter.format(tmp.getNgayDat());
                 strNgayDen = formatter.format(tmp.getNgayDen());
                 strNgayTra = formatter.format(tmp.getNgayTra());
-                LichSu ls = new LichSu(BeanPhong.hashPhong.get(tmp.getIdPhong()), ks.getId(),
+                LichSu ls = new LichSu(tmp.getId(), BeanPhong.hashPhong.get(tmp.getIdPhong()), ks.getId(),
                         ks.getTen(), strNgayDat, strNgayDen, strNgayTra,
                         tmp.getDichVu(), tmp.getGhiChu(), thanhTien, trangThai);
                 listLichSu.add(0, ls);
@@ -197,9 +197,31 @@ public class BeanNguoiDung implements Serializable {
         }
         return "lichSu";
     }
-    
-    public void huyDatPhong(){
-        pf.Message.errorMessage("Thành Công", "Hủy đặt phòng thành công!");
+
+    public void huyDatPhong(int id) {
+        try {
+            con = dao.SQLConnection.getConnection();
+            PreparedStatement stmt = con.prepareStatement("update DatPhong set DaHuy=? where Id=?");
+            stmt.setBoolean(1, true);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+            con.close();
+            for (LichSu tmp : listLichSu) {
+                if (tmp.getId() == id) {
+                    tmp.setTrangThai(2);
+                    break;
+                }
+            }
+            for (DatPhong tmp : lstDP) {
+                if (tmp.getId() == id) {
+                    tmp.setDaHuy(true);
+                    break;
+                }
+            }
+            pf.Message.addMessage("Thành Công", "Hủy đặt phòng thành công!");
+        } catch (Exception e) {
+            pf.Message.errorMessage("Thất Bại", "Hủy đặt phòng thất bại!");
+        }
     }
 
     //

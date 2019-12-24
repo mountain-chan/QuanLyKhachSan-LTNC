@@ -45,7 +45,7 @@
                                         <div class="col-md-3" style="text-align: right">
                                             <div style="margin: 10px 20px">
                                                 <h:panelGroup rendered="#{item.trangThai==0}">
-                                                    <p:commandButton update="msg" title="a" value="Hủy Đặt" action="#{beanNguoiDung.huyDatPhong()}" ajax="true">
+                                                    <p:commandButton update="msg ds-lichsu" title="Hủy đặt phòng này" value="Hủy Đặt" action="#{beanNguoiDung.huyDatPhong(item.id)}" ajax="true">
                                                         <p:confirm header="Xác Nhận" message="Bạn có chắc chắn muốn hủy đặt phòng này không?" icon="pi pi-exclamation-triangle" />
                                                     </p:commandButton>
                                                 </h:panelGroup>
