@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
@@ -17,12 +18,16 @@ public class BeanPhong implements Serializable {
 
     private static final long serialVersionUID = 1786783L;
 
+    public static HashMap<Integer, KhachSan> hashPhongKhachSan;
+    public static HashMap<Integer, String> hashPhong;
     Phong phong;
     ArrayList<Phong> listPhong;
     Connection con;
 
     public BeanPhong() {
         phong = new Phong();
+        hashPhongKhachSan = new HashMap();
+        hashPhong = new HashMap();
         try {
             listPhong = new ArrayList();
             con = dao.SQLConnection.getConnection();
@@ -42,6 +47,11 @@ public class BeanPhong implements Serializable {
                 tmp.setIdKhachSan(rs.getInt("IdKhachSan"));
                 tmp.setTenKhachSan(rs.getString("TenKhachSan"));
                 listPhong.add(tmp);
+                KhachSan ks = new KhachSan();
+                ks.setId(tmp.getIdKhachSan());
+                ks.setTen(tmp.getTenKhachSan());
+                hashPhongKhachSan.put(tmp.getId(), ks);
+                hashPhong.put(tmp.getId(), tmp.getTen());
             }
             con.close();
         } catch (Exception e) {

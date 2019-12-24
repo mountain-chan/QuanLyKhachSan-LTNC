@@ -10,7 +10,7 @@
     
     <div style="background-color: #003580;">
         <a href="faces/index.xhtml"><img src="Content/Images/Logo.png" width="299" height="62" style="margin: 10px 0px 5px 240px"/></a>
-        <ui:include src="form.xhtml"/>
+        <ui:include src="formDangNhap.xhtml"/>
         <div jsf:id="head-dangnhap" style="float: right; margin-right: 60px; margin-top: 30px">
             <c:choose>
                 <c:when test="#{sessionScope['TaiKhoan'] == null}">
@@ -25,7 +25,7 @@
                 <c:otherwise>
                     <h:form>
                         <span style="margin-right: 20px; color: white; font-weight: bold">Chào #{sessionScope['TaiKhoan'].hoTen},</span>
-                        <p:commandLink style="color: #00BBFF; font-weight: bold" value="Đăng Xuất" action="#{beanDangNhap.dangXuat()}"/>
+                        <p:commandLink style="color: #00BBFF; font-weight: bold" value="Đăng Xuất" action="#{beanNguoiDung.dangXuat()}"/>
                     </h:form>
                 </c:otherwise>
             </c:choose>
@@ -35,7 +35,7 @@
                 <h:form>
                     <h:commandLink action="#{beanNavigation.trangChu()}" value="Trang chủ" class="active"></h:commandLink>
                     <h:commandLink action="#{beanNavigation.toanBoKhachSan()}" value="Khách sạn"></h:commandLink>
-                    <p:commandLink action="#{beanNavigation.caNhan()}" value="Cá nhân" update="msg"></p:commandLink>
+                    <p:commandLink action="#{beanNguoiDung.caNhan()}" value="Cá nhân" update="msg"></p:commandLink>
                     <h:commandLink action="#{beanNavigation.tinTuc()}" value="Tin tức"></h:commandLink>
                     <h:commandLink action="#{beanNavigation.lienHe()}" value="Liên hệ"></h:commandLink>
                 </h:form>

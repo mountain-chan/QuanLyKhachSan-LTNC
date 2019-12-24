@@ -1,6 +1,5 @@
 package bean;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,27 +7,23 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map.Entry;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.*;
-import org.primefaces.PrimeFaces;
 
 @ManagedBean(name = "beanNavigation")
 @SessionScoped
 public class BeanNavigation implements Serializable {
 
     private static final long serialVersionUID = 16533786L;
-    private static DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+    private static final DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 
     @ManagedProperty(value = "#{beanKhachSan.listKhachSan}")
     private ArrayList<KhachSan> lstKS;
@@ -54,8 +49,7 @@ public class BeanNavigation implements Serializable {
     private ArrayList<DatPhong> listDatPhong;
     private Phong phongDangDat;
     private DatPhong datPhong;
-
-    Connection con;
+    private Connection con;
 
     // Các danh sách lọc
     private ArrayList<Checkbox> listXepHang;
@@ -157,24 +151,7 @@ public class BeanNavigation implements Serializable {
             listKhachSan.add(tmp);
         }
         resetTimKiem();
-        return "dskhachsan";
-    }
-
-    public void caNhan() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        HttpSession session = request.getSession();
-        TaiKhoan tk = (TaiKhoan) session.getAttribute("TaiKhoan");
-        if (tk == null) {
-            pf.Message.addMessage("Thông Báo", "Bạn cần đăng nhập trước!");
-            PrimeFaces current = PrimeFaces.current();
-            current.executeScript("PF('dialog_dangnhap').show();");
-            return;
-        }
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        try {
-            ec.redirect(ec.getRequestContextPath() + "/faces/canhan.xhtml");
-        } catch (IOException e) {
-        }
+        return "dsKhachSan";
     }
 
     public String tinTuc() {
@@ -185,10 +162,6 @@ public class BeanNavigation implements Serializable {
         return "index";
     }
 
-    public String lichSu() {
-        return "lichsu";
-    }
-    
     // Tìm kiếm ở Trang chủ, mới chỉ có tìm theo Thành phố, chưa có theo thời gian
     // Trước tiên đưa hết từ khóa tìm kiếm về chữ thường, sau đó loại bỏ dấu rồi mới
     // so sánh với các khách sạn trong danh sách
@@ -203,7 +176,7 @@ public class BeanNavigation implements Serializable {
             }
         }
         resetTimKiem();
-        return "dskhachsan";
+        return "dsKhachSan";
     }
 
     // Các link khi bấm chọn một Thành phố, Loại khách sạn, Khách sạn
@@ -218,7 +191,7 @@ public class BeanNavigation implements Serializable {
             }
         }
         resetTimKiem();
-        return "dskhachsan";
+        return "dsKhachSan";
     }
 
     public String dsTheoLoaiKhachSan(int pageId) {
@@ -229,7 +202,7 @@ public class BeanNavigation implements Serializable {
             }
         }
         resetTimKiem();
-        return "dskhachsan";
+        return "dsKhachSan";
     }
 
     public String thongTinKhachSan(int pageId) {
@@ -247,7 +220,7 @@ public class BeanNavigation implements Serializable {
         }
         daKiemTraPhongTrong = false;
         listPhongSave = listPhong;
-        return "khachsan";
+        return "khachSan";
     }
 
     // Các hàm lọc, ý tưởng mỗi hàm lọc là dùng 1 biến check kiểm tra xem có ô nào được tích không
@@ -355,9 +328,7 @@ public class BeanNavigation implements Serializable {
         datPhong.setNgayDat(ngayDat);
         datPhong.setNgayDen(ngayDen);
         datPhong.setNgayTra(ngayTra);
-        LocalDate lNgayDen = LocalDate.of(ngayDen.getYear(), ngayDen.getMonth() + 1, ngayDen.getDate());
-        LocalDate lNgayTra = LocalDate.of(ngayTra.getYear(), ngayTra.getMonth() + 1, ngayTra.getDate());
-        soNgayDatPhong = (int) (ChronoUnit.DAYS.between(lNgayDen, lNgayTra) + 1);
+        soNgayDatPhong = util.CompareDate.daysBetweenNoTime(ngayDen, ngayTra);
         datPhong.setDichVu(BuaAn.listBuaAn.get(khachSan.getBuaAn()).getTen());
         datPhong.setGhiChu("");
         datPhong.setThanhTien(phongDangDat.getGiaThue() * soNgayDatPhong);
@@ -412,6 +383,7 @@ public class BeanNavigation implements Serializable {
             return;
         }
         try {
+            datPhong.setDaHuy(false);
             datPhong.setTaiKhoan(tk.getTenTaiKhoan());
             con = dao.SQLConnection.getConnection();
             PreparedStatement stmt = con.prepareStatement("insert into DatPhong values(?,?,?,?,?,?,?,?,?)");

@@ -15,7 +15,7 @@
             <ui:composition template="Template/template.xhtml">
                 <ui:define name="content">
 
-                    <ui:include src="formdatphong.xhtml"/>
+                    <ui:include src="Template/formDatPhong.xhtml"/>
 
                     <div class="c80">
                         <h3 style="text-align: center; color: #444; margin-bottom: 0px">Thông tin Khách sạn</h3>
@@ -25,7 +25,7 @@
                                     <div class="div-datngay">
                                         <button class="btn-datngay" onClick="window.location = '#phongtrong'">Đặt ngay</button>
                                     </div>
-                                    <div style="height: 300px; border-radius: 3px; border: 1px solid #c0c0c0; margin-bottom: 20px">
+                                    <div style="border-radius: 3px; border: 1px solid #c0c0c0; margin-bottom: 20px; padding: 0 0 10px 0">
                                         <div style="width: 100%; height: 230px; border-radius: 3px; background: linear-gradient(transparent 70%, black), url(#{beanNavigation.khachSan.urlHinhAnhThanhPho}); background-repeat: no-repeat; background-position: center">
                                         </div>
                                         <div style="position: relative; top: -30px; left: 20px; color: white; font-size: 16px">
@@ -35,14 +35,14 @@
                                             Một trong những khu vực đẹp nhất ở #{beanNavigation.khachSan.tenThanhPho}
                                         </div>
                                     </div>
-                                    <div style="height: 120px; border-radius: 3px; background-color: #E9F0FA; border: 1px solid #CCE1FF; text-align: center; padding-top: 12px; margin-bottom: 20px">
+                                    <div style="border-radius: 3px; background-color: #E9F0FA; border: 1px solid #CCE1FF; text-align: center; padding: 12px 8px 16px 8px; margin-bottom: 20px">
                                         Bạn thích chỗ nghỉ này, nhưng vẫn chưa chắc chắn?
                                         <button class="btn btn-kstuongtu">Xem các khách sạn tương tự</button>
                                     </div>
-                                    <div style="height: 120px; border-radius: 3px; border: 1px solid #c0c0c0; text-align: center; padding-top: 10px">
-                                        Có thể bạn thắc mắc<br/>
-                                        Bạn đang vướng mắc một điều gì đó?<br/>
-                                        <button class="btn btn-default" style="width: 85%; margin-top: 17px; border: 1px solid #0077CC; color: #0077CC">Đặt câu hỏi</button>
+                                    <div style="border-radius: 3px; border: 1px solid #c0c0c0; text-align: center; padding: 12px 8px 16px 8px">
+                                        Có thể bạn thắc mắc?<br/>
+                                        Đang vướng mắc một điều gì đó?<br/>
+                                        <button class="btn btn-default" style="width: 90%; margin-top: 17px; border: 1px solid #0077CC; color: #0077CC">Đặt câu hỏi</button>
                                     </div>
                                     <div style="text-align: center; font-size: 18px; font-weight: bold; color: #007AD9; margin-top: 20px">
                                         #{beanNavigation.khachSan.danhGia} &#9733;<br/>
