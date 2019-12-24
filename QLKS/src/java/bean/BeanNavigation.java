@@ -155,11 +155,11 @@ public class BeanNavigation implements Serializable {
     }
 
     public String tinTuc() {
-        return "index";
+        return "tinTuc";
     }
 
     public String lienHe() {
-        return "index";
+        return "lienHe";
     }
 
     // Tìm kiếm ở Trang chủ, mới chỉ có tìm theo Thành phố, chưa có theo thời gian

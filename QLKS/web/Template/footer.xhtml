@@ -5,6 +5,12 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
+    <script>
+        var li = document.getElementById('form-nav:link-' + link_active);
+        console.log(li);
+        li.classList.add('active');
+    </script>
+
     <div style="background-color: #003580; height: 140px; margin-top: 30px; margin-bottom: 30px">
         <div class="c80" style="text-align: center">
             <button class="btn btn-primary ui-button" style="margin-top: 25px; height: 35px">Đăng chỗ nghỉ của bạn</button>
@@ -66,8 +72,8 @@
         </div>
 
         <div style="height: 50px; text-align: center">
-            <img style="margin-right: 10px" src="Content/Images/sticker_facebook.png" alt="Facebook"/>
-            <img src="Content/Images/sticker_youtube.png" alt="Youtube"/>
+            <a href="https://www.facebook.com/WH.KnightZ"><img style="margin-right: 10px" src="Content/Images/sticker_facebook.png" alt="Facebook"/></a>
+            <a href="https://www.youtube.com/channel/UCyRY53rs_lgyJ-p3PzZj0Og"><img src="Content/Images/sticker_youtube.png" alt="Youtube"/></a>
         </div>
 
     </div>
