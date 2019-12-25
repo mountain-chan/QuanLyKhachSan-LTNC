@@ -100,11 +100,11 @@ public class BeanTaiKhoan implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Sửa tài khoản thành công!");
+            pf.Message.addMessage("Thành Công", "Sửa Tài khoản thành công!");
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('dialog_sua').hide();");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Sửa tài khoản thất bại!");
+            pf.Message.errorMessage("Thất Bại", "Sửa Tài khoản thất bại!");
         }
     }
 
@@ -121,9 +121,9 @@ public class BeanTaiKhoan implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Xóa tài khoản thành công!");
+            pf.Message.addMessage("Thành Công", "Xóa Tài khoản thành công!");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Xóa tài khoản thất bại!");
+            pf.Message.errorMessage("Thất Bại", "Xóa Tài khoản thất bại!");
         }
     }
 

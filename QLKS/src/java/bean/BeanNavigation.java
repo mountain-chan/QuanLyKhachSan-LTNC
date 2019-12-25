@@ -17,6 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.*;
+import org.primefaces.PrimeFaces;
 
 @ManagedBean(name = "beanNavigation")
 @SessionScoped
@@ -372,13 +373,16 @@ public class BeanNavigation implements Serializable {
         if (!daKiemTraPhongTrong) {
             System.out.println(phongDangDat.getTen());
             pf.Message.errorMessage("Thất Bại", "Bạn vẫn chưa kiểm tra phòng trống!");
+            PrimeFaces current = PrimeFaces.current();
+            current.executeScript("PF('dialog_datphong').hide();");
             return;
         }
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         HttpSession session = request.getSession();
         TaiKhoan tk = (TaiKhoan) session.getAttribute("TaiKhoan");
         if (tk == null) {
-            System.out.println(phongDangDat.getTen());
+            PrimeFaces current = PrimeFaces.current();
+            current.executeScript("PF('dialog_dangnhap').show();");
             pf.Message.errorMessage("Thất Bại", "Bạn cần đăng nhập trước!");
             return;
         }
@@ -405,6 +409,8 @@ public class BeanNavigation implements Serializable {
             System.out.println(e.toString());
             pf.Message.errorMessage("Thất Bại", "Đặt phòng thất bại!");
         }
+        PrimeFaces current = PrimeFaces.current();
+        current.executeScript("PF('dialog_datphong').hide();");
     }
 
     //

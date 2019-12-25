@@ -398,3 +398,7 @@ font-family: 'Roboto Slab'
 .menu-canhan a:hover {
     background-color: #EAEAEA;
 }
+
+.ui-growl {
+    z-index: 999999 !important;
+}

@@ -65,7 +65,7 @@
                     <p:outputLabel value="Ghi Chú Của Bạn"/><br/>
                     <p:inputTextarea rows="3" cols="48" autoResize="false" value="#{beanNavigation.datPhong.ghiChu}" placeholder="Ghi Chú"/>
                 </div>
-                <p:commandButton value="Đặt Phòng" onclick="PF('dialog_datphong').hide()" action="#{beanNavigation.chonDatPhong()}" update="msg form-dsphong" style="width: 40%"/><br/><br/>
+                <p:commandButton value="Đặt Phòng" action="#{beanNavigation.chonDatPhong()}" update="msg form-dsphong" style="width: 40%"/><br/><br/>
             </div>
         </h:form>
     </p:dialog>

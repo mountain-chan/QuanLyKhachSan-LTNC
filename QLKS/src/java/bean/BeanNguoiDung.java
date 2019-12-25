@@ -129,9 +129,9 @@ public class BeanNguoiDung implements Serializable {
         HttpSession session = request.getSession();
         TaiKhoan tk = (TaiKhoan) session.getAttribute("TaiKhoan");
         if (tk == null) {
-            pf.Message.addMessage("Thông Báo", "Bạn cần đăng nhập trước!");
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('dialog_dangnhap').show();");
+            pf.Message.addMessage("Thông Báo", "Bạn cần đăng nhập trước!");
             return;
         }
         taiKhoanDangNhap = new TaiKhoan(tk);
