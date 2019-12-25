@@ -51,7 +51,7 @@ public class MyFilter implements Filter {
         if (tk != null) {
             if (tk.isIsAdmin()) {
                 if (!reqURI.contains("/Admin/")) {
-                    res.sendRedirect(req.getContextPath() + "/faces/Admin/admintaikhoan.xhtml");
+                    res.sendRedirect(req.getContextPath() + "/faces/Admin/adminTaiKhoan.xhtml");
                 } else {
                     chain.doFilter(request, response);
                 }

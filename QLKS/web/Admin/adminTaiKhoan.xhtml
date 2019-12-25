@@ -17,9 +17,9 @@
                         <h:form>
                             <h:panelGrid columns="2" width="100%" cellspacing="10px">
                                 <p:outputLabel value="Tên Tài Khoản"/>
-                                <p:inputText style="width: 320px" value="#{beanTaiKhoan.taiKhoan.tenTaiKhoan}" placeholder="Tên Tài Khoản" required="true"/>
+                                <p:inputText style="width: 320px" value="#{beanTaiKhoan.taiKhoan.tenTaiKhoan}" placeholder="Tên Tài Khoản" required="true" requiredMessage="Không được để trống tài khoản"/>
                                 <p:outputLabel value="Mật Khẩu"/>
-                                <p:inputText style="width: 320px" value="#{beanTaiKhoan.taiKhoan.matKhau}" placeholder="Mật Khẩu"/>
+                                <p:inputText style="width: 320px" value="#{beanTaiKhoan.taiKhoan.matKhau}" placeholder="Mật Khẩu" required="true" requiredMessage="Không được để trống mật khẩu"/>
                                 <p:outputLabel value="Họ Tên"/>
                                 <p:inputText style="width: 320px" value="#{beanTaiKhoan.taiKhoan.hoTen}" placeholder="Họ Tên"/>
                                 <p:outputLabel value="Giới Tính"/>
@@ -32,7 +32,7 @@
                                 <p:selectBooleanCheckbox value="#{beanTaiKhoan.taiKhoan.isAdmin}"/>
                             </h:panelGrid>
                             <br/>
-                            <p:commandButton value="Thêm" icon="pi pi-check" onclick="PF('dialog_them').hide()" action="#{beanTaiKhoan.insert(beanTaiKhoan.taiKhoan)}" update="message form:table_tai_khoan" style="margin-right:20px;"/>
+                            <p:commandButton value="Thêm" icon="pi pi-check" action="#{beanTaiKhoan.insert(beanTaiKhoan.taiKhoan)}" update="message form:table_tai_khoan" style="margin-right:20px;"/>
                             <p:commandButton value="Hủy" icon="pi pi-times" onclick="PF('dialog_them').hide()"/>
                         </h:form>
                     </p:dialog>

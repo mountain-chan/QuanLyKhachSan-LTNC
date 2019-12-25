@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import org.primefaces.PrimeFaces;
 
 @ManagedBean(name = "beanTaiKhoan", eager = true)
 @ApplicationScoped
@@ -45,13 +46,7 @@ public class BeanTaiKhoan implements Serializable {
     }
 
     public void reset() {
-        taiKhoan.setTenTaiKhoan("");
-        taiKhoan.setMatKhau("");
-        taiKhoan.setHoTen("");
-        taiKhoan.setGioiTinh(true);
-        taiKhoan.setSoDienThoai("");
-        taiKhoan.setEmail("");
-        taiKhoan.setIsAdmin(false);
+        taiKhoan = new TaiKhoan();
     }
 
     public void insert(TaiKhoan tmp) {
@@ -69,9 +64,11 @@ public class BeanTaiKhoan implements Serializable {
             con.close();
             TaiKhoan tk = new TaiKhoan(tmp);
             listTaiKhoan.add(tk);
-            pf.Message.addMessage("Thành Công", "Thêm Tài Khoản Thành Công!");
+            pf.Message.addMessage("Thành Công", "Thêm tài khoản thành công!");
+            PrimeFaces current = PrimeFaces.current();
+            current.executeScript("PF('dialog_them').hide();");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Thêm Tài Khoản Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Tài khoản đã tồn tại!");
         }
     }
 
@@ -88,13 +85,13 @@ public class BeanTaiKhoan implements Serializable {
             stmt.setString(7, tmp.getTenTaiKhoan());
             stmt.executeUpdate();
             con.close();
-            String TenTaiKhoan = tmp.getTenTaiKhoan();
-            for (TaiKhoan tk : listTaiKhoan) {
-                if (tk.getTenTaiKhoan() == TenTaiKhoan) {
-                    tk.reload(tmp.getTenTaiKhoan(), tmp.getMatKhau(), tmp.getHoTen(), tmp.isGioiTinh(), tmp.getSoDienThoai(), tmp.getEmail(), tmp.isIsAdmin());
-                    break;
-                }
-            }
+            String tenTaiKhoan = tmp.getTenTaiKhoan();
+//            for (TaiKhoan tk : listTaiKhoan) {
+//                if (tk.getTenTaiKhoan().equals(tenTaiKhoan)) {
+//                    tk.reload(tmp.getTenTaiKhoan(), tmp.getMatKhau(), tmp.getHoTen(), tmp.isGioiTinh(), tmp.getSoDienThoai(), tmp.getEmail(), tmp.isIsAdmin());
+//                    break;
+//                }
+//            }
             pf.Message.addMessage("Thành Công", "Sửa Tài Khoản Thành Công!");
         } catch (Exception e) {
             pf.Message.errorMessage("Thất Bại", "Sửa Tài Khoản Thất Bại!");
