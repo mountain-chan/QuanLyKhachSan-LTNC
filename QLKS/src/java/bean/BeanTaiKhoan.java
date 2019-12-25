@@ -50,6 +50,10 @@ public class BeanTaiKhoan implements Serializable {
     }
 
     public void insert(TaiKhoan tmp) {
+        if (tmp.getTenTaiKhoan().isEmpty() || tmp.getMatKhau().isEmpty()) {
+            pf.Message.errorMessage("Thất Bại", "Không được để trống Tên tài khoản hoặc Mật khẩu!");
+            return;
+        }
         try {
             con = dao.SQLConnection.getConnection();
             PreparedStatement stmt = con.prepareStatement("insert into TaiKhoan values(?,?,?,?,?,?,?)");
@@ -73,6 +77,10 @@ public class BeanTaiKhoan implements Serializable {
     }
 
     public void update(TaiKhoan tmp) {
+        if (tmp.getTenTaiKhoan().isEmpty() || tmp.getMatKhau().isEmpty()) {
+            pf.Message.errorMessage("Thất Bại", "Không được để trống Tên tài khoản hoặc Mật khẩu!");
+            return;
+        }
         try {
             con = dao.SQLConnection.getConnection();
             PreparedStatement stmt = con.prepareStatement("update TaiKhoan set MatKhau=?, HoTen=?, GioiTinh=?, SoDienThoai=?, Email=?, IsAdmin=? where TenTaiKhoan=?");
@@ -86,15 +94,17 @@ public class BeanTaiKhoan implements Serializable {
             stmt.executeUpdate();
             con.close();
             String tenTaiKhoan = tmp.getTenTaiKhoan();
-//            for (TaiKhoan tk : listTaiKhoan) {
-//                if (tk.getTenTaiKhoan().equals(tenTaiKhoan)) {
-//                    tk.reload(tmp.getTenTaiKhoan(), tmp.getMatKhau(), tmp.getHoTen(), tmp.isGioiTinh(), tmp.getSoDienThoai(), tmp.getEmail(), tmp.isIsAdmin());
-//                    break;
-//                }
-//            }
-            pf.Message.addMessage("Thành Công", "Sửa Tài Khoản Thành Công!");
+            for (TaiKhoan tk : listTaiKhoan) {
+                if (tk.getTenTaiKhoan().equals(tenTaiKhoan)) {
+                    tk.reload(tmp.getTenTaiKhoan(), tmp.getMatKhau(), tmp.getHoTen(), tmp.isGioiTinh(), tmp.getSoDienThoai(), tmp.getEmail(), tmp.isIsAdmin());
+                    break;
+                }
+            }
+            pf.Message.addMessage("Thành Công", "Sửa tài khoản thành công!");
+            PrimeFaces current = PrimeFaces.current();
+            current.executeScript("PF('dialog_sua').hide();");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Sửa Tài Khoản Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Sửa tài khoản thất bại!");
         }
     }
 
@@ -106,14 +116,14 @@ public class BeanTaiKhoan implements Serializable {
             stmt.executeUpdate();
             con.close();
             for (TaiKhoan tk : listTaiKhoan) {
-                if (tk.getTenTaiKhoan() == TenTaiKhoan) {
+                if (tk.getTenTaiKhoan().equals(TenTaiKhoan)) {
                     listTaiKhoan.remove(tk);
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Xóa Tài Khoản Thành Công!");
+            pf.Message.addMessage("Thành Công", "Xóa tài khoản thành công!");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Xóa Tài Khoản Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Xóa tài khoản thất bại!");
         }
     }
 

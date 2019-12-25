@@ -29,9 +29,9 @@ public class BeanLoaiKhachSan implements Serializable {
             listLoaiKhachSan = new ArrayList();
             con = dao.SQLConnection.getConnection();
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select L.Id as A, L.Ten as B, L.MoTa as C, L.UrlHinhAnh as D, count(L.Id) as E "
-                    + "from LoaiKhachSan L, KhachSan K "
-                    + "where L.Id = K.IdLoaiKhachSan group by L.Id, L.Ten, L.MoTa, L.UrlHinhAnh");
+            ResultSet rs = stmt.executeQuery("select L.Id as A, L.Ten as B, L.MoTa as C, "
+                    + "L.UrlHinhAnh as D, count(L.Id) as E from LoaiKhachSan L left join KhachSan K "
+                    + "on L.Id = K.IdLoaiKhachSan group by L.Id, L.Ten, L.MoTa, L.UrlHinhAnh");
             while (rs.next()) {
                 LoaiKhachSan tmp = new LoaiKhachSan();
                 tmp.setId(rs.getInt("A"));
@@ -49,6 +49,7 @@ public class BeanLoaiKhachSan implements Serializable {
     }
 
     public void reset() {
+        loaiKhachSan = new LoaiKhachSan();
         loaiKhachSan.setTen("");
         loaiKhachSan.setMoTa("");
         loaiKhachSan.setUrlHinhAnh("");
@@ -68,9 +69,9 @@ public class BeanLoaiKhachSan implements Serializable {
             con.close();
             LoaiKhachSan tp = new LoaiKhachSan(tmp);
             listLoaiKhachSan.add(tp);
-            pf.Message.addMessage("Thành Công", "Thêm Loại Khách Sạn Thành Công!");
+            pf.Message.addMessage("Thành Công", "Thêm Loại khách sạn thành công!");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Thêm Loại Khách Sạn Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Thêm Loại khách sạn thất bại!");
         }
     }
 
@@ -91,9 +92,9 @@ public class BeanLoaiKhachSan implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Sửa Loại Khách Sạn Thành Công!");
+            pf.Message.addMessage("Thành Công", "Sửa Loại khách sạn thành công!");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Sửa Loại Khách Sạn Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Sửa Loại khách sạn thất bại!");
         }
     }
 
@@ -110,9 +111,9 @@ public class BeanLoaiKhachSan implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Xóa Loại Khách Sạn Thành Công!");
+            pf.Message.addMessage("Thành Công", "Xóa Loại khách sạn thành công!");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Xóa Loại Khách Sạn Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Xóa Loại khách sạn thất bại!");
         }
     }
 

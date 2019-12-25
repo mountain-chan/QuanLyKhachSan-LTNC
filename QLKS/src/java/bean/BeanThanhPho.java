@@ -29,9 +29,9 @@ public class BeanThanhPho implements Serializable {
             listThanhPho = new ArrayList();
             con = dao.SQLConnection.getConnection();
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select T.Id as A, T.Ten as B, T.MoTa as C, T.UrlHinhAnh as D, count(T.Id) as E "
-                    + "from ThanhPho T, KhachSan K "
-                    + "where T.Id = K.IdThanhPho group by T.Id, T.Ten, T.MoTa, T.UrlHinhAnh");
+            ResultSet rs = stmt.executeQuery("select T.Id as A, T.Ten as B, T.MoTa as C, "
+                    + "T.UrlHinhAnh as D, count(K.Id) as E from ThanhPho T left join KhachSan K "
+                    + "on T.Id = K.IdThanhPho group by T.Id, T.Ten, T.MoTa, T.UrlHinhAnh");
             while (rs.next()) {
                 ThanhPho tmp = new ThanhPho();
                 tmp.setId(rs.getInt("A"));
@@ -49,6 +49,7 @@ public class BeanThanhPho implements Serializable {
     }
 
     public void reset() {
+        thanhPho = new ThanhPho();
         thanhPho.setTen("");
         thanhPho.setMoTa("");
         thanhPho.setUrlHinhAnh("");
@@ -68,9 +69,9 @@ public class BeanThanhPho implements Serializable {
             con.close();
             ThanhPho tp = new ThanhPho(tmp);
             listThanhPho.add(tp);
-            pf.Message.addMessage("Thành Công", "Thêm Thành Phố Thành Công!");
+            pf.Message.addMessage("Thành Công", "Thêm Thành phố thành công!");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Thêm Thành Phố Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Thêm Thành phố thất bại!");
         }
     }
 
@@ -91,9 +92,9 @@ public class BeanThanhPho implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Sửa Thành Phố Thành Công!");
+            pf.Message.addMessage("Thành Công", "Sửa Thành phố thành công!");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Sửa Thành Phố Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Sửa Thành Phố thất bại!");
         }
     }
 
@@ -110,9 +111,9 @@ public class BeanThanhPho implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Xóa Thành Phố Thành Công!");
+            pf.Message.addMessage("Thành Công", "Xóa Thành phố thành công!");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Xóa Thành Phố Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Xóa Thành phố thất bại!");
         }
     }
 

@@ -66,6 +66,7 @@ public class BeanKhachSan implements Serializable {
     }
 
     public void reset() {
+        khachSan = new KhachSan();
         khachSan.setTen("");
         khachSan.setDiaChi("");
         khachSan.setSoDienThoai("");
@@ -102,9 +103,9 @@ public class BeanKhachSan implements Serializable {
             tmp.setTenThanhPho(hashThanhPho.get(tmp.getIdThanhPho()));
             KhachSan ks = new KhachSan(tmp);
             listKhachSan.add(ks);
-            pf.Message.addMessage("Thành Công", "Thêm Khách Sạn Thành Công!");
+            pf.Message.addMessage("Thành Công", "Thêm Khách sạn thành công!");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Thêm Khách Sạn Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Thêm Khách sạn thất bại!");
         }
     }
 
@@ -133,10 +134,10 @@ public class BeanKhachSan implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Sửa Khách Sạn Thành Công!");
+            pf.Message.addMessage("Thành Công", "Sửa Khách sạn thành công!");
         } catch (Exception e) {
             System.out.println(e.toString());
-            pf.Message.errorMessage("Thất Bại", "Sửa Khách Sạn Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Sửa Khách sạn thất bại!");
         }
     }
 
@@ -153,9 +154,9 @@ public class BeanKhachSan implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Xóa Khách Sạn Thành Công!");
+            pf.Message.addMessage("Thành Công", "Xóa Khách sạn thành công!");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Xóa Khách Sạn Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Xóa Khách sạn thất bại!");
         }
     }
 

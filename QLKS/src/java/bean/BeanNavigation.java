@@ -400,10 +400,10 @@ public class BeanNavigation implements Serializable {
             con.close();
             listPhong.remove(phongDangDat);
             listDatPhong.add(datPhong);
-            pf.Message.addMessage("Thành Công", "Đặt Phòng thành công, vui lòng vào Lịch Sử trong Trang Cá Nhân để xem thông tin Đặt Phòng!");
+            pf.Message.addMessage("Thành Công", "Đặt phòng thành công, vui lòng vào Lịch sử trong Trang cá nhân để xem thông tin Đặt phòng!");
         } catch (Exception e) {
             System.out.println(e.toString());
-            pf.Message.errorMessage("Thất Bại", "Đặt Phòng thất bại!");
+            pf.Message.errorMessage("Thất Bại", "Đặt phòng thất bại!");
         }
     }
 

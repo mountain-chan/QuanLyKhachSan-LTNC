@@ -44,8 +44,14 @@ public class BeanNguoiDung implements Serializable {
     }
 
     public void dangNhap() {
+        if (taiKhoanDangNhap.getTenTaiKhoan().isEmpty() || taiKhoanDangNhap.getMatKhau().isEmpty()) {
+            pf.Message.errorMessage("Thất Bại", "Không được để trống Tên tài khoản hoặc Mật khẩu!");
+            return;
+        }
         TaiKhoan tk = SQLConnection.getTaiKhoan(taiKhoanDangNhap.getTenTaiKhoan(), taiKhoanDangNhap.getMatKhau());
         if (tk != null) {
+            PrimeFaces current = PrimeFaces.current();
+            current.executeScript("PF('dialog_dangnhap').hide();");
             pf.Message.addMessage("Thành Công", "Đăng nhập thành công!");
             FacesContext facesContext = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
@@ -74,7 +80,7 @@ public class BeanNguoiDung implements Serializable {
 
     public void dangKy() {
         if (taiKhoanDangNhap.getTenTaiKhoan().isEmpty() || taiKhoanDangNhap.getMatKhau().isEmpty()) {
-            pf.Message.errorMessage("Thất Bại", "Không được để trống tài khoản hoặc mật khẩu!");
+            pf.Message.errorMessage("Thất Bại", "Không được để trống Tên tài khoản hoặc Mật khẩu!");
             return;
         }
         if (!taiKhoanDangNhap.getMatKhau().equals(nhapLaiMatKhau)) {
@@ -94,6 +100,8 @@ public class BeanNguoiDung implements Serializable {
             stmt.executeUpdate();
             con.close();
             pf.Message.addMessage("Thành Công", "Đăng ký thành công!");
+            PrimeFaces current = PrimeFaces.current();
+            current.executeScript("PF('dialog_dangky').hide();");
         } catch (Exception e) {
             pf.Message.errorMessage("Thất Bại", "Tên tài khoản đã được sử dụng!");
         }
@@ -159,7 +167,7 @@ public class BeanNguoiDung implements Serializable {
             con.close();
             pf.Message.addMessage("Thành Công", "Cập nhật thành công!");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Lỗi kết nối CSDL!");
+            pf.Message.errorMessage("Thất Bại", "Cập nhật thất bại!");
         }
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         HttpSession session = request.getSession();

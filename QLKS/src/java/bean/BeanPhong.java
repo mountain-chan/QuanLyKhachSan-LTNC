@@ -60,6 +60,7 @@ public class BeanPhong implements Serializable {
     }
 
     public void reset() {
+        phong = new Phong();
         phong.setTen("");
         phong.setDienTich(0);
         phong.setGiaThue(0);
@@ -89,9 +90,9 @@ public class BeanPhong implements Serializable {
             con.close();
             Phong p = new Phong(tmp);
             listPhong.add(p);
-            pf.Message.addMessage("Thành Công", "Thêm Phòng Thành Công!");
+            pf.Message.addMessage("Thành Công", "Thêm Phòng thành công!");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Thêm Phòng Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Thêm Phòng thất bại!");
         }
     }
 
@@ -117,10 +118,10 @@ public class BeanPhong implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Sửa Phòng Thành Công!");
+            pf.Message.addMessage("Thành Công", "Sửa Phòng thành công!");
         } catch (Exception e) {
             System.out.println(e.toString());
-            pf.Message.errorMessage("Thất Bại", "Sửa Phòng Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Sửa Phòng thất bại!");
         }
     }
 
@@ -137,9 +138,9 @@ public class BeanPhong implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Xóa Phòng Thành Công!");
+            pf.Message.addMessage("Thành Công", "Xóa Phòng thành công!");
         } catch (Exception e) {
-            pf.Message.errorMessage("Thất Bại", "Xóa Phòng Thất Bại!");
+            pf.Message.errorMessage("Thất Bại", "Xóa Phòng thất bại!");
         }
     }
 
