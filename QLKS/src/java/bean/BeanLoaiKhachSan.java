@@ -1,5 +1,7 @@
 package bean;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.Serializable;
 import model.*;
 import java.sql.Connection;
@@ -10,6 +12,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import org.primefaces.PrimeFaces;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "beanLoaiKhachSan", eager = true)
 @ApplicationScoped
@@ -18,9 +24,11 @@ public class BeanLoaiKhachSan implements Serializable {
     private static final long serialVersionUID = 185755L;
 
     public static HashMap<Integer, String> hashLoaiKhachSan;
-    LoaiKhachSan loaiKhachSan;
-    ArrayList<LoaiKhachSan> listLoaiKhachSan;
-    Connection con;
+    
+    private UploadedFile file;
+    private LoaiKhachSan loaiKhachSan;
+    private ArrayList<LoaiKhachSan> listLoaiKhachSan;
+    private Connection con;
 
     public BeanLoaiKhachSan() {
         try {
@@ -55,8 +63,23 @@ public class BeanLoaiKhachSan implements Serializable {
         loaiKhachSan.setUrlHinhAnh("");
     }
 
+    public void handleFileUpload(FileUploadEvent event) {
+        file = event.getFile();
+        loaiKhachSan.setUrlHinhAnh("Content/Images/LoaiKhachSan/" + file.getFileName());
+    }
+    
     public void insert(LoaiKhachSan tmp) {
+        if (tmp.getTen().length() == 0 || file == null) {
+            pf.Message.errorMessage("Thất Bại", "Không được để trống tên hoặc hình ảnh!");
+            return;
+        }
         try {
+            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+            File f = new File(path + "Content/Images/LoaiKhachSan/" + file.getFileName());
+            try (FileOutputStream fos = new FileOutputStream(f)) {
+                byte[] content = file.getContents();
+                fos.write(content);
+            }
             con = dao.SQLConnection.getConnection();
             PreparedStatement stmt = con.prepareStatement("insert into LoaiKhachSan output inserted.Id values(?,?,?)");
             stmt.setString(1, tmp.getTen());
@@ -73,10 +96,22 @@ public class BeanLoaiKhachSan implements Serializable {
         } catch (Exception e) {
             pf.Message.errorMessage("Thất Bại", "Thêm Loại khách sạn thất bại!");
         }
+        PrimeFaces current = PrimeFaces.current();
+        current.executeScript("PF('dialog_them').hide();");
     }
 
     public void update(LoaiKhachSan tmp) {
+        if (tmp.getTen().length() == 0 || file == null) {
+            pf.Message.errorMessage("Thất Bại", "Không được để trống tên hoặc hình ảnh!");
+            return;
+        }
         try {
+            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+            File f = new File(path + "Content/Images/LoaiKhachSan/" + file.getFileName());
+            try (FileOutputStream fos = new FileOutputStream(f)) {
+                byte[] content = file.getContents();
+                fos.write(content);
+            }
             con = dao.SQLConnection.getConnection();
             PreparedStatement stmt = con.prepareStatement("update LoaiKhachSan set Ten=?, MoTa=?, UrlHinhAnh=? where Id=?");
             stmt.setString(1, tmp.getTen());
@@ -96,6 +131,8 @@ public class BeanLoaiKhachSan implements Serializable {
         } catch (Exception e) {
             pf.Message.errorMessage("Thất Bại", "Sửa Loại khách sạn thất bại!");
         }
+        PrimeFaces current = PrimeFaces.current();
+        current.executeScript("PF('dialog_sua').hide();");
     }
 
     public void delete(int Id) {
@@ -134,6 +171,14 @@ public class BeanLoaiKhachSan implements Serializable {
 
     public void setListLoaiKhachSan(ArrayList<LoaiKhachSan> listLoaiKhachSan) {
         this.listLoaiKhachSan = listLoaiKhachSan;
+    }
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
     }
 
 }

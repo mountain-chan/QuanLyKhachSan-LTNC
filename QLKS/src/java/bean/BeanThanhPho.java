@@ -1,5 +1,7 @@
 package bean;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.Serializable;
 import model.*;
 import java.sql.Connection;
@@ -10,6 +12,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import org.primefaces.PrimeFaces;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "beanThanhPho", eager = true)
 @ApplicationScoped
@@ -18,9 +24,10 @@ public class BeanThanhPho implements Serializable {
     private static final long serialVersionUID = 1124771L;
 
     public static HashMap<Integer, String> hashThanhPho;
-    ThanhPho thanhPho;
-    ArrayList<ThanhPho> listThanhPho;
-    Connection con;
+    private ThanhPho thanhPho;
+    private UploadedFile file;
+    private ArrayList<ThanhPho> listThanhPho;
+    private Connection con;
 
     public BeanThanhPho() {
         try {
@@ -55,8 +62,23 @@ public class BeanThanhPho implements Serializable {
         thanhPho.setUrlHinhAnh("");
     }
 
+    public void handleFileUpload(FileUploadEvent event) {
+        file = event.getFile();
+        thanhPho.setUrlHinhAnh("Content/Images/ThanhPho/" + file.getFileName());
+    }
+
     public void insert(ThanhPho tmp) {
+        if (tmp.getTen().length() == 0 || file == null) {
+            pf.Message.errorMessage("Thất Bại", "Không được để trống tên hoặc hình ảnh!");
+            return;
+        }
         try {
+            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+            File f = new File(path + "Content/Images/ThanhPho/" + file.getFileName());
+            try (FileOutputStream fos = new FileOutputStream(f)) {
+                byte[] content = file.getContents();
+                fos.write(content);
+            }
             con = dao.SQLConnection.getConnection();
             PreparedStatement stmt = con.prepareStatement("insert into ThanhPho output inserted.Id values(?,?,?)");
             stmt.setString(1, tmp.getTen());
@@ -71,12 +93,25 @@ public class BeanThanhPho implements Serializable {
             listThanhPho.add(tp);
             pf.Message.addMessage("Thành Công", "Thêm Thành phố thành công!");
         } catch (Exception e) {
+            System.out.println("loi:" + e.toString());
             pf.Message.errorMessage("Thất Bại", "Thêm Thành phố thất bại!");
         }
+        PrimeFaces current = PrimeFaces.current();
+        current.executeScript("PF('dialog_them').hide();");
     }
 
     public void update(ThanhPho tmp) {
+        if (tmp.getTen().length() == 0 || file == null) {
+            pf.Message.errorMessage("Thất Bại", "Không được để trống tên hoặc hình ảnh!");
+            return;
+        }
         try {
+            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+            File f = new File(path + "Content/Images/ThanhPho/" + file.getFileName());
+            try (FileOutputStream fos = new FileOutputStream(f)) {
+                byte[] content = file.getContents();
+                fos.write(content);
+            }
             con = dao.SQLConnection.getConnection();
             PreparedStatement stmt = con.prepareStatement("update ThanhPho set Ten=?, MoTa=?, UrlHinhAnh=? where Id=?");
             stmt.setString(1, tmp.getTen());
@@ -96,6 +131,8 @@ public class BeanThanhPho implements Serializable {
         } catch (Exception e) {
             pf.Message.errorMessage("Thất Bại", "Sửa Thành Phố thất bại!");
         }
+        PrimeFaces current = PrimeFaces.current();
+        current.executeScript("PF('dialog_sua').hide();");
     }
 
     public void delete(int Id) {
@@ -134,6 +171,14 @@ public class BeanThanhPho implements Serializable {
 
     public void setListThanhPho(ArrayList<ThanhPho> listThanhPho) {
         this.listThanhPho = listThanhPho;
+    }
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
     }
 
 }

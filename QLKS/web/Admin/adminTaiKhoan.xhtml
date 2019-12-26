@@ -12,7 +12,7 @@
         <h:body>
             <ui:composition template="AdminTemplate/adminTemplate.xhtml">
                 <ui:define name="content">
-                    <p:growl id="message" showDetail="true"/>
+                    <p:growl id="msg" showDetail="true"/>
                     <p:dialog id="them" widgetVar="dialog_them" modal="true" resizable="false" width="600" height="380" header="Thêm Tài Khoản" showEffect="fade" hideEffect="fade" closable="true" appendTo="@(body)" style="text-align: center">
                         <h:form>
                             <h:panelGrid columns="2" width="100%" cellspacing="10px">
@@ -32,7 +32,7 @@
                                 <p:selectBooleanCheckbox value="#{beanTaiKhoan.taiKhoan.isAdmin}"/>
                             </h:panelGrid>
                             <br/>
-                            <p:commandButton value="Thêm" icon="pi pi-check" action="#{beanTaiKhoan.insert(beanTaiKhoan.taiKhoan)}" update="message form:table_tai_khoan" style="margin-right:20px;"/>
+                            <p:commandButton value="Thêm" icon="pi pi-check" action="#{beanTaiKhoan.insert(beanTaiKhoan.taiKhoan)}" update="msg form:danh_sach" style="margin-right:20px;"/>
                             <p:commandButton value="Hủy" icon="pi pi-times" onclick="PF('dialog_them').hide()"/>
                         </h:form>
                     </p:dialog>
@@ -55,12 +55,12 @@
                                 <p:selectBooleanCheckbox value="#{beanTaiKhoan.taiKhoan.isAdmin}"/>
                             </h:panelGrid>
                             <br/>
-                            <p:commandButton value="Sửa" icon="pi pi-check" action="#{beanTaiKhoan.update(beanTaiKhoan.taiKhoan)}" update="message form:table_tai_khoan" style="margin-right:20px;"/>
+                            <p:commandButton value="Sửa" icon="pi pi-check" action="#{beanTaiKhoan.update(beanTaiKhoan.taiKhoan)}" update="msg form:danh_sach" style="margin-right:20px;"/>
                             <p:commandButton value="Hủy" icon="pi pi-times" onclick="PF('dialog_sua').hide()"/>
                         </h:form>
                     </p:dialog>
                     <h:form id="form">
-                        <p:dataTable id="table_tai_khoan" var="item" value="#{beanTaiKhoan.listTaiKhoan}"
+                        <p:dataTable id="danh_sach" var="item" value="#{beanTaiKhoan.listTaiKhoan}"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                      paginator="true" rows="8" style="margin-bottom:20px" paginatorPosition="top">
                             <f:facet name="{Exporters}">
@@ -90,10 +90,10 @@
                                 <h:outputText value="#{item.isAdmin==true?'Có':'Không'}"/>
                             </p:column>
                             <p:column headerText="Thao Tác" style="width:8%">
-                                <p:commandButton update="sua table_tai_khoan" oncomplete="PF('dialog_sua').show()" title="Sửa" icon="pi pi-refresh" ajax="true">
+                                <p:commandButton update="sua danh_sach" oncomplete="PF('dialog_sua').show()" title="Sửa" icon="pi pi-refresh" ajax="true">
                                     <f:setPropertyActionListener value="#{item}" target="#{beanTaiKhoan.taiKhoan}" />
                                 </p:commandButton>
-                                <p:commandButton update="message table_tai_khoan" title="Xóa" action="#{beanTaiKhoan.delete(item.tenTaiKhoan)}" icon="pi pi-times" ajax="true">
+                                <p:commandButton update="msg danh_sach" title="Xóa" action="#{beanTaiKhoan.delete(item.tenTaiKhoan)}" icon="pi pi-times" ajax="true">
                                     <p:confirm header="Xác Nhận" message="Bạn có chắc chắn muốn xóa không?" icon="pi pi-exclamation-triangle" />
                                 </p:commandButton>
 

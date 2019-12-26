@@ -12,7 +12,7 @@
         <h:body>
             <ui:composition template="AdminTemplate/adminTemplate.xhtml">
                 <ui:define name="content">
-                    <p:growl id="message" showDetail="true"/>
+                    <p:growl id="msg" showDetail="true"/>
                     <p:dialog id="them" widgetVar="dialog_them" modal="true" resizable="false" width="600" height="510" header="Thêm Phòng" showEffect="fade" hideEffect="fade" closable="true" appendTo="@(body)" style="text-align: center">
                         <h:form>
                             <h:panelGrid columns="2" width="100%" cellspacing="10px">
@@ -36,7 +36,7 @@
                             <p:inputTextarea rows="6" cols="64" autoResize="false" value="#{beanPhong.phong.moTa}" placeholder="Mô Tả"/>
                             <br/>
                             <br/>
-                            <p:commandButton value="Thêm" icon="pi pi-check" onclick="PF('dialog_them').hide()" action="#{beanPhong.insert(beanPhong.phong)}" update="message form:table_phong" style="margin-right:20px;"/>
+                            <p:commandButton value="Thêm" icon="pi pi-check" onclick="PF('dialog_them').hide()" action="#{beanPhong.insert(beanPhong.phong)}" update="msg form:danh_sach" style="margin-right:20px;"/>
                             <p:commandButton value="Hủy" icon="pi pi-times" onclick="PF('dialog_them').hide()"/>
                         </h:form>
                     </p:dialog>
@@ -63,12 +63,12 @@
                             <p:inputTextarea rows="6" cols="64" autoResize="false" value="#{beanPhong.phong.moTa}" placeholder="Mô Tả"/>
                             <br/>
                             <br/>
-                            <p:commandButton value="Sửa" icon="pi pi-check" onclick="PF('dialog_sua').hide()" action="#{beanPhong.update(beanPhong.phong)}" update="message form:table_phong" style="margin-right:20px;"/>
+                            <p:commandButton value="Sửa" icon="pi pi-check" onclick="PF('dialog_sua').hide()" action="#{beanPhong.update(beanPhong.phong)}" update="msg form:danh_sach" style="margin-right:20px;"/>
                             <p:commandButton value="Hủy" icon="pi pi-times" onclick="PF('dialog_sua').hide()"/>
                         </h:form>
                     </p:dialog>
                     <h:form id="form">
-                        <p:dataTable id="table_phong" var="item" value="#{beanPhong.listPhong}"
+                        <p:dataTable id="danh_sach" var="item" value="#{beanPhong.listPhong}"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                      paginator="true" rows="7" style="margin-bottom:20px" paginatorPosition="top">
                             <f:facet name="{Exporters}">
@@ -98,10 +98,10 @@
                                 <h:outputText value="#{item.tenKhachSan}"/>
                             </p:column>
                             <p:column headerText="Thao Tác" style="width:8%">
-                                <p:commandButton update="sua table_phong" oncomplete="PF('dialog_sua').show()" title="Sửa" icon="pi pi-refresh" ajax="true">
+                                <p:commandButton update="sua danh_sach" oncomplete="PF('dialog_sua').show()" title="Sửa" icon="pi pi-refresh" ajax="true">
                                     <f:setPropertyActionListener value="#{item}" target="#{beanPhong.phong}" />
                                 </p:commandButton>
-                                <p:commandButton update="message table_phong" title="Xóa" action="#{beanPhong.delete(item.id)}" icon="pi pi-times" ajax="true">
+                                <p:commandButton update="msg danh_sach" title="Xóa" action="#{beanPhong.delete(item.id)}" icon="pi pi-times" ajax="true">
                                     <p:confirm header="Xác Nhận" message="Bạn có chắc chắn muốn xóa không?" icon="pi pi-exclamation-triangle" />
                                 </p:commandButton>
                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

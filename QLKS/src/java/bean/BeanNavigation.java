@@ -167,12 +167,22 @@ public class BeanNavigation implements Serializable {
     // Trước tiên đưa hết từ khóa tìm kiếm về chữ thường, sau đó loại bỏ dấu rồi mới
     // so sánh với các khách sạn trong danh sách
     public String timKiem() {
+        ArrayList<Integer> listKSTrong = new ArrayList();
+        if (thoiGianTimKiem != null && !thoiGianTimKiem.isEmpty()) {
+            Date dNgayDen = thoiGianTimKiem.get(0);
+            Date dNgayTra = thoiGianTimKiem.get(thoiGianTimKiem.size() - 1);
+            for (Phong tmp : lstP) {
+                if (kiemTraPhongTrong(tmp, dNgayDen, dNgayTra)) {
+                    listKSTrong.add(tmp.getIdKhachSan());
+                }
+            }
+        }
         String tenThanhPhoKoDau = util.VNCharacterUtils.removeAccent(tenThanhPhoTimKiem.toLowerCase());
         String s;
         listKhachSan = new ArrayList();
         for (KhachSan tmp : lstKS) {
             s = util.VNCharacterUtils.removeAccent(tmp.getTenThanhPho().toLowerCase());
-            if (s.contains(tenThanhPhoKoDau)) {
+            if (s.contains(tenThanhPhoKoDau) && listKSTrong.contains(tmp.getId())) {
                 listKhachSan.add(tmp);
             }
         }

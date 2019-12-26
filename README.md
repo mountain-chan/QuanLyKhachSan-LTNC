@@ -4,8 +4,6 @@ Quản Lý Khách Sạn - Hotel Booking By Java
 
 BTL Môn Lập Trình Nâng Cao
 
---------------
-
 ## Sử dụng:
 
 NetBeans IDE 8.2
@@ -13,6 +11,8 @@ NetBeans IDE 8.2
 Java 8.0_231
 
 Glassfish 4.1.1
+
+JSF 2.2
 
 PrimeFaces 7.0
 

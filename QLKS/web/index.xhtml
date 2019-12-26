@@ -21,7 +21,7 @@
                             <div class="tim-kiem">
                                 <h:form>
                                     <p:inputText id="a" placeholder="Nhập thành phố" value="#{beanNavigation.tenThanhPhoTimKiem}" />
-                                    <p:datePicker id="b" placeholder="Ngày đến - Ngày trả" selectionMode="range" value="#{beanNavigation.thoiGianTimKiem}" pattern="dd.MM.yyyy" mindate="#{beanNavigation.minDate}" readonlyInput="true"/>
+                                    <p:datePicker id="b" placeholder="Ngày đến - Ngày trả" selectionMode="range" value="#{beanNavigation.thoiGianTimKiem}" pattern="dd.MM.yyyy" readonlyInput="true"/>
                                     <h:commandButton value="Tìm" class="btn-timkiem" action="#{beanNavigation.timKiem()}" />
                                 </h:form>
                             </div>
