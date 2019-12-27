@@ -17,9 +17,9 @@ public class BeanTaiKhoan implements Serializable {
 
     private static final long serialVersionUID = 45438764L;
 
-    TaiKhoan taiKhoan;
-    ArrayList<TaiKhoan> listTaiKhoan;
-    Connection con;
+    private TaiKhoan taiKhoan;
+    private ArrayList<TaiKhoan> listTaiKhoan;
+    private Connection con;
 
     public BeanTaiKhoan() {
         taiKhoan = new TaiKhoan();

@@ -1,6 +1,8 @@
 package bean;
 
 import static bean.BeanThanhPho.hashThanhPho;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.Serializable;
 import model.*;
 import java.sql.Connection;
@@ -11,19 +13,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import org.primefaces.PrimeFaces;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "beanKhachSan", eager = true)
 @ApplicationScoped
 public class BeanKhachSan implements Serializable {
 
     private static final long serialVersionUID = 1786783L;
+    private static final String url = "Content/Images/KhachSan/";
 
     public static HashMap<Integer, String> hashKhachSan;
-    KhachSan khachSan;
-    ArrayList<KhachSan> listKhachSan;
-    ArrayList<BuaAn> listBuaAn;
-    Connection con;
-    String[] strDanhGia = {"Bình thường", "Khá ổn", "Chất lượng", "Sang trọng", "Tuyệt vời", "Xuất sắc"};
+
+    private UploadedFile file;
+    private KhachSan khachSan;
+    private String urlHinhAnh;
+    private ArrayList<KhachSan> listKhachSan;
+    private ArrayList<BuaAn> listBuaAn;
+    private Connection con;
+    private String[] strDanhGia = {"Bình thường", "Khá ổn", "Chất lượng", "Sang trọng", "Tuyệt vời", "Xuất sắc"};
 
     public BeanKhachSan() {
         listBuaAn = new ArrayList();
@@ -81,7 +91,16 @@ public class BeanKhachSan implements Serializable {
         khachSan.setTenLoaiKhachSan("");
     }
 
+    public void handleFileUpload(FileUploadEvent event) {
+        file = event.getFile();
+        this.setUrlHinhAnh(url + khachSan.getId() + ".jpg");
+    }
+
     public void insert(KhachSan tmp) {
+        if (tmp.getTen().length() == 0 || tmp.getDiaChi().length() == 0 || file == null) {
+            pf.Message.errorMessage("Thất Bại", "Không được để trống trường nào!");
+            return;
+        }
         try {
             con = dao.SQLConnection.getConnection();
             PreparedStatement stmt = con.prepareStatement("insert into KhachSan output inserted.Id values(?,?,?,?,?,?,?,?,?,?)");
@@ -100,6 +119,13 @@ public class BeanKhachSan implements Serializable {
                 tmp.setId(rs.getInt("Id"));
             }
             con.close();
+            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+            File f = new File(path + url + tmp.getId() + ".jpg");
+            try (FileOutputStream fos = new FileOutputStream(f)) {
+                byte[] content = file.getContents();
+                fos.write(content);
+            }
+            file = null;
             tmp.setTenThanhPho(hashThanhPho.get(tmp.getIdThanhPho()));
             KhachSan ks = new KhachSan(tmp);
             listKhachSan.add(ks);
@@ -107,10 +133,23 @@ public class BeanKhachSan implements Serializable {
         } catch (Exception e) {
             pf.Message.errorMessage("Thất Bại", "Thêm Khách sạn thất bại!");
         }
+        PrimeFaces current = PrimeFaces.current();
+        current.executeScript("PF('dialog_them').hide();");
     }
 
     public void update(KhachSan tmp) {
+        if (tmp.getTen().length() == 0 || tmp.getDiaChi().length() == 0) {
+            pf.Message.errorMessage("Thất Bại", "Không được để trống trường nào!");
+            return;
+        }
         try {
+            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+            File f = new File(path + url + tmp.getId() + ".jpg");
+            try (FileOutputStream fos = new FileOutputStream(f)) {
+                byte[] content = file.getContents();
+                fos.write(content);
+            }
+            file = null;
             con = dao.SQLConnection.getConnection();
             PreparedStatement stmt = con.prepareStatement("update KhachSan set Ten=?, DiaChi=?, SoDienThoai=?, CachTrungTam=?, MoTa=?, GiapBien=?, DanhGia=?, BuaAn=?, IdThanhPho=?, IdLoaiKhachSan=? where Id=?");
             stmt.setString(1, tmp.getTen());
@@ -139,6 +178,8 @@ public class BeanKhachSan implements Serializable {
             System.out.println(e.toString());
             pf.Message.errorMessage("Thất Bại", "Sửa Khách sạn thất bại!");
         }
+        PrimeFaces current = PrimeFaces.current();
+        current.executeScript("PF('dialog_sua').hide();");
     }
 
     public void delete(int Id) {
@@ -193,6 +234,22 @@ public class BeanKhachSan implements Serializable {
 
     public void setStrDanhGia(String[] strDanhGia) {
         this.strDanhGia = strDanhGia;
+    }
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    public String getUrlHinhAnh() {
+        return urlHinhAnh;
+    }
+
+    public void setUrlHinhAnh(String urlHinhAnh) {
+        this.urlHinhAnh = urlHinhAnh;
     }
 
 }

@@ -20,9 +20,10 @@ public class BeanPhong implements Serializable {
 
     public static HashMap<Integer, KhachSan> hashPhongKhachSan;
     public static HashMap<Integer, String> hashPhong;
-    Phong phong;
-    ArrayList<Phong> listPhong;
-    Connection con;
+    
+    private Phong phong;
+    private ArrayList<Phong> listPhong;
+    private Connection con;
 
     public BeanPhong() {
         phong = new Phong();

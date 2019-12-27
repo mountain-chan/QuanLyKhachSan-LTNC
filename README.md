@@ -40,3 +40,23 @@ SessionScoped: Đi theo session, mỗi khi một trình duyệt vào web thì t�
 => Các bean như BeanKhachSan, BeanLoaiKhachSan, BeanThanhPho chỉ để hiển thị cho người dùng, ai cũng thấy như nhau nên để ApplicaionScoped
 
 => BeanNavigation, BeanDangNhap lưu các thông tin người dùng, mỗi người một khác nên để SessionScoped
+
+## Danh sách lỗi chưa sửa:
+
+Hai btn DangNhap trong form DangKy va DangKy trong form DangNhap chưa làm
+
+Lỗi lọc phòng có lúc sai khi vừa đặt xong(chưa để ý lúc nào)
+
+Lỗi minDate ở cả chọn Date ở trang chủ và trang đặt phòng (tạm bỏ)
+
+Tìm cách đặt phòng luôn hiện link xem ngay lịch sử, nên là ở messageBox thông báo nhưng chưa biết làm
+
+Background trong khách sạn ko đổi khi cập nhật thành phố, do Model Khách sạn có thêm trường dư thừa urlHinhAnh => cần cập nhật lại thông tin danh sách khách sạn (url, ...) khi cập nhật thành phố, loại khách sạn ...
+
+Cập nhật ds phòng khi cập nhật Khách sạn
+
+Nếu thêm loại khách sạn phải cập nhật listKhachSan trong bộ lọc
+
+Form Admin Khách sạn thiếu chọn Loại KS
+
+=> Hầu hết các lỗi trên là do sessionBean được khởi tạo đúng 1 lần duy nhất khi vào phiên nên khi khởi động lại trình duyệt sẽ được giải quyết

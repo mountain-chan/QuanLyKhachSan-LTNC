@@ -13,23 +13,34 @@
             <ui:composition template="AdminTemplate/adminTemplate.xhtml">
                 <ui:define name="content">
                     <p:growl id="msg" showDetail="true"/>
-                    <p:dialog id="them" widgetVar="dialog_them" modal="true" resizable="false" width="600" height="515" header="Thêm Khách Sạn" showEffect="fade" hideEffect="fade" closable="true" appendTo="@(body)" style="text-align: center">
+                    <p:dialog id="them" widgetVar="dialog_them" modal="true" resizable="false" width="600" header="Thêm Khách Sạn" showEffect="fade" hideEffect="fade" closable="true" appendTo="@(body)" style="text-align: center">
                         <h:form>
-                            <h:panelGrid columns="2" width="100%" cellspacing="10px">
-                                <p:outputLabel value="Tên"/>
-                                <p:inputText style="width: 320px" value="#{beanKhachSan.khachSan.ten}" placeholder="Tên Khách Sạn"/>
-                                <p:outputLabel value="Địa Chỉ"/>
-                                <p:inputText style="width: 320px" value="#{beanKhachSan.khachSan.diaChi}" placeholder="Địa Chỉ"/>
-                                <p:outputLabel value="Số Điện Thoại"/>
-                                <p:inputText style="width: 320px" value="#{beanKhachSan.khachSan.soDienThoai}" placeholder="Số Điện Thoại"/>
-                                <p:outputLabel value="Cách Trung Tâm"/>
-                                <p:inputText style="width: 320px" value="#{beanKhachSan.khachSan.cachTrungTam}" type="number"/>
-                            </h:panelGrid>
+                            <div style="position: relative; height: 50px">
+                                <p:outputLabel style="width: 25%; position: absolute; left: 0; top: 15px;" value="Tên Khách Sạn"/>
+                                <p:inputText style="width: 68%; position: absolute; left: 25%; top: 10px;" value="#{beanKhachSan.khachSan.ten}" placeholder="Tên Khách Sạn"/>
+                            </div>
+                            <div style="position: relative; height: 50px">
+                                <p:outputLabel style="width: 25%; position: absolute; left: 0; top: 15px;" value="Địa Chỉ"/>
+                                <p:inputText style="width: 68%; position: absolute; left: 25%; top: 10px;" value="#{beanKhachSan.khachSan.diaChi}" placeholder="Địa Chỉ"/>
+                            </div>
+                            <div style="position: relative; height: 50px">
+                                <p:outputLabel style="width: 25%; position: absolute; left: 0; top: 15px;" value="Số Điện Thoại"/>
+                                <p:inputText style="width: 68%; position: absolute; left: 25%; top: 10px;" value="#{beanKhachSan.khachSan.soDienThoai}" placeholder="Số Điện Thoại"/>
+                            </div>
+                            <div style="position: relative; height: 50px">
+                                <p:outputLabel style="width: 25%; position: absolute; left: 0; top: 15px;" value="Cách Trung Tâm"/>
+                                <p:inputText style="width: 68%; position: absolute; left: 25%; top: 10px;" value="#{beanKhachSan.khachSan.cachTrungTam}" type="number"/>
+                            </div>
+                            <div style="position: relative; height: 60px">
+                                <p:outputLabel style="width: 25%; position: absolute; left: 0; top: 15px;" value="Hình Ảnh"/>
+                                <p:inputText id="url" style="width: 51%; position: absolute; left: 25%; top: 10px;" value="#{beanKhachSan.urlHinhAnh}" disabled="true" placeholder="Hình Ảnh"/>
+                                <p:fileUpload style="width: 13%; position: absolute; left: 79%; top: 10px;" fileUploadListener="#{beanKhachSan.handleFileUpload}" auto="true" update="url" label="Chọn" chooseIcon="none"/>
+                            </div>
                             <p:outputLabel value="Mô Tả"/>
                             <br/>
                             <p:inputTextarea rows="6" cols="64" autoResize="false" value="#{beanKhachSan.khachSan.moTa}" placeholder="Mô Tả"/>
                             <br/>
-                            <h:panelGrid columns="4" style="margin-bottom:10px" width="100%" cellspacing="10px">
+                            <h:panelGrid columns="4" width="100%" cellspacing="10px">
                                 <p:outputLabel value="Giáp Biển"/>
                                 <p:selectBooleanCheckbox value="#{beanKhachSan.khachSan.giapBien}"/>
                                 <p:outputLabel value="Đánh Giá"/>
@@ -45,27 +56,40 @@
                                     <f:selectItems value="#{beanThanhPho.listThanhPho}" var="tp" itemLabel="#{tp.ten}" itemValue="#{tp.id}" />
                                 </p:selectOneMenu>
                             </h:panelGrid>
-                            <p:commandButton value="Thêm" icon="pi pi-check" onclick="PF('dialog_them').hide()" action="#{beanKhachSan.insert(beanKhachSan.khachSan)}" update="msg form:danh_sach" style="margin-right:20px;"/>
-                            <p:commandButton value="Hủy" icon="pi pi-times" onclick="PF('dialog_them').hide()"/>
+                            <div style="margin-top: 10px; margin-bottom: 10px">
+                                <p:commandButton value="Thêm" icon="pi pi-check" action="#{beanKhachSan.insert(beanKhachSan.khachSan)}" update="msg form:danh_sach" style="margin-right:20px;"/>
+                                <p:commandButton value="Hủy" icon="pi pi-times" onclick="PF('dialog_them').hide()"/>
+                            </div>
                         </h:form>
                     </p:dialog>
-                    <p:dialog id="sua" widgetVar="dialog_sua" modal="true" resizable="false" width="600" height="515" header="Sửa Khách Sạn" showEffect="fade" hideEffect="fade" closable="true" appendTo="@(body)" style="text-align: center">
+                    <p:dialog id="sua" widgetVar="dialog_sua" modal="true" resizable="false" width="600" header="Sửa Khách Sạn" showEffect="fade" hideEffect="fade" closable="true" appendTo="@(body)" style="text-align: center">
                         <h:form>
-                            <h:panelGrid columns="2" width="100%" cellspacing="10px">
-                                <p:outputLabel value="Tên"/>
-                                <p:inputText style="width: 320px" value="#{beanKhachSan.khachSan.ten}" placeholder="Tên Khách Sạn"/>
-                                <p:outputLabel value="Địa Chỉ"/>
-                                <p:inputText style="width: 320px" value="#{beanKhachSan.khachSan.diaChi}" placeholder="Địa Chỉ"/>
-                                <p:outputLabel value="Số Điện Thoại"/>
-                                <p:inputText style="width: 320px" value="#{beanKhachSan.khachSan.soDienThoai}" placeholder="Số Điện Thoại"/>
-                                <p:outputLabel value="Cách Trung Tâm"/>
-                                <p:inputText style="width: 320px" value="#{beanKhachSan.khachSan.cachTrungTam}" type="number"/>
-                            </h:panelGrid>
+                            <div style="position: relative; height: 50px">
+                                <p:outputLabel style="width: 25%; position: absolute; left: 0; top: 15px;" value="Tên Khách Sạn"/>
+                                <p:inputText style="width: 68%; position: absolute; left: 25%; top: 10px;" value="#{beanKhachSan.khachSan.ten}" placeholder="Tên Khách Sạn"/>
+                            </div>
+                            <div style="position: relative; height: 50px">
+                                <p:outputLabel style="width: 25%; position: absolute; left: 0; top: 15px;" value="Địa Chỉ"/>
+                                <p:inputText style="width: 68%; position: absolute; left: 25%; top: 10px;" value="#{beanKhachSan.khachSan.diaChi}" placeholder="Địa Chỉ"/>
+                            </div>
+                            <div style="position: relative; height: 50px">
+                                <p:outputLabel style="width: 25%; position: absolute; left: 0; top: 15px;" value="Số Điện Thoại"/>
+                                <p:inputText style="width: 68%; position: absolute; left: 25%; top: 10px;" value="#{beanKhachSan.khachSan.soDienThoai}" placeholder="Số Điện Thoại"/>
+                            </div>
+                            <div style="position: relative; height: 50px">
+                                <p:outputLabel style="width: 25%; position: absolute; left: 0; top: 15px;" value="Cách Trung Tâm"/>
+                                <p:inputText style="width: 68%; position: absolute; left: 25%; top: 10px;" value="#{beanKhachSan.khachSan.cachTrungTam}" type="number"/>
+                            </div>
+                            <div style="position: relative; height: 60px">
+                                <p:outputLabel style="width: 25%; position: absolute; left: 0; top: 15px;" value="Hình Ảnh"/>
+                                <p:inputText id="url" style="width: 51%; position: absolute; left: 25%; top: 10px;" value="#{beanLoaiKhachSan.loaiKhachSan.urlHinhAnh}" disabled="true" placeholder="Hình Ảnh"/>
+                                <p:fileUpload style="width: 13%; position: absolute; left: 79%; top: 10px;" fileUploadListener="#{beanLoaiKhachSan.handleFileUpload}" auto="true" update="url" label="Chọn" chooseIcon="none"/>
+                            </div>
                             <p:outputLabel value="Mô Tả"/>
                             <br/>
                             <p:inputTextarea rows="6" cols="64" autoResize="false" value="#{beanKhachSan.khachSan.moTa}"/>
                             <br/>
-                            <h:panelGrid columns="4" style="margin-bottom:10px" width="100%" cellspacing="10px">
+                            <h:panelGrid columns="4" width="100%" cellspacing="10px">
                                 <p:outputLabel value="Giáp Biển"/>
                                 <p:selectBooleanCheckbox value="#{beanKhachSan.khachSan.giapBien}"/>
                                 <p:outputLabel value="Đánh Giá"/>
@@ -79,8 +103,10 @@
                                     <f:selectItems value="#{beanThanhPho.listThanhPho}" var="tp" itemLabel="#{tp.ten}" itemValue="#{tp.id}" />
                                 </p:selectOneMenu>
                             </h:panelGrid>
-                            <p:commandButton value="Sửa" icon="pi pi-check" onclick="PF('dialog_sua').hide()" action="#{beanKhachSan.update(beanKhachSan.khachSan)}" update="msg form:danh_sach" style="margin-right:20px;"/>
-                            <p:commandButton value="Hủy" icon="pi pi-times" onclick="PF('dialog_sua').hide()"/>
+                            <div style="margin-top: 10px; margin-bottom: 10px">
+                                <p:commandButton value="Sửa" icon="pi pi-check" action="#{beanKhachSan.update(beanKhachSan.khachSan)}" update="msg form:danh_sach" style="margin-right:20px;"/>
+                                <p:commandButton value="Hủy" icon="pi pi-times" onclick="PF('dialog_sua').hide()"/>
+                            </div>
                         </h:form>
                     </p:dialog>
                     <h:form id="form">
@@ -92,13 +118,10 @@
                                     <p:commandButton value="Thêm Mới" update="them" oncomplete="PF('dialog_them').show();" action="#{beanKhachSan.reset()}" style="margin-right: 20px; height: 30px" icon="pi pi-plus" ajax="true" />          
                                 </div>
                             </f:facet>
-                            <p:column headerText="Id" style="width:4%">
-                                <h:outputText value="#{item.id}"/>
-                            </p:column>
                             <p:column headerText="Tên" style="width:10%">
                                 <h:outputText value="#{item.ten}"/>
                             </p:column>
-                            <p:column headerText="Địa Chỉ" style="width:10%">
+                            <p:column headerText="Địa Chỉ" style="width:12%">
                                 <h:outputText value="#{item.diaChi}"/>
                             </p:column>
                             <p:column headerText="Số Điện Thoại" style="width:9%">
@@ -107,7 +130,7 @@
                             <p:column headerText="Cách Trung Tâm" style="width:6%">
                                 <h:outputText value="#{item.cachTrungTam} Km"/>
                             </p:column>
-                            <p:column headerText="Mô Tả" style="width:30%">
+                            <p:column headerText="Mô Tả" style="width:32%">
                                 <h:outputText value="#{item.moTa}"/>
                             </p:column>
                             <p:column headerText="Giáp Biển" style="width:6%">
@@ -129,7 +152,7 @@
                                 <p:commandButton update="msg danh_sach" title="Xóa" action="#{beanKhachSan.delete(item.id)}" icon="pi pi-times" ajax="true">
                                     <p:confirm header="Xác Nhận" message="Bạn có chắc chắn muốn xóa không?" icon="pi pi-exclamation-triangle" />
                                 </p:commandButton>
-                                
+
                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                                     <p:commandButton value="Có" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
                                     <p:commandButton value="Không" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />

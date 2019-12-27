@@ -12,20 +12,9 @@
         <h:body>
             <ui:composition template="AdminTemplate/adminTemplate.xhtml">
                 <ui:define name="content">
-                    <style>
-                        .ui-fileupload-content {
-                            display: none;
-                        }
-                        body .ui-fileupload .ui-fileupload-buttonbar {
-                            margin: 0;
-                            padding: 0;
-                            border: none;
-                            background-color: transparent;
-                        }
-                    </style>
                     <p:growl id="msg" showDetail="true"/>
                     <p:dialog id="them" widgetVar="dialog_them" modal="true" resizable="false" width="600" header="Thêm Loại Khách Sạn" showEffect="fade" hideEffect="fade" closable="true" appendTo="@(body)" style="text-align: center">
-                        <h:form enctype="multipart/form-data">
+                        <h:form>
                             <div style="position: relative; height: 50px">
                                 <p:outputLabel style="width: 25%; position: absolute; left: 0; top: 15px;" value="Loại Khách Sạn"/>
                                 <p:inputText style="width: 68%; position: absolute; left: 25%; top: 10px;" value="#{beanLoaiKhachSan.loaiKhachSan.ten}" placeholder="Tên Loại Khách Sạn"/>
@@ -46,7 +35,7 @@
                         </h:form>
                     </p:dialog>
                     <p:dialog id="sua" widgetVar="dialog_sua" modal="true" resizable="false" width="600" header="Sửa Loại Khách Sạn" showEffect="fade" hideEffect="fade" closable="true" appendTo="@(body)" style="text-align: center">
-                        <h:form enctype="multipart/form-data">
+                        <h:form>
                             <div style="position: relative; height: 50px">
                                 <p:outputLabel style="width: 25%; position: absolute; left: 0; top: 15px;" value="Loại Khách Sạn"/>
                                 <p:inputText style="width: 68%; position: absolute; left: 25%; top: 10px;" value="#{beanLoaiKhachSan.loaiKhachSan.ten}" placeholder="Tên Loại Khách Sạn"/>

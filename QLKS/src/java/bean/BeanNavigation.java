@@ -176,6 +176,10 @@ public class BeanNavigation implements Serializable {
                     listKSTrong.add(tmp.getIdKhachSan());
                 }
             }
+        } else {
+            for (KhachSan tmp : lstKS) {
+                listKSTrong.add(tmp.getId());
+            }
         }
         String tenThanhPhoKoDau = util.VNCharacterUtils.removeAccent(tenThanhPhoTimKiem.toLowerCase());
         String s;

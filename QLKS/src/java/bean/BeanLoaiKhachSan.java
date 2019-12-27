@@ -22,9 +22,10 @@ import org.primefaces.model.UploadedFile;
 public class BeanLoaiKhachSan implements Serializable {
 
     private static final long serialVersionUID = 185755L;
+    private static final String url = "Content/Images/LoaiKhachSan/";
 
     public static HashMap<Integer, String> hashLoaiKhachSan;
-    
+
     private UploadedFile file;
     private LoaiKhachSan loaiKhachSan;
     private ArrayList<LoaiKhachSan> listLoaiKhachSan;
@@ -65,9 +66,9 @@ public class BeanLoaiKhachSan implements Serializable {
 
     public void handleFileUpload(FileUploadEvent event) {
         file = event.getFile();
-        loaiKhachSan.setUrlHinhAnh("Content/Images/LoaiKhachSan/" + file.getFileName());
+        loaiKhachSan.setUrlHinhAnh(url + file.getFileName());
     }
-    
+
     public void insert(LoaiKhachSan tmp) {
         if (tmp.getTen().length() == 0 || file == null) {
             pf.Message.errorMessage("Thất Bại", "Không được để trống tên hoặc hình ảnh!");
@@ -75,11 +76,12 @@ public class BeanLoaiKhachSan implements Serializable {
         }
         try {
             String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
-            File f = new File(path + "Content/Images/LoaiKhachSan/" + file.getFileName());
+            File f = new File(path + url + file.getFileName());
             try (FileOutputStream fos = new FileOutputStream(f)) {
                 byte[] content = file.getContents();
                 fos.write(content);
             }
+            file = null;
             con = dao.SQLConnection.getConnection();
             PreparedStatement stmt = con.prepareStatement("insert into LoaiKhachSan output inserted.Id values(?,?,?)");
             stmt.setString(1, tmp.getTen());
@@ -101,16 +103,19 @@ public class BeanLoaiKhachSan implements Serializable {
     }
 
     public void update(LoaiKhachSan tmp) {
-        if (tmp.getTen().length() == 0 || file == null) {
-            pf.Message.errorMessage("Thất Bại", "Không được để trống tên hoặc hình ảnh!");
+        if (tmp.getTen().length() == 0) {
+            pf.Message.errorMessage("Thất Bại", "Không được để trống tên!");
             return;
         }
         try {
-            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
-            File f = new File(path + "Content/Images/LoaiKhachSan/" + file.getFileName());
-            try (FileOutputStream fos = new FileOutputStream(f)) {
-                byte[] content = file.getContents();
-                fos.write(content);
+            if (file != null) {
+                String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+                File f = new File(path + url + file.getFileName());
+                try (FileOutputStream fos = new FileOutputStream(f)) {
+                    byte[] content = file.getContents();
+                    fos.write(content);
+                }
+                file = null;
             }
             con = dao.SQLConnection.getConnection();
             PreparedStatement stmt = con.prepareStatement("update LoaiKhachSan set Ten=?, MoTa=?, UrlHinhAnh=? where Id=?");
