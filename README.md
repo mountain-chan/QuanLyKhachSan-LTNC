@@ -57,6 +57,6 @@ Cập nhật ds phòng khi cập nhật Khách sạn
 
 Nếu thêm loại khách sạn phải cập nhật listKhachSan trong bộ lọc
 
-Form Admin Khách sạn thiếu chọn Loại KS [x]
+Form Admin Khách sạn thiếu chọn Loại KS - [x]
 
 => Hầu hết các lỗi trên là do sessionBean được khởi tạo đúng 1 lần duy nhất khi vào phiên nên khi khởi động lại trình duyệt sẽ được giải quyết
