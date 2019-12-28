@@ -34,6 +34,19 @@ public class DatPhong implements Serializable {
         this.daHuy = daHuy;
     }
 
+    public DatPhong(DatPhong dp) {
+        this.id = dp.id;
+        this.taiKhoan = dp.taiKhoan;
+        this.idPhong = dp.idPhong;
+        this.ngayDat = dp.ngayDat;
+        this.ngayDen = dp.ngayDen;
+        this.ngayTra = dp.ngayTra;
+        this.dichVu = dp.dichVu;
+        this.ghiChu = dp.ghiChu;
+        this.thanhTien = dp.thanhTien;
+        this.daHuy = dp.daHuy;
+    }
+    
     public int getId() {
         return id;
     }

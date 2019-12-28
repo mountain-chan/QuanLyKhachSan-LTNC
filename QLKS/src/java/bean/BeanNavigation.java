@@ -404,7 +404,7 @@ public class BeanNavigation implements Serializable {
             datPhong.setDaHuy(false);
             datPhong.setTaiKhoan(tk.getTenTaiKhoan());
             con = dao.SQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement("insert into DatPhong values(?,?,?,?,?,?,?,?,?)");
+            PreparedStatement stmt = con.prepareStatement("insert into DatPhong output inserted.Id values(?,?,?,?,?,?,?,?,?)");
             stmt.setString(1, datPhong.getTaiKhoan());
             stmt.setInt(2, datPhong.getIdPhong());
             stmt.setDate(3, new java.sql.Date(ngayDat.getTime()));
@@ -414,10 +414,13 @@ public class BeanNavigation implements Serializable {
             stmt.setString(7, datPhong.getGhiChu());
             stmt.setInt(8, datPhong.getThanhTien());
             stmt.setBoolean(9, datPhong.isDaHuy());
-            stmt.executeUpdate();
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                datPhong.setId(rs.getInt("Id"));
+            }
             con.close();
             listPhong.remove(phongDangDat);
-            listDatPhong.add(datPhong);
+            listDatPhong.add(new DatPhong(datPhong));
             pf.Message.addMessage("Thành Công", "Đặt phòng thành công, vui lòng vào Lịch sử trong Trang cá nhân để xem thông tin Đặt phòng!");
         } catch (Exception e) {
             System.out.println(e.toString());

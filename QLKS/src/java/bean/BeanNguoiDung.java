@@ -207,6 +207,7 @@ public class BeanNguoiDung implements Serializable {
     }
 
     public void huyDatPhong(int id) {
+        System.out.println(id);
         try {
             con = dao.SQLConnection.getConnection();
             PreparedStatement stmt = con.prepareStatement("update DatPhong set DaHuy=? where Id=?");

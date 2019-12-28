@@ -45,7 +45,8 @@ SessionScoped: Đi theo session, mỗi khi một trình duyệt vào web thì t�
 
 Hai btn DangNhap trong form DangKy va DangKy trong form DangNhap chưa làm
 
-Lỗi lọc phòng có lúc sai khi vừa đặt xong (chưa để ý lúc nào)
+Lỗi lọc phòng có lúc sai khi vừa đặt xong (chưa để ý lúc nào) &emsp; :heavy_check_mark:
+- Do không tạo đối tượng datPhong mới khi đặt nên bị chung địa chỉ => phòng cũ và phòng mới cùng địa chỉ => trở thành một
 
 Lỗi minDate ở cả chọn Date ở trang chủ và trang đặt phòng (tạm bỏ)
 
@@ -57,6 +58,9 @@ Cập nhật ds phòng khi cập nhật Khách sạn
 
 Nếu thêm loại khách sạn phải cập nhật listKhachSan trong bộ lọc
 
-Form Admin Khách sạn thiếu chọn Loại KS   :heavy_check_mark:
+Form Admin Khách sạn thiếu chọn Loại KS &emsp; :heavy_check_mark:
+
+Lỗi hủy đặt phòng ở Lịch sử khi vừa đặt xong &emsp; :heavy_check_mark:
+- Do khi vào bảng DatPhong không lấy ra Id vừa thêm để cho vào lịch sử => Id luôn bằng 0 => lỗi
 
 => Hầu hết các lỗi trên là do sessionBean được khởi tạo đúng 1 lần duy nhất khi vào phiên nên khi khởi động lại trình duyệt sẽ được giải quyết
