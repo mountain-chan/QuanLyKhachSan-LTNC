@@ -28,7 +28,7 @@ Chạy thôi
 
 ## Demo:
 
-Up lên host thấy nhiều lỗi quá http://whknightz.kilatiron.com/
+Up lên host thấy nhiều lỗi quá http://whknightz.kilatiron.com/ - nhưng host chỉ cho trial 3 ngày :disappointed:
 
 
 ## Giải thích các Bean:
@@ -57,6 +57,6 @@ Cập nhật ds phòng khi cập nhật Khách sạn
 
 Nếu thêm loại khách sạn phải cập nhật listKhachSan trong bộ lọc
 
-- [x] Form Admin Khách sạn thiếu chọn Loại KS :heavy_check_mark:
+Form Admin Khách sạn thiếu chọn Loại KS   :heavy_check_mark:
 
 => Hầu hết các lỗi trên là do sessionBean được khởi tạo đúng 1 lần duy nhất khi vào phiên nên khi khởi động lại trình duyệt sẽ được giải quyết
