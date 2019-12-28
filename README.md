@@ -45,7 +45,7 @@ SessionScoped: Đi theo session, mỗi khi một trình duyệt vào web thì t�
 
 Hai btn DangNhap trong form DangKy va DangKy trong form DangNhap chưa làm
 
-Lỗi lọc phòng có lúc sai khi vừa đặt xong(chưa để ý lúc nào)
+Lỗi lọc phòng có lúc sai khi vừa đặt xong (chưa để ý lúc nào)
 
 Lỗi minDate ở cả chọn Date ở trang chủ và trang đặt phòng (tạm bỏ)
 
@@ -57,6 +57,6 @@ Cập nhật ds phòng khi cập nhật Khách sạn
 
 Nếu thêm loại khách sạn phải cập nhật listKhachSan trong bộ lọc
 
-Form Admin Khách sạn thiếu chọn Loại KS
+Form Admin Khách sạn thiếu chọn Loại KS [x]
 
 => Hầu hết các lỗi trên là do sessionBean được khởi tạo đúng 1 lần duy nhất khi vào phiên nên khi khởi động lại trình duyệt sẽ được giải quyết

@@ -1,5 +1,6 @@
 package bean;
 
+import static bean.BeanLoaiKhachSan.hashLoaiKhachSan;
 import static bean.BeanThanhPho.hashThanhPho;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -143,13 +144,15 @@ public class BeanKhachSan implements Serializable {
             return;
         }
         try {
-            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
-            File f = new File(path + url + tmp.getId() + ".jpg");
-            try (FileOutputStream fos = new FileOutputStream(f)) {
-                byte[] content = file.getContents();
-                fos.write(content);
+            if (file != null) {
+                String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+                File f = new File(path + url + tmp.getId() + ".jpg");
+                try (FileOutputStream fos = new FileOutputStream(f)) {
+                    byte[] content = file.getContents();
+                    fos.write(content);
+                }
+                file = null;
             }
-            file = null;
             con = dao.SQLConnection.getConnection();
             PreparedStatement stmt = con.prepareStatement("update KhachSan set Ten=?, DiaChi=?, SoDienThoai=?, CachTrungTam=?, MoTa=?, GiapBien=?, DanhGia=?, BuaAn=?, IdThanhPho=?, IdLoaiKhachSan=? where Id=?");
             stmt.setString(1, tmp.getTen());
@@ -165,11 +168,12 @@ public class BeanKhachSan implements Serializable {
             stmt.setInt(11, tmp.getId());
             stmt.executeUpdate();
             con.close();
-            int Id = tmp.getId();
+            int id = tmp.getId();
             tmp.setTenThanhPho(hashThanhPho.get(tmp.getIdThanhPho()));
+            tmp.setTenLoaiKhachSan(hashLoaiKhachSan.get(tmp.getIdLoaiKhachSan()));
             for (KhachSan ks : listKhachSan) {
-                if (ks.getId() == Id) {
-                    ks.reload(Id, tmp.getTen(), tmp.getDiaChi(), tmp.getSoDienThoai(), tmp.getCachTrungTam(), tmp.getMoTa(), tmp.isGiapBien(), tmp.getDanhGia(), tmp.getBuaAn(), tmp.getIdThanhPho(), tmp.getTenThanhPho(), tmp.getIdLoaiKhachSan(), tmp.getTenLoaiKhachSan());
+                if (ks.getId() == id) {
+                    ks.reload(id, tmp.getTen(), tmp.getDiaChi(), tmp.getSoDienThoai(), tmp.getCachTrungTam(), tmp.getMoTa(), tmp.isGiapBien(), tmp.getDanhGia(), tmp.getBuaAn(), tmp.getIdThanhPho(), tmp.getTenThanhPho(), tmp.getIdLoaiKhachSan(), tmp.getTenLoaiKhachSan());
                     break;
                 }
             }

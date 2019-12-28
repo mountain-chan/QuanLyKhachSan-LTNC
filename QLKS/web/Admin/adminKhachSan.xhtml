@@ -40,20 +40,26 @@
                             <br/>
                             <p:inputTextarea rows="6" cols="64" autoResize="false" value="#{beanKhachSan.khachSan.moTa}" placeholder="Mô Tả"/>
                             <br/>
-                            <h:panelGrid columns="4" width="100%" cellspacing="10px">
+                            <h:panelGrid columns="6" width="100%" cellspacing="10px">
                                 <p:outputLabel value="Giáp Biển"/>
                                 <p:selectBooleanCheckbox value="#{beanKhachSan.khachSan.giapBien}"/>
                                 <p:outputLabel value="Đánh Giá"/>
-                                <p:inputText value="#{beanKhachSan.khachSan.danhGia}" style="width:150px" type="number">
-                                    <f:validateLongRange minimum="0" maximum="5" />
+                                <p:inputText value="#{beanKhachSan.khachSan.danhGia}" style="width:100px" type="number">
+                                    <f:validateLongRange minimum="0" maximum="5"/>
                                 </p:inputText>
                                 <p:outputLabel value="Bữa Ăn"/>
                                 <p:selectOneMenu value="#{beanKhachSan.khachSan.buaAn}" effect="fade" style="width:150px">
                                     <f:selectItems value="#{beanKhachSan.listBuaAn}" var="ba" itemLabel="#{ba.ten}" itemValue="#{ba.id}"/>
                                 </p:selectOneMenu>
+                            </h:panelGrid>
+                            <h:panelGrid columns="4" width="100%" cellspacing="10px">
                                 <p:outputLabel value="Thành Phố"/>
                                 <p:selectOneMenu value="#{beanKhachSan.khachSan.idThanhPho}" effect="fade" style="width:150px">
                                     <f:selectItems value="#{beanThanhPho.listThanhPho}" var="tp" itemLabel="#{tp.ten}" itemValue="#{tp.id}" />
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Loại Khách Sạn"/>
+                                <p:selectOneMenu value="#{beanKhachSan.khachSan.idLoaiKhachSan}" effect="fade" style="width:150px">
+                                    <f:selectItems value="#{beanLoaiKhachSan.listLoaiKhachSan}" var="lks" itemLabel="#{lks.ten}" itemValue="#{lks.id}" />
                                 </p:selectOneMenu>
                             </h:panelGrid>
                             <div style="margin-top: 10px; margin-bottom: 10px">
@@ -89,18 +95,26 @@
                             <br/>
                             <p:inputTextarea rows="6" cols="64" autoResize="false" value="#{beanKhachSan.khachSan.moTa}"/>
                             <br/>
-                            <h:panelGrid columns="4" width="100%" cellspacing="10px">
+                            <h:panelGrid columns="6" width="100%" cellspacing="10px">
                                 <p:outputLabel value="Giáp Biển"/>
                                 <p:selectBooleanCheckbox value="#{beanKhachSan.khachSan.giapBien}"/>
                                 <p:outputLabel value="Đánh Giá"/>
-                                <p:inputText value="#{beanKhachSan.khachSan.danhGia}" style="width:150px" type="number"/>
+                                <p:inputText value="#{beanKhachSan.khachSan.danhGia}" style="width:100px" type="number">
+                                    <f:validateLongRange minimum="0" maximum="5"/>
+                                </p:inputText>
                                 <p:outputLabel value="Bữa Ăn"/>
                                 <p:selectOneMenu value="#{beanKhachSan.khachSan.buaAn}" effect="fade" style="width:150px">
                                     <f:selectItems value="#{beanKhachSan.listBuaAn}" var="ba" itemLabel="#{ba.ten}" itemValue="#{ba.id}"/>
                                 </p:selectOneMenu>
+                            </h:panelGrid>
+                            <h:panelGrid columns="4" width="100%" cellspacing="10px">
                                 <p:outputLabel value="Thành Phố"/>
                                 <p:selectOneMenu value="#{beanKhachSan.khachSan.idThanhPho}" effect="fade" style="width:150px">
                                     <f:selectItems value="#{beanThanhPho.listThanhPho}" var="tp" itemLabel="#{tp.ten}" itemValue="#{tp.id}" />
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Loại Khách Sạn"/>
+                                <p:selectOneMenu value="#{beanKhachSan.khachSan.idLoaiKhachSan}" effect="fade" style="width:150px">
+                                    <f:selectItems value="#{beanLoaiKhachSan.listLoaiKhachSan}" var="lks" itemLabel="#{lks.ten}" itemValue="#{lks.id}" />
                                 </p:selectOneMenu>
                             </h:panelGrid>
                             <div style="margin-top: 10px; margin-bottom: 10px">
@@ -118,10 +132,10 @@
                                     <p:commandButton value="Thêm Mới" update="them" oncomplete="PF('dialog_them').show();" action="#{beanKhachSan.reset()}" style="margin-right: 20px; height: 30px" icon="pi pi-plus" ajax="true" />          
                                 </div>
                             </f:facet>
-                            <p:column headerText="Tên" style="width:10%">
+                            <p:column headerText="Tên" style="width:8%">
                                 <h:outputText value="#{item.ten}"/>
                             </p:column>
-                            <p:column headerText="Địa Chỉ" style="width:12%">
+                            <p:column headerText="Địa Chỉ" style="width:10%">
                                 <h:outputText value="#{item.diaChi}"/>
                             </p:column>
                             <p:column headerText="Số Điện Thoại" style="width:9%">
@@ -130,7 +144,7 @@
                             <p:column headerText="Cách Trung Tâm" style="width:6%">
                                 <h:outputText value="#{item.cachTrungTam} Km"/>
                             </p:column>
-                            <p:column headerText="Mô Tả" style="width:32%">
+                            <p:column headerText="Mô Tả" style="width:30%">
                                 <h:outputText value="#{item.moTa}"/>
                             </p:column>
                             <p:column headerText="Giáp Biển" style="width:6%">
@@ -144,6 +158,9 @@
                             </p:column>
                             <p:column headerText="Thành Phố" style="width:6%">
                                 <h:outputText value="#{item.tenThanhPho}"/>
+                            </p:column>
+                            <p:column headerText="Loại Khách Sạn" style="width:6%">
+                                <h:outputText value="#{item.tenLoaiKhachSan}"/>
                             </p:column>
                             <p:column headerText="Thao Tác" style="width:8%">
                                 <p:commandButton update="sua danh_sach" oncomplete="PF('dialog_sua').show()" title="Sửa" icon="pi pi-refresh" ajax="true">

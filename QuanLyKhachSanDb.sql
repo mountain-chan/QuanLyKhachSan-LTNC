@@ -1,11 +1,4 @@
 ﻿-- Tham khảo khi đặt phòng tại https://www.booking.com/
--- Bảng Phòng không cần ConTrong (dựa theo bảng Đặt Phòng) -> Bỏ ConTrong, Tiện Nghi nếu để 1 trường liệu có đủ hay là thêm bảng Tiện Nghi (nhiều tiện nghi trong 1 phòng), nhưng chắc là thôi, mệt người, nhưng thấy trường Tiện Nghi chắc gần giống Mô Tả
--- Bảng Đặt Phòng có cần dịch vụ không? Vì dịch vụ đã đi theo Khách Sạn, nếu thêm trường Dịch vụ chắc cần có bảng Dịch vụ để cho khách hàng chọn Dịch vụ
--- Bảng Đặt Phòng có Ghi Chú Khách Hàng sao lại để kiểu Bit?? -> GhiChu nvarchar(200)
--- Bảng TaiKhoan TenKhachHang -> HoTen
--- Có cần thêm 1 List lưu Đánh giá -> Không Xếp Hạng, 1 Sao, 2 Sao ...
--- Có cần hiển thị Id ở Danh Sách Khách Sạn, Thành Phố không?
-
 -- DROP DATABASE QuanLyKhachSanDb
 
 CREATE DATABASE QuanLyKhachSanDb
