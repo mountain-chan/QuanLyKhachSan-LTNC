@@ -25,7 +25,7 @@ public class DAOLoaiKhachSan {
                 tmp.setTen(rs.getString("B"));
                 tmp.setMoTa(rs.getString("C"));
                 tmp.setUrlHinhAnh(rs.getString("D"));
-                tmp.setSoKhachSan(String.format("%,d", rs.getInt("E") * 135));
+                tmp.setSoKhachSan(rs.getInt("E"));
                 list.add(tmp);
             }
             con.close();

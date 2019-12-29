@@ -342,11 +342,11 @@ public class BeanNavigation implements Serializable {
         }
     }
 
-    public boolean kiemTraPhongTrong(Phong p, Date ngayDen, Date ngayDi) {
+    public boolean kiemTraPhongTrong(Phong p, Date ngayDen, Date ngayTra) {
         if (listDatPhong != null) {
             for (DatPhong tmp : listDatPhong) {
                 if (!tmp.isDaHuy() && tmp.getIdPhong() == p.getId()) {
-                    if (!(ngayDen.after(tmp.getNgayTra()) || ngayDi.before(tmp.getNgayDen()))) {
+                    if (!(ngayDen.after(tmp.getNgayTra()) || ngayTra.before(tmp.getNgayDen()))) {
                         return false;
                     }
                 }

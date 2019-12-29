@@ -10,12 +10,12 @@ public class LoaiKhachSan implements Serializable {
     String ten;
     String moTa;
     String urlHinhAnh;
-    String soKhachSan;
+    int soKhachSan;
 
     public LoaiKhachSan() {
     }
 
-    public LoaiKhachSan(int id, String ten, String moTa, String urlHinhAnh, String soKhachSan) {
+    public LoaiKhachSan(int id, String ten, String moTa, String urlHinhAnh, int soKhachSan) {
         this.id = id;
         this.ten = ten;
         this.moTa = moTa;
@@ -69,11 +69,11 @@ public class LoaiKhachSan implements Serializable {
         this.urlHinhAnh = urlHinhAnh;
     }
 
-    public String getSoKhachSan() {
+    public int getSoKhachSan() {
         return soKhachSan;
     }
 
-    public void setSoKhachSan(String soKhachSan) {
+    public void setSoKhachSan(int soKhachSan) {
         this.soKhachSan = soKhachSan;
     }
 

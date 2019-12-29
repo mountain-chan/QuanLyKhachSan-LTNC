@@ -2,6 +2,7 @@ package bean;
 
 import static bean.BeanLoaiKhachSan.hashLoaiKhachSan;
 import static bean.BeanThanhPho.hashThanhPho;
+import static bean.BeanThanhPho.hashUrlHinhAnhThanhPho;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
@@ -26,6 +28,10 @@ public class BeanKhachSan implements Serializable {
 
     public static HashMap<Integer, String> hashKhachSan;
 
+    @ManagedProperty(value = "#{beanThanhPho.listThanhPho}")
+    private ArrayList<ThanhPho> lstTP;
+    @ManagedProperty(value = "#{beanLoaiKhachSan.listLoaiKhachSan}")
+    private ArrayList<LoaiKhachSan> lstLKS;
     private UploadedFile file;
     private KhachSan khachSan;
     private String urlHinhAnh;
@@ -84,9 +90,23 @@ public class BeanKhachSan implements Serializable {
             }
             file = null;
             tmp.setTenThanhPho(hashThanhPho.get(tmp.getIdThanhPho()));
+            tmp.setUrlHinhAnhThanhPho(hashUrlHinhAnhThanhPho.get(tmp.getIdThanhPho()));
             tmp.setTenLoaiKhachSan(hashLoaiKhachSan.get(tmp.getIdLoaiKhachSan()));
             KhachSan ks = new KhachSan(tmp);
             listKhachSan.add(ks);
+            // Tăng 1 cho số lượng khách sạn thuộc thành phố và loại ks của ks đó
+            for (ThanhPho tp : lstTP) {
+                if (tp.getId() == tmp.getIdThanhPho()) {
+                    tp.setSoKhachSan(tp.getSoKhachSan() + 1);
+                    break;
+                }
+            }
+            for (LoaiKhachSan lks : lstLKS) {
+                if (lks.getId() == tmp.getIdLoaiKhachSan()) {
+                    lks.setSoKhachSan(lks.getSoKhachSan() + 1);
+                    break;
+                }
+            }
             pf.Message.addMessage("Thành Công", "Thêm Khách sạn thành công!");
         } else {
             pf.Message.errorMessage("Thất Bại", "Thêm Khách sạn thất bại!");
@@ -128,10 +148,25 @@ public class BeanKhachSan implements Serializable {
     }
 
     public void delete(int id) {
+        KhachSan tmp = null;
         if (dao.DAOKhachSan.delete(id)) {
             for (KhachSan ks : listKhachSan) {
                 if (ks.getId() == id) {
                     listKhachSan.remove(ks);
+                    tmp = ks;
+                    break;
+                }
+            }
+            // Giảm 1 cho số lượng khách sạn thuộc thành phố và loại ks của ks đó
+            for (ThanhPho tp : lstTP) {
+                if (tp.getId() == tmp.getIdThanhPho()) {
+                    tp.setSoKhachSan(tp.getSoKhachSan() - 1);
+                    break;
+                }
+            }
+            for (LoaiKhachSan lks : lstLKS) {
+                if (lks.getId() == tmp.getIdLoaiKhachSan()) {
+                    lks.setSoKhachSan(lks.getSoKhachSan() - 1);
                     break;
                 }
             }
@@ -190,6 +225,22 @@ public class BeanKhachSan implements Serializable {
 
     public void setUrlHinhAnh(String urlHinhAnh) {
         this.urlHinhAnh = urlHinhAnh;
+    }
+
+    public ArrayList<ThanhPho> getLstTP() {
+        return lstTP;
+    }
+
+    public void setLstTP(ArrayList<ThanhPho> lstTP) {
+        this.lstTP = lstTP;
+    }
+
+    public ArrayList<LoaiKhachSan> getLstLKS() {
+        return lstLKS;
+    }
+
+    public void setLstLKS(ArrayList<LoaiKhachSan> lstLKS) {
+        this.lstLKS = lstLKS;
     }
 
 }

@@ -10,12 +10,12 @@ public class ThanhPho implements Serializable {
     String ten;
     String moTa;
     String urlHinhAnh;
-    String soKhachSan;
+    int soKhachSan;
 
     public ThanhPho() {
     }
 
-    public ThanhPho(int id, String ten, String moTa, String urlHinhAnh, String soKhachSan) {
+    public ThanhPho(int id, String ten, String moTa, String urlHinhAnh, int soKhachSan) {
         this.id = id;
         this.ten = ten;
         this.moTa = moTa;
@@ -69,11 +69,11 @@ public class ThanhPho implements Serializable {
         this.urlHinhAnh = urlHinhAnh;
     }
 
-    public String getSoKhachSan() {
+    public int getSoKhachSan() {
         return soKhachSan;
     }
 
-    public void setSoKhachSan(String soKhachSan) {
+    public void setSoKhachSan(int soKhachSan) {
         this.soKhachSan = soKhachSan;
     }
 

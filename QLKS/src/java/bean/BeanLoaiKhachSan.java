@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
@@ -23,6 +24,8 @@ public class BeanLoaiKhachSan implements Serializable {
 
     public static HashMap<Integer, String> hashLoaiKhachSan;
 
+    @ManagedProperty(value = "#{beanKhachSan.listKhachSan}")
+    private ArrayList<KhachSan> lstKS;
     private UploadedFile file;
     private LoaiKhachSan loaiKhachSan;
     private ArrayList<LoaiKhachSan> listLoaiKhachSan;
@@ -94,6 +97,12 @@ public class BeanLoaiKhachSan implements Serializable {
                     break;
                 }
             }
+            hashLoaiKhachSan.replace(id, tmp.getTen());
+            for (KhachSan ks : lstKS) {
+                if (ks.getIdLoaiKhachSan()== id) {
+                    ks.setTenLoaiKhachSan(tmp.getTen());
+                }
+            }
             pf.Message.addMessage("Thành Công", "Sửa Loại khách sạn thành công!");
         } else {
             pf.Message.errorMessage("Thất Bại", "Sửa Loại khách sạn thất bại!");
@@ -141,6 +150,14 @@ public class BeanLoaiKhachSan implements Serializable {
 
     public void setFile(UploadedFile file) {
         this.file = file;
+    }
+
+    public ArrayList<KhachSan> getLstKS() {
+        return lstKS;
+    }
+
+    public void setLstKS(ArrayList<KhachSan> lstKS) {
+        this.lstKS = lstKS;
     }
 
 }
