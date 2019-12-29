@@ -22,6 +22,8 @@ public class BeanNavigation implements Serializable {
     private static final long serialVersionUID = 16533786L;
     private static final DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 
+    // @ManagedProperty để lấy giá trị bean khác sang bean này cụ thể lấy
+    // beanKhachSan.listKhachSan và truyền vào biến lstKS, tương tự bên dưới
     @ManagedProperty(value = "#{beanKhachSan.listKhachSan}")
     private ArrayList<KhachSan> lstKS;
     @ManagedProperty(value = "#{beanPhong.listPhong}")
@@ -193,6 +195,9 @@ public class BeanNavigation implements Serializable {
         return "dsKhachSan";
     }
 
+    // Khi chọn một khách sạn, lấy các thông tin của khách sạn đó bằng cách tìm trong
+    // danh sách khách sạn khách sạn có id trùng với id đã chọn, đồng thời tìm ra
+    // danh sách các phòng thuộc khách sạn đó, gán đã kiểm tra phòng trống = false
     public String thongTinKhachSan(int pageId) {
         for (KhachSan tmp : lstKS) {
             if (tmp.getId() == pageId) {
@@ -324,13 +329,13 @@ public class BeanNavigation implements Serializable {
         datPhong.setDaHuy(false);
     }
 
-    // Check một phòng đã bị đặt trong một khoảng thời gian cho trước chưa
+    // Tìm ra tất cả các phòng trống, đồng thời cho phép đặt phòng (do đã kiểm tra phòng trống)
     public void timPhongTrong() {
         Date homNay = new Date();
         if (util.CompareDate.compareNoTime(ngayDen, homNay) == -1
                 || util.CompareDate.compareNoTime(ngayTra, homNay) == -1
                 || util.CompareDate.compareNoTime(ngayTra, ngayDen) == -1) {
-            pf.Message.errorMessage("Thông Báo", "Ngày nhập vào sai!");
+            msg.Message.errorMessage("Thông Báo", "Ngày nhập vào sai!");
             return;
         }
         daKiemTraPhongTrong = true;
@@ -342,6 +347,9 @@ public class BeanNavigation implements Serializable {
         }
     }
 
+    // Check một phòng đã bị đặt trong một khoảng thời gian cho trước chưa
+    // nếu khoảng thời gian ngày đến->ngày trả của phòng đó không giao với
+    // tất cả các phòng bị đặt mà chưa hủy thì nghĩa là phòng đó trống
     public boolean kiemTraPhongTrong(Phong p, Date ngayDen, Date ngayTra) {
         if (listDatPhong != null) {
             for (DatPhong tmp : listDatPhong) {
@@ -359,7 +367,7 @@ public class BeanNavigation implements Serializable {
     public void chonDatPhong() {
         if (!daKiemTraPhongTrong) {
             System.out.println(phongDangDat.getTen());
-            pf.Message.errorMessage("Thất Bại", "Bạn vẫn chưa kiểm tra phòng trống!");
+            msg.Message.errorMessage("Thất Bại", "Bạn vẫn chưa kiểm tra phòng trống!");
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('dialog_datphong').hide();");
             return;
@@ -368,19 +376,22 @@ public class BeanNavigation implements Serializable {
         HttpSession session = request.getSession();
         TaiKhoan tk = (TaiKhoan) session.getAttribute("TaiKhoan");
         if (tk == null) {
+            // tk null thì nghĩa là chưa đăng nhập, hiện msg thông báo và bật form đăng nhập
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('dialog_dangnhap').show();");
-            pf.Message.errorMessage("Thất Bại", "Bạn cần đăng nhập trước!");
+            msg.Message.errorMessage("Thất Bại", "Bạn cần đăng nhập trước!");
             return;
         }
         datPhong.setDaHuy(false);
         datPhong.setTaiKhoan(tk.getTenTaiKhoan());
         if (dao.DAODatPhong.insert(datPhong)) {
+            // phòng vừa bị đặt phải được xóa khỏi danh sách phòng được đặt và
+            // phải được thêm vào danh sách các phòng đã đặt
             listPhong.remove(phongDangDat);
             listDatPhong.add(new DatPhong(datPhong));
-            pf.Message.addMessage("Thành Công", "Đặt phòng thành công, vui lòng vào Lịch sử trong Trang cá nhân để xem thông tin Đặt phòng!");
+            msg.Message.addMessage("Thành Công", "Đặt phòng thành công, vui lòng vào Lịch sử trong Trang cá nhân để xem thông tin Đặt phòng!");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Đặt phòng thất bại!");
+            msg.Message.errorMessage("Thất Bại", "Đặt phòng thất bại!");
         }
         PrimeFaces current = PrimeFaces.current();
         current.executeScript("PF('dialog_datphong').hide();");

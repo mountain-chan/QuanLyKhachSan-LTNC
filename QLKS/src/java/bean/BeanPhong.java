@@ -50,9 +50,9 @@ public class BeanPhong implements Serializable {
         if (dao.DAOPhong.insert(tmp)) {
             Phong p = new Phong(tmp);
             listPhong.add(p);
-            pf.Message.addMessage("Thành Công", "Thêm Phòng thành công!");
+            msg.Message.addMessage("Thành Công", "Thêm Phòng thành công!");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Thêm Phòng thất bại!");
+            msg.Message.errorMessage("Thất Bại", "Thêm Phòng thất bại!");
         }
     }
 
@@ -66,9 +66,9 @@ public class BeanPhong implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Sửa Phòng thành công!");
+            msg.Message.addMessage("Thành Công", "Sửa Phòng thành công!");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Sửa Phòng thất bại!");
+            msg.Message.errorMessage("Thất Bại", "Sửa Phòng thất bại!");
         }
     }
 
@@ -80,9 +80,9 @@ public class BeanPhong implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Xóa Phòng thành công!");
+            msg.Message.addMessage("Thành Công", "Xóa Phòng thành công!");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Xóa Phòng thất bại!");
+            msg.Message.errorMessage("Thất Bại", "Xóa Phòng thất bại!");
         }
     }
 

@@ -53,7 +53,7 @@ public class BeanLoaiKhachSan implements Serializable {
 
     public void insert(LoaiKhachSan tmp) throws IOException {
         if (tmp.getTen().length() == 0 || file == null) {
-            pf.Message.errorMessage("Thất Bại", "Không được để trống tên hoặc hình ảnh!");
+            msg.Message.errorMessage("Thất Bại", "Không được để trống tên hoặc hình ảnh!");
             return;
         }
         if (dao.DAOLoaiKhachSan.insert(tmp)) {
@@ -67,9 +67,9 @@ public class BeanLoaiKhachSan implements Serializable {
             LoaiKhachSan tp = new LoaiKhachSan(tmp);
             listLoaiKhachSan.add(tp);
             hashLoaiKhachSan.put(tmp.getId(), tmp.getTen());
-            pf.Message.addMessage("Thành Công", "Thêm Loại khách sạn thành công!");
+            msg.Message.addMessage("Thành Công", "Thêm Loại khách sạn thành công!");
         }else {
-            pf.Message.errorMessage("Thất Bại", "Thêm Loại khách sạn thất bại!");
+            msg.Message.errorMessage("Thất Bại", "Thêm Loại khách sạn thất bại!");
         }
         PrimeFaces current = PrimeFaces.current();
         current.executeScript("PF('dialog_them').hide();");
@@ -77,7 +77,7 @@ public class BeanLoaiKhachSan implements Serializable {
 
     public void update(LoaiKhachSan tmp) throws IOException {
         if (tmp.getTen().length() == 0) {
-            pf.Message.errorMessage("Thất Bại", "Không được để trống tên!");
+            msg.Message.errorMessage("Thất Bại", "Không được để trống tên!");
             return;
         }
         if (dao.DAOLoaiKhachSan.update(tmp)) {
@@ -103,9 +103,9 @@ public class BeanLoaiKhachSan implements Serializable {
                     ks.setTenLoaiKhachSan(tmp.getTen());
                 }
             }
-            pf.Message.addMessage("Thành Công", "Sửa Loại khách sạn thành công!");
+            msg.Message.addMessage("Thành Công", "Sửa Loại khách sạn thành công!");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Sửa Loại khách sạn thất bại!");
+            msg.Message.errorMessage("Thất Bại", "Sửa Loại khách sạn thất bại!");
         }
         PrimeFaces current = PrimeFaces.current();
         current.executeScript("PF('dialog_sua').hide();");
@@ -119,9 +119,9 @@ public class BeanLoaiKhachSan implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Xóa Loại khách sạn thành công!");
+            msg.Message.addMessage("Thành Công", "Xóa Loại khách sạn thành công!");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Xóa Loại khách sạn thất bại!");
+            msg.Message.errorMessage("Thất Bại", "Xóa Loại khách sạn thất bại!");
         }
     }
 

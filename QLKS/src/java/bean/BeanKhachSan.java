@@ -26,12 +26,9 @@ public class BeanKhachSan implements Serializable {
     private static final long serialVersionUID = 1786783L;
     private static final String url = "Content/Images/KhachSan/";
 
+    // Một hashmap để lấy ra Tên khách sạn từ Id khách sạn
     public static HashMap<Integer, String> hashKhachSan;
 
-    @ManagedProperty(value = "#{beanThanhPho.listThanhPho}")
-    private ArrayList<ThanhPho> lstTP;
-    @ManagedProperty(value = "#{beanLoaiKhachSan.listLoaiKhachSan}")
-    private ArrayList<LoaiKhachSan> lstLKS;
     private UploadedFile file;
     private KhachSan khachSan;
     private String urlHinhAnh;
@@ -78,10 +75,11 @@ public class BeanKhachSan implements Serializable {
 
     public void insert(KhachSan tmp) throws FileNotFoundException, IOException {
         if (tmp.getTen().length() == 0 || tmp.getDiaChi().length() == 0 || file == null) {
-            pf.Message.errorMessage("Thất Bại", "Không được để trống trường nào!");
+            msg.Message.errorMessage("Thất Bại", "Không được để trống trường nào!");
             return;
         }
         if (dao.DAOKhachSan.insert(tmp)) {
+            // Lưu ảnh được chọn vào Web server
             String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
             File f = new File(path + url + tmp.getId() + ".jpg");
             try (FileOutputStream fos = new FileOutputStream(f)) {
@@ -94,22 +92,9 @@ public class BeanKhachSan implements Serializable {
             tmp.setTenLoaiKhachSan(hashLoaiKhachSan.get(tmp.getIdLoaiKhachSan()));
             KhachSan ks = new KhachSan(tmp);
             listKhachSan.add(ks);
-            // Tăng 1 cho số lượng khách sạn thuộc thành phố và loại ks của ks đó
-            for (ThanhPho tp : lstTP) {
-                if (tp.getId() == tmp.getIdThanhPho()) {
-                    tp.setSoKhachSan(tp.getSoKhachSan() + 1);
-                    break;
-                }
-            }
-            for (LoaiKhachSan lks : lstLKS) {
-                if (lks.getId() == tmp.getIdLoaiKhachSan()) {
-                    lks.setSoKhachSan(lks.getSoKhachSan() + 1);
-                    break;
-                }
-            }
-            pf.Message.addMessage("Thành Công", "Thêm Khách sạn thành công!");
+            msg.Message.addMessage("Thành Công", "Thêm Khách sạn thành công!");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Thêm Khách sạn thất bại!");
+            msg.Message.errorMessage("Thất Bại", "Thêm Khách sạn thất bại!");
         }
         PrimeFaces current = PrimeFaces.current();
         current.executeScript("PF('dialog_them').hide();");
@@ -117,7 +102,7 @@ public class BeanKhachSan implements Serializable {
 
     public void update(KhachSan tmp) throws FileNotFoundException, IOException {
         if (tmp.getTen().length() == 0 || tmp.getDiaChi().length() == 0) {
-            pf.Message.errorMessage("Thất Bại", "Không được để trống trường nào!");
+            msg.Message.errorMessage("Thất Bại", "Không được để trống trường nào!");
             return;
         }
         if (dao.DAOKhachSan.update(tmp)) {
@@ -139,9 +124,9 @@ public class BeanKhachSan implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Sửa Khách sạn thành công!");
+            msg.Message.addMessage("Thành Công", "Sửa Khách sạn thành công!");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Sửa Khách sạn thất bại!");
+            msg.Message.errorMessage("Thất Bại", "Sửa Khách sạn thất bại!");
         }
         PrimeFaces current = PrimeFaces.current();
         current.executeScript("PF('dialog_sua').hide();");
@@ -157,22 +142,9 @@ public class BeanKhachSan implements Serializable {
                     break;
                 }
             }
-            // Giảm 1 cho số lượng khách sạn thuộc thành phố và loại ks của ks đó
-            for (ThanhPho tp : lstTP) {
-                if (tp.getId() == tmp.getIdThanhPho()) {
-                    tp.setSoKhachSan(tp.getSoKhachSan() - 1);
-                    break;
-                }
-            }
-            for (LoaiKhachSan lks : lstLKS) {
-                if (lks.getId() == tmp.getIdLoaiKhachSan()) {
-                    lks.setSoKhachSan(lks.getSoKhachSan() - 1);
-                    break;
-                }
-            }
-            pf.Message.addMessage("Thành Công", "Xóa Khách sạn thành công!");
+            msg.Message.addMessage("Thành Công", "Xóa Khách sạn thành công!");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Xóa Khách sạn thất bại!");
+            msg.Message.errorMessage("Thất Bại", "Xóa Khách sạn thất bại!");
         }
     }
 
@@ -225,22 +197,6 @@ public class BeanKhachSan implements Serializable {
 
     public void setUrlHinhAnh(String urlHinhAnh) {
         this.urlHinhAnh = urlHinhAnh;
-    }
-
-    public ArrayList<ThanhPho> getLstTP() {
-        return lstTP;
-    }
-
-    public void setLstTP(ArrayList<ThanhPho> lstTP) {
-        this.lstTP = lstTP;
-    }
-
-    public ArrayList<LoaiKhachSan> getLstLKS() {
-        return lstLKS;
-    }
-
-    public void setLstLKS(ArrayList<LoaiKhachSan> lstLKS) {
-        this.lstLKS = lstLKS;
     }
 
 }

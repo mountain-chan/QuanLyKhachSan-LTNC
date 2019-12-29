@@ -27,23 +27,23 @@ public class BeanTaiKhoan implements Serializable {
 
     public void insert(TaiKhoan tmp) {
         if (tmp.getTenTaiKhoan().isEmpty() || tmp.getMatKhau().isEmpty()) {
-            pf.Message.errorMessage("Thất Bại", "Không được để trống Tên tài khoản hoặc Mật khẩu!");
+            msg.Message.errorMessage("Thất Bại", "Không được để trống Tên tài khoản hoặc Mật khẩu!");
             return;
         }
         if (dao.DAOTaiKhoan.insert(tmp)) {
             TaiKhoan tk = new TaiKhoan(tmp);
             listTaiKhoan.add(tk);
-            pf.Message.addMessage("Thành Công", "Thêm tài khoản thành công!");
+            msg.Message.addMessage("Thành Công", "Thêm tài khoản thành công!");
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('dialog_them').hide();");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Tài khoản đã tồn tại!");
+            msg.Message.errorMessage("Thất Bại", "Tài khoản đã tồn tại!");
         }
     }
 
     public void update(TaiKhoan tmp) {
         if (tmp.getTenTaiKhoan().isEmpty() || tmp.getMatKhau().isEmpty()) {
-            pf.Message.errorMessage("Thất Bại", "Không được để trống Tên tài khoản hoặc Mật khẩu!");
+            msg.Message.errorMessage("Thất Bại", "Không được để trống Tên tài khoản hoặc Mật khẩu!");
             return;
         }
         if (dao.DAOTaiKhoan.update(tmp)) {
@@ -54,11 +54,11 @@ public class BeanTaiKhoan implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Sửa Tài khoản thành công!");
+            msg.Message.addMessage("Thành Công", "Sửa Tài khoản thành công!");
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('dialog_sua').hide();");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Sửa Tài khoản thất bại!");
+            msg.Message.errorMessage("Thất Bại", "Sửa Tài khoản thất bại!");
         }
     }
 
@@ -70,9 +70,9 @@ public class BeanTaiKhoan implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Xóa Tài khoản thành công!");
+            msg.Message.addMessage("Thành Công", "Xóa Tài khoản thành công!");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Xóa Tài khoản thất bại!");
+            msg.Message.errorMessage("Thất Bại", "Xóa Tài khoản thất bại!");
         }
     }
 

@@ -41,17 +41,20 @@ public class BeanNguoiDung implements Serializable {
 
     public void dangNhap() {
         if (taiKhoanDangNhap.getTenTaiKhoan().isEmpty() || taiKhoanDangNhap.getMatKhau().isEmpty()) {
-            pf.Message.errorMessage("Thất Bại", "Không được để trống Tên tài khoản hoặc Mật khẩu!");
+            msg.Message.errorMessage("Thất Bại", "Không được để trống Tên tài khoản hoặc Mật khẩu!");
             return;
         }
         TaiKhoan tk = dao.DAOTaiKhoan.getByDangNhap(taiKhoanDangNhap.getTenTaiKhoan(), taiKhoanDangNhap.getMatKhau());
         if (tk != null) {
+            // PrimeFaces current để lấy giá trị các thành phần trong view
+            // ở đây để lấy form đăng nhập và bật form đó lên
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('dialog_dangnhap').hide();");
-            pf.Message.addMessage("Thành Công", "Đăng nhập thành công!");
+            msg.Message.addMessage("Thành Công", "Đăng nhập thành công!");
             FacesContext facesContext = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
             HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+            // Sau khi đăng nhập thì thêm cookie với thời gian là 36000 giây
             Cookie cookie = new Cookie("TenTaiKhoan", tk.getTenTaiKhoan());
             cookie.setMaxAge(36000);
             cookie.setPath("/");
@@ -60,9 +63,11 @@ public class BeanNguoiDung implements Serializable {
             cookie.setMaxAge(36000);
             cookie.setPath("/");
             response.addCookie(cookie);
+            // Thêm session tài khoản
             HttpSession session = request.getSession();
             session.setAttribute("TaiKhoan", tk);
             if (tk.isIsAdmin()) {
+                // Đăng nhập nếu là admin thì chuyển sang trang quản trị
                 ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
                 try {
                     ec.redirect(ec.getRequestContextPath() + "/faces/Admin/adminTaiKhoan.xhtml");
@@ -70,26 +75,26 @@ public class BeanNguoiDung implements Serializable {
                 }
             }
         } else {
-            pf.Message.errorMessage("Thất Bại", "Sai tên tài khoản hoặc mật khẩu!");
+            msg.Message.errorMessage("Thất Bại", "Sai tên tài khoản hoặc mật khẩu!");
         }
     }
 
     public void dangKy() {
         if (taiKhoanDangNhap.getTenTaiKhoan().isEmpty() || taiKhoanDangNhap.getMatKhau().isEmpty()) {
-            pf.Message.errorMessage("Thất Bại", "Không được để trống Tên tài khoản hoặc Mật khẩu!");
+            msg.Message.errorMessage("Thất Bại", "Không được để trống Tên tài khoản hoặc Mật khẩu!");
             return;
         }
         if (!taiKhoanDangNhap.getMatKhau().equals(nhapLaiMatKhau)) {
-            pf.Message.errorMessage("Thất Bại", "Mật khẩu không khớp!");
+            msg.Message.errorMessage("Thất Bại", "Mật khẩu không khớp!");
             return;
         }
         taiKhoanDangNhap.setIsAdmin(false);
         if (dao.DAOTaiKhoan.insert(taiKhoanDangNhap)) {
-            pf.Message.addMessage("Thành Công", "Đăng ký thành công!");
+            msg.Message.addMessage("Thành Công", "Đăng ký thành công!");
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('dialog_dangky').hide();");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Tên tài khoản đã được sử dụng!");
+            msg.Message.errorMessage("Thất Bại", "Tên tài khoản đã được sử dụng!");
         }
     }
 
@@ -97,6 +102,7 @@ public class BeanNguoiDung implements Serializable {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
         HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+        // Đăng xuất thì xóa session và cookie
         HttpSession session = request.getSession();
         session.invalidate();
         Cookie cookie = new Cookie("TenTaiKhoan", "");
@@ -105,6 +111,7 @@ public class BeanNguoiDung implements Serializable {
         response.addCookie(cookie);
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
+            // Đồng thời đưa về trang chủ
             ec.redirect(ec.getRequestContextPath() + "/faces/index.xhtml");
         } catch (IOException e) {
         }
@@ -115,17 +122,22 @@ public class BeanNguoiDung implements Serializable {
         HttpSession session = request.getSession();
         TaiKhoan tk = (TaiKhoan) session.getAttribute("TaiKhoan");
         if (tk == null) {
+            // Bấm vào trang cá nhân mà chưa đăng nhập thì bắt đăng nhập
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('dialog_dangnhap').show();");
-            pf.Message.addMessage("Thông Báo", "Bạn cần đăng nhập trước!");
+            msg.Message.addMessage("Thông Báo", "Bạn cần đăng nhập trước!");
             return;
         }
         taiKhoanDangNhap = new TaiKhoan(tk);
         nhapLaiMatKhau = tk.getMatKhau();
+        // Trong trang cá nhân ở bên phải có mục khách sạn gợi ý, khách sạn ở
+        // đây là ngẫu nhiên nên dùng 1 biến để lấy ngẫu nhiên khách sạn trong
+        // danh sách
         Random rand = new Random();
         khachSanGoiY = lstKS.get(rand.nextInt(lstKS.size()));
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
+            // Và rồi chuyển hướng sang trang cá nhân
             ec.redirect(ec.getRequestContextPath() + "/faces/caNhan.xhtml");
         } catch (IOException e) {
         }
@@ -133,18 +145,19 @@ public class BeanNguoiDung implements Serializable {
 
     public void capNhatThongTin() {
         if (taiKhoanDangNhap.getMatKhau().isEmpty()) {
-            pf.Message.errorMessage("Thất Bại", "Không được để trống mật khẩu!");
+            msg.Message.errorMessage("Thất Bại", "Không được để trống mật khẩu!");
             return;
         }
         if (!taiKhoanDangNhap.getMatKhau().equals(nhapLaiMatKhau)) {
-            pf.Message.errorMessage("Thất Bại", "Mật khẩu không khớp!");
+            msg.Message.errorMessage("Thất Bại", "Mật khẩu không khớp!");
             return;
         }
         if (dao.DAOTaiKhoan.update(taiKhoanDangNhap)) {
-            pf.Message.addMessage("Thành Công", "Cập nhật thành công!");
+            msg.Message.addMessage("Thành Công", "Cập nhật thành công!");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Cập nhật thất bại!");
+            msg.Message.errorMessage("Thất Bại", "Cập nhật thất bại!");
         }
+        // Cập nhật thông tin trong csdl xong thì cũng phải cập nhật trong session
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         HttpSession session = request.getSession();
         TaiKhoan tk = new TaiKhoan(taiKhoanDangNhap);
@@ -159,6 +172,7 @@ public class BeanNguoiDung implements Serializable {
         KhachSan ks;
         String thanhTien;
         Date homNay = new Date();
+        // Có 3 trạng thái: 0: Có thể hủy, 1: Quá hạn, 2: Đã hủy
         int trangThai;
         String strNgayDat, strNgayDen, strNgayTra;
         for (DatPhong tmp : lstDP) {
@@ -166,8 +180,11 @@ public class BeanNguoiDung implements Serializable {
                 ks = BeanPhong.hashPhongKhachSan.get(tmp.getIdPhong());
                 thanhTien = String.format("%,d", tmp.getThanhTien() * 1000);
                 if (tmp.isDaHuy()) {
+                    // Trong csdl, nếu đã hủy => trạng thái = 2 (đã hủy)
                     trangThai = 2;
                 } else {
+                    // Nếu ngày đến < hôm nay => trạng thái = 1 (quá hạn)
+                    // Còn không thì vẫn hủy được
                     trangThai = (util.CompareDate.compareNoTime(tmp.getNgayDen(), homNay) == -1) ? 1 : 0;
                 }
                 strNgayDat = formatter.format(tmp.getNgayDat());
@@ -176,6 +193,7 @@ public class BeanNguoiDung implements Serializable {
                 LichSu ls = new LichSu(tmp.getId(), BeanPhong.hashPhong.get(tmp.getIdPhong()), ks.getId(),
                         ks.getTen(), strNgayDat, strNgayDen, strNgayTra,
                         tmp.getDichVu(), tmp.getGhiChu(), thanhTien, trangThai);
+                // Add vào 0 để cái nào mới đặt được cho lên đầu
                 listLichSu.add(0, ls);
             }
         }
@@ -196,9 +214,9 @@ public class BeanNguoiDung implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Hủy đặt phòng thành công!");
+            msg.Message.addMessage("Thành Công", "Hủy đặt phòng thành công!");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Hủy đặt phòng thất bại!");
+            msg.Message.errorMessage("Thất Bại", "Hủy đặt phòng thất bại!");
         }
     }
 

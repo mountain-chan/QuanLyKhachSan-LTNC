@@ -52,7 +52,7 @@ Lỗi minDate ở cả chọn Date ở trang chủ và trang đặt phòng (tạ
 
 Tìm cách đặt phòng luôn hiện link xem ngay lịch sử, nên là ở messageBox thông báo nhưng chưa biết làm
 
-Background trong khách sạn ko đổi khi cập nhật thành phố, do Model Khách sạn có thêm trường dư thừa urlHinhAnh => cần cập nhật lại thông tin danh sách khách sạn (url, ...) khi cập nhật thành phố, loại khách sạn ...
+Background trong khách sạn ko đổi khi cập nhật thành phố, do Model Khách sạn có thêm trường dư thừa urlHinhAnh => cần cập nhật lại thông tin danh sách khách sạn (url, ...) khi cập nhật thành phố, loại khách sạn ... &emsp; :heavy_check_mark:
 
 Cập nhật ds phòng khi cập nhật Khách sạn
 

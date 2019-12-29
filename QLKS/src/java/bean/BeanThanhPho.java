@@ -56,7 +56,7 @@ public class BeanThanhPho implements Serializable {
     
     public void insert(ThanhPho tmp) throws IOException {
         if (tmp.getTen().length() == 0 || file == null) {
-            pf.Message.errorMessage("Thất Bại", "Không được để trống tên hoặc hình ảnh!");
+            msg.Message.errorMessage("Thất Bại", "Không được để trống tên hoặc hình ảnh!");
             return;
         }
         if (dao.DAOThanhPho.insert(tmp)) {
@@ -70,9 +70,9 @@ public class BeanThanhPho implements Serializable {
             ThanhPho tp = new ThanhPho(tmp);
             listThanhPho.add(tp);
             hashThanhPho.put(tmp.getId(), tmp.getTen());
-            pf.Message.addMessage("Thành Công", "Thêm Thành phố thành công!");
+            msg.Message.addMessage("Thành Công", "Thêm Thành phố thành công!");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Thêm Thành phố thất bại!");
+            msg.Message.errorMessage("Thất Bại", "Thêm Thành phố thất bại!");
         }
         PrimeFaces current = PrimeFaces.current();
         current.executeScript("PF('dialog_them').hide();");
@@ -80,7 +80,7 @@ public class BeanThanhPho implements Serializable {
     
     public void update(ThanhPho tmp) throws IOException {
         if (tmp.getTen().length() == 0) {
-            pf.Message.errorMessage("Thất Bại", "Không được để trống tên!");
+            msg.Message.errorMessage("Thất Bại", "Không được để trống tên!");
             return;
         }
         if (dao.DAOThanhPho.update(tmp)) {
@@ -107,9 +107,9 @@ public class BeanThanhPho implements Serializable {
                     ks.setUrlHinhAnhThanhPho(tmp.getUrlHinhAnh());
                 }
             }
-            pf.Message.addMessage("Thành Công", "Sửa Thành phố thành công!");
+            msg.Message.addMessage("Thành Công", "Sửa Thành phố thành công!");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Sửa Thành Phố thất bại!");
+            msg.Message.errorMessage("Thất Bại", "Sửa Thành Phố thất bại!");
         }
         PrimeFaces current = PrimeFaces.current();
         current.executeScript("PF('dialog_sua').hide();");
@@ -123,9 +123,9 @@ public class BeanThanhPho implements Serializable {
                     break;
                 }
             }
-            pf.Message.addMessage("Thành Công", "Xóa Thành phố thành công!");
+            msg.Message.addMessage("Thành Công", "Xóa Thành phố thành công!");
         } else {
-            pf.Message.errorMessage("Thất Bại", "Xóa Thành phố thất bại!");
+            msg.Message.errorMessage("Thất Bại", "Xóa Thành phố thất bại!");
         }
     }
 

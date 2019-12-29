@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.TaiKhoan;
 
+// Khi định vào các view .xhtml thì bộ lọc này sẽ được chạy trước khi view được đến
 @WebFilter(filterName = "Filter", urlPatterns = {"*.xhtml"})
 public class MyFilter implements Filter {
 
@@ -25,10 +26,13 @@ public class MyFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
+        // Lấy URL
         String reqURI = req.getRequestURI();
+        // Lấy session để kiểm tra xem đã đăng nhập chưa, nếu đã đăng nhập thì tk khác null
         HttpSession session = req.getSession();
         TaiKhoan tk = (TaiKhoan) session.getAttribute("TaiKhoan");
         if (tk == null) {
+            // tk null thì check cookie, cookie có thì đăng nhập và lưu tài khoản vào session luôn
             Cookie[] cookies = req.getCookies();
             String TenTaiKhoan = null, MatKhau = null;
             if (cookies != null) {
@@ -48,6 +52,9 @@ public class MyFilter implements Filter {
             }
         }
         if (tk != null) {
+            // tk khác null nghĩa là đã đăng nhập, nếu tk đó là Admin thì cần kiểm tra
+            // URL có chứa /Admin/ ko, nếu có thì cho phép đi đến (doFilter), nếu ko thì
+            // nghĩa là đang ở view ko phải view quản trị => chuyển đến trang quản trị
             if (tk.isIsAdmin()) {
                 if (!reqURI.contains("/Admin/")) {
                     res.sendRedirect(req.getContextPath() + "/faces/Admin/adminTaiKhoan.xhtml");
@@ -57,6 +64,7 @@ public class MyFilter implements Filter {
             }
         }
         if (tk == null || !tk.isIsAdmin()) {
+            // Nếu chưa đăng nhập và ko phải admin mà cố truy cập trang admin thì phải đưa về trang chủ
             if (reqURI.contains("/Admin/")) {
                 res.sendRedirect(req.getContextPath() + "/faces/index.xhtml");
             } else {
