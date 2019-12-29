@@ -1,6 +1,5 @@
 package filter;
 
-import dao.SQLConnection;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -41,7 +40,7 @@ public class MyFilter implements Filter {
                     }
                 }
                 if (TenTaiKhoan != null && MatKhau != null) {
-                    tk = SQLConnection.getTaiKhoan(TenTaiKhoan, MatKhau);
+                    tk = dao.DAOTaiKhoan.getByDangNhap(TenTaiKhoan, MatKhau);
                 }
                 if (tk != null) {
                     session.setAttribute("TaiKhoan", tk);

@@ -2,12 +2,9 @@ package bean;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import model.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.faces.bean.ApplicationScoped;
@@ -29,31 +26,13 @@ public class BeanLoaiKhachSan implements Serializable {
     private UploadedFile file;
     private LoaiKhachSan loaiKhachSan;
     private ArrayList<LoaiKhachSan> listLoaiKhachSan;
-    private Connection con;
 
     public BeanLoaiKhachSan() {
-        try {
-            loaiKhachSan = new LoaiKhachSan();
-            hashLoaiKhachSan = new HashMap();
-            listLoaiKhachSan = new ArrayList();
-            con = dao.SQLConnection.getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select L.Id as A, L.Ten as B, L.MoTa as C, "
-                    + "L.UrlHinhAnh as D, count(L.Id) as E from LoaiKhachSan L left join KhachSan K "
-                    + "on L.Id = K.IdLoaiKhachSan group by L.Id, L.Ten, L.MoTa, L.UrlHinhAnh");
-            while (rs.next()) {
-                LoaiKhachSan tmp = new LoaiKhachSan();
-                tmp.setId(rs.getInt("A"));
-                tmp.setTen(rs.getString("B"));
-                tmp.setMoTa(rs.getString("C"));
-                tmp.setUrlHinhAnh(rs.getString("D"));
-                tmp.setSoKhachSan(String.format("%,d", rs.getInt("E") * 135));
-                listLoaiKhachSan.add(tmp);
-                hashLoaiKhachSan.put(tmp.getId(), tmp.getTen());
-            }
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
+        loaiKhachSan = new LoaiKhachSan();
+        listLoaiKhachSan = dao.DAOLoaiKhachSan.getAll();
+        hashLoaiKhachSan = new HashMap();
+        for (LoaiKhachSan tmp : listLoaiKhachSan) {
+            hashLoaiKhachSan.put(tmp.getId(), tmp.getTen());
         }
     }
 
@@ -69,12 +48,12 @@ public class BeanLoaiKhachSan implements Serializable {
         loaiKhachSan.setUrlHinhAnh(url + file.getFileName());
     }
 
-    public void insert(LoaiKhachSan tmp) {
+    public void insert(LoaiKhachSan tmp) throws IOException {
         if (tmp.getTen().length() == 0 || file == null) {
             pf.Message.errorMessage("Thất Bại", "Không được để trống tên hoặc hình ảnh!");
             return;
         }
-        try {
+        if (dao.DAOLoaiKhachSan.insert(tmp)) {
             String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
             File f = new File(path + url + file.getFileName());
             try (FileOutputStream fos = new FileOutputStream(f)) {
@@ -82,32 +61,23 @@ public class BeanLoaiKhachSan implements Serializable {
                 fos.write(content);
             }
             file = null;
-            con = dao.SQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement("insert into LoaiKhachSan output inserted.Id values(?,?,?)");
-            stmt.setString(1, tmp.getTen());
-            stmt.setString(2, tmp.getMoTa());
-            stmt.setString(3, tmp.getUrlHinhAnh());
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                tmp.setId(rs.getInt("Id"));
-            }
-            con.close();
             LoaiKhachSan tp = new LoaiKhachSan(tmp);
             listLoaiKhachSan.add(tp);
+            hashLoaiKhachSan.put(tmp.getId(), tmp.getTen());
             pf.Message.addMessage("Thành Công", "Thêm Loại khách sạn thành công!");
-        } catch (Exception e) {
+        }else {
             pf.Message.errorMessage("Thất Bại", "Thêm Loại khách sạn thất bại!");
         }
         PrimeFaces current = PrimeFaces.current();
         current.executeScript("PF('dialog_them').hide();");
     }
 
-    public void update(LoaiKhachSan tmp) {
+    public void update(LoaiKhachSan tmp) throws IOException {
         if (tmp.getTen().length() == 0) {
             pf.Message.errorMessage("Thất Bại", "Không được để trống tên!");
             return;
         }
-        try {
+        if (dao.DAOLoaiKhachSan.update(tmp)) {
             if (file != null) {
                 String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
                 File f = new File(path + url + file.getFileName());
@@ -117,14 +87,6 @@ public class BeanLoaiKhachSan implements Serializable {
                 }
                 file = null;
             }
-            con = dao.SQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement("update LoaiKhachSan set Ten=?, MoTa=?, UrlHinhAnh=? where Id=?");
-            stmt.setString(1, tmp.getTen());
-            stmt.setString(2, tmp.getMoTa());
-            stmt.setString(3, tmp.getUrlHinhAnh());
-            stmt.setInt(4, tmp.getId());
-            stmt.executeUpdate();
-            con.close();
             int id = tmp.getId();
             for (LoaiKhachSan tp : listLoaiKhachSan) {
                 if (tp.getId() == id) {
@@ -133,7 +95,7 @@ public class BeanLoaiKhachSan implements Serializable {
                 }
             }
             pf.Message.addMessage("Thành Công", "Sửa Loại khách sạn thành công!");
-        } catch (Exception e) {
+        } else {
             pf.Message.errorMessage("Thất Bại", "Sửa Loại khách sạn thất bại!");
         }
         PrimeFaces current = PrimeFaces.current();
@@ -141,12 +103,7 @@ public class BeanLoaiKhachSan implements Serializable {
     }
 
     public void delete(int Id) {
-        try {
-            con = dao.SQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement("delete from LoaiKhachSan where Id=?");
-            stmt.setInt(1, Id);
-            stmt.executeUpdate();
-            con.close();
+        if (dao.DAOLoaiKhachSan.delete(Id)) {
             for (LoaiKhachSan tp : listLoaiKhachSan) {
                 if (tp.getId() == Id) {
                     listLoaiKhachSan.remove(tp);
@@ -154,7 +111,7 @@ public class BeanLoaiKhachSan implements Serializable {
                 }
             }
             pf.Message.addMessage("Thành Công", "Xóa Loại khách sạn thành công!");
-        } catch (Exception e) {
+        } else {
             pf.Message.errorMessage("Thất Bại", "Xóa Loại khách sạn thất bại!");
         }
     }

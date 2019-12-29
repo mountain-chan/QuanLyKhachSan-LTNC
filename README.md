@@ -64,3 +64,5 @@ Lỗi hủy đặt phòng ở Lịch sử khi vừa đặt xong &emsp; :heavy_ch
 - Do khi vào bảng DatPhong không lấy ra Id vừa thêm để cho vào lịch sử => Id luôn bằng 0 => lỗi
 
 => Hầu hết các lỗi trên là do sessionBean được khởi tạo đúng 1 lần duy nhất khi vào phiên nên khi khởi động lại trình duyệt sẽ được giải quyết
+
+Tóm lại: Do có sử dụng các trường dư thừa nên Khi thêm mới thanhPho (loaiKhachSan) phải thêm vào hashThanhPho (hashLoaiKhachSan), sửa thanhPho (loaiKhachSan) phải sửa hashThanhPho (hashLoaiKhachSan), đồng thời sửa urlHinhAnhThanhPho, tenThanhPho (tenLoaiKhachSan) của các khách sạn liên quan. Khi thêm mới, sửa, xóa khachSan cần cập nhật soKhachSan của thanhPho (loaiKhachSan), sửa khachSan cần cập nhật tenKhachSan của các phong thuộc khachSan đó

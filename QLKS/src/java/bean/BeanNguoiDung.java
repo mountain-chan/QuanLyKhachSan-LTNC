@@ -1,10 +1,7 @@
 package bean;
 
-import dao.SQLConnection;
 import java.io.IOException;
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,7 +34,6 @@ public class BeanNguoiDung implements Serializable {
     private String nhapLaiMatKhau;
     private KhachSan khachSanGoiY;
     private ArrayList<LichSu> listLichSu;
-    private Connection con;
 
     public BeanNguoiDung() {
         taiKhoanDangNhap = new TaiKhoan();
@@ -48,7 +44,7 @@ public class BeanNguoiDung implements Serializable {
             pf.Message.errorMessage("Thất Bại", "Không được để trống Tên tài khoản hoặc Mật khẩu!");
             return;
         }
-        TaiKhoan tk = SQLConnection.getTaiKhoan(taiKhoanDangNhap.getTenTaiKhoan(), taiKhoanDangNhap.getMatKhau());
+        TaiKhoan tk = dao.DAOTaiKhoan.getByDangNhap(taiKhoanDangNhap.getTenTaiKhoan(), taiKhoanDangNhap.getMatKhau());
         if (tk != null) {
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('dialog_dangnhap').hide();");
@@ -87,22 +83,12 @@ public class BeanNguoiDung implements Serializable {
             pf.Message.errorMessage("Thất Bại", "Mật khẩu không khớp!");
             return;
         }
-        try {
-            con = dao.SQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement("insert into TaiKhoan values(?,?,?,?,?,?,?)");
-            stmt.setString(1, taiKhoanDangNhap.getTenTaiKhoan());
-            stmt.setString(2, taiKhoanDangNhap.getMatKhau());
-            stmt.setString(3, taiKhoanDangNhap.getHoTen());
-            stmt.setBoolean(4, taiKhoanDangNhap.isGioiTinh());
-            stmt.setString(5, taiKhoanDangNhap.getSoDienThoai());
-            stmt.setString(6, taiKhoanDangNhap.getEmail());
-            stmt.setBoolean(7, false);
-            stmt.executeUpdate();
-            con.close();
+        taiKhoanDangNhap.setIsAdmin(false);
+        if (dao.DAOTaiKhoan.insert(taiKhoanDangNhap)) {
             pf.Message.addMessage("Thành Công", "Đăng ký thành công!");
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('dialog_dangky').hide();");
-        } catch (Exception e) {
+        } else {
             pf.Message.errorMessage("Thất Bại", "Tên tài khoản đã được sử dụng!");
         }
     }
@@ -154,19 +140,9 @@ public class BeanNguoiDung implements Serializable {
             pf.Message.errorMessage("Thất Bại", "Mật khẩu không khớp!");
             return;
         }
-        try {
-            con = dao.SQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement("update TaiKhoan set MatKhau=?, HoTen=?, GioiTinh=?, SoDienThoai=?, Email=? where TenTaiKhoan=?");
-            stmt.setString(1, taiKhoanDangNhap.getMatKhau());
-            stmt.setString(2, taiKhoanDangNhap.getHoTen());
-            stmt.setBoolean(3, taiKhoanDangNhap.isGioiTinh());
-            stmt.setString(4, taiKhoanDangNhap.getSoDienThoai());
-            stmt.setString(5, taiKhoanDangNhap.getEmail());
-            stmt.setString(6, taiKhoanDangNhap.getTenTaiKhoan());
-            stmt.executeUpdate();
-            con.close();
+        if (dao.DAOTaiKhoan.update(taiKhoanDangNhap)) {
             pf.Message.addMessage("Thành Công", "Cập nhật thành công!");
-        } catch (Exception e) {
+        } else {
             pf.Message.errorMessage("Thất Bại", "Cập nhật thất bại!");
         }
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -207,14 +183,7 @@ public class BeanNguoiDung implements Serializable {
     }
 
     public void huyDatPhong(int id) {
-        System.out.println(id);
-        try {
-            con = dao.SQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement("update DatPhong set DaHuy=? where Id=?");
-            stmt.setBoolean(1, true);
-            stmt.setInt(2, id);
-            stmt.executeUpdate();
-            con.close();
+        if (dao.DAODatPhong.update(id)) {   
             for (LichSu tmp : listLichSu) {
                 if (tmp.getId() == id) {
                     tmp.setTrangThai(2);
@@ -228,7 +197,7 @@ public class BeanNguoiDung implements Serializable {
                 }
             }
             pf.Message.addMessage("Thành Công", "Hủy đặt phòng thành công!");
-        } catch (Exception e) {
+        } else {
             pf.Message.errorMessage("Thất Bại", "Hủy đặt phòng thất bại!");
         }
     }

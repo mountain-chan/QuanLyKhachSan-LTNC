@@ -1,10 +1,6 @@
 package bean;
 
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,7 +46,6 @@ public class BeanNavigation implements Serializable {
     private ArrayList<DatPhong> listDatPhong;
     private Phong phongDangDat;
     private DatPhong datPhong;
-    private Connection con;
 
     // Các danh sách lọc
     private ArrayList<Checkbox> listXepHang;
@@ -94,29 +89,7 @@ public class BeanNavigation implements Serializable {
         listGiapBien.add(new Checkbox("Không giáp"));
         listGiapBien.add(new Checkbox("Có giáp"));
         //Khởi tạo Đặt phòng
-        try {
-            listDatPhong = new ArrayList();
-            con = dao.SQLConnection.getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from DatPhong");
-            while (rs.next()) {
-                DatPhong tmp = new DatPhong();
-                tmp.setId(rs.getInt("Id"));
-                tmp.setTaiKhoan(rs.getString("TaiKhoan"));
-                tmp.setIdPhong(rs.getInt("IdPhong"));
-                tmp.setNgayDat(rs.getDate("NgayDat"));
-                tmp.setNgayDen(rs.getDate("NgayDen"));
-                tmp.setNgayTra(rs.getDate("NgayTra"));
-                tmp.setDichVu(rs.getString("DichVu"));
-                tmp.setGhiChu(rs.getString("GhiChu"));
-                tmp.setThanhTien(rs.getInt("ThanhTien"));
-                tmp.setDaHuy(rs.getBoolean("DaHuy"));
-                listDatPhong.add(tmp);
-            }
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        listDatPhong = dao.DAODatPhong.getAll();
     }
 
     // Reset Các thông tin tìm kiếm: xóa trạng thái đã tích của check box, nếu hàm này ko được
@@ -400,30 +373,13 @@ public class BeanNavigation implements Serializable {
             pf.Message.errorMessage("Thất Bại", "Bạn cần đăng nhập trước!");
             return;
         }
-        try {
-            datPhong.setDaHuy(false);
-            datPhong.setTaiKhoan(tk.getTenTaiKhoan());
-            con = dao.SQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement("insert into DatPhong output inserted.Id values(?,?,?,?,?,?,?,?,?)");
-            stmt.setString(1, datPhong.getTaiKhoan());
-            stmt.setInt(2, datPhong.getIdPhong());
-            stmt.setDate(3, new java.sql.Date(ngayDat.getTime()));
-            stmt.setDate(4, new java.sql.Date(ngayDen.getTime()));
-            stmt.setDate(5, new java.sql.Date(ngayTra.getTime()));
-            stmt.setString(6, datPhong.getDichVu());
-            stmt.setString(7, datPhong.getGhiChu());
-            stmt.setInt(8, datPhong.getThanhTien());
-            stmt.setBoolean(9, datPhong.isDaHuy());
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                datPhong.setId(rs.getInt("Id"));
-            }
-            con.close();
+        datPhong.setDaHuy(false);
+        datPhong.setTaiKhoan(tk.getTenTaiKhoan());
+        if (dao.DAODatPhong.insert(datPhong)) {
             listPhong.remove(phongDangDat);
             listDatPhong.add(new DatPhong(datPhong));
             pf.Message.addMessage("Thành Công", "Đặt phòng thành công, vui lòng vào Lịch sử trong Trang cá nhân để xem thông tin Đặt phòng!");
-        } catch (Exception e) {
-            System.out.println(e.toString());
+        } else {
             pf.Message.errorMessage("Thất Bại", "Đặt phòng thất bại!");
         }
         PrimeFaces current = PrimeFaces.current();

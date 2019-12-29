@@ -3,13 +3,11 @@ package bean;
 import static bean.BeanLoaiKhachSan.hashLoaiKhachSan;
 import static bean.BeanThanhPho.hashThanhPho;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import model.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.faces.bean.ApplicationScoped;
@@ -33,49 +31,23 @@ public class BeanKhachSan implements Serializable {
     private String urlHinhAnh;
     private ArrayList<KhachSan> listKhachSan;
     private ArrayList<BuaAn> listBuaAn;
-    private Connection con;
     private String[] strDanhGia = {"Bình thường", "Khá ổn", "Chất lượng", "Sang trọng", "Tuyệt vời", "Xuất sắc"};
 
+    // Khởi tạo Bean
     public BeanKhachSan() {
+        khachSan = new KhachSan();
         listBuaAn = new ArrayList();
-        hashKhachSan = new HashMap();
         for (BuaAn tmp : BuaAn.listBuaAn) {
             listBuaAn.add(tmp);
         }
-        khachSan = new KhachSan();
-        try {
-            listKhachSan = new ArrayList();
-            con = dao.SQLConnection.getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select K.Id as Id, K.Ten as Ten, DiaChi,"
-                    + "SoDienThoai, CachTrungTam, K.MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho,"
-                    + "T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh from KhachSan K, ThanhPho T,"
-                    + "LoaiKhachSan L where K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id");
-            while (rs.next()) {
-                KhachSan tmp = new KhachSan();
-                tmp.setId(rs.getInt("Id"));
-                tmp.setTen(rs.getString("Ten"));
-                tmp.setDiaChi(rs.getString("DiaChi"));
-                tmp.setSoDienThoai(rs.getString("SoDienThoai"));
-                tmp.setCachTrungTam(rs.getInt("CachTrungTam"));
-                tmp.setMoTa(rs.getString("MoTa"));
-                tmp.setGiapBien(rs.getBoolean("GiapBien"));
-                tmp.setDanhGia(rs.getInt("DanhGia"));
-                tmp.setBuaAn(rs.getInt("BuaAn"));
-                tmp.setIdThanhPho(rs.getInt("IdThanhPho"));
-                tmp.setTenThanhPho(rs.getString("TenThanhPho"));
-                tmp.setIdLoaiKhachSan(rs.getInt("IdLoaiKhachSan"));
-                tmp.setTenLoaiKhachSan(rs.getString("TenLoaiKhachSan"));
-                tmp.setUrlHinhAnhThanhPho(rs.getString("UrlHinhAnh"));
-                listKhachSan.add(tmp);
-                hashKhachSan.put(tmp.getId(), tmp.getTen());
-            }
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
+        listKhachSan = dao.DAOKhachSan.getAll();
+        hashKhachSan = new HashMap();
+        for (KhachSan tmp : listKhachSan) {
+            hashKhachSan.put(tmp.getId(), tmp.getTen());
         }
     }
 
+    // Khi bấm vào nút thêm mới, các trường sẽ được reset
     public void reset() {
         khachSan = new KhachSan();
         khachSan.setTen("");
@@ -92,34 +64,18 @@ public class BeanKhachSan implements Serializable {
         khachSan.setTenLoaiKhachSan("");
     }
 
+    // Khi bấm vào upload ảnh, ảnh sẽ được lưu lại, đồng thời in ra đường dẫn ảnh
     public void handleFileUpload(FileUploadEvent event) {
         file = event.getFile();
         this.setUrlHinhAnh(url + khachSan.getId() + ".jpg");
     }
 
-    public void insert(KhachSan tmp) {
+    public void insert(KhachSan tmp) throws FileNotFoundException, IOException {
         if (tmp.getTen().length() == 0 || tmp.getDiaChi().length() == 0 || file == null) {
             pf.Message.errorMessage("Thất Bại", "Không được để trống trường nào!");
             return;
         }
-        try {
-            con = dao.SQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement("insert into KhachSan output inserted.Id values(?,?,?,?,?,?,?,?,?,?)");
-            stmt.setString(1, tmp.getTen());
-            stmt.setString(2, tmp.getDiaChi());
-            stmt.setString(3, tmp.getSoDienThoai());
-            stmt.setInt(4, tmp.getCachTrungTam());
-            stmt.setString(5, tmp.getMoTa());
-            stmt.setBoolean(6, tmp.isGiapBien());
-            stmt.setInt(7, tmp.getDanhGia());
-            stmt.setInt(8, tmp.getBuaAn());
-            stmt.setInt(9, tmp.getIdThanhPho());
-            stmt.setInt(10, tmp.getIdLoaiKhachSan());
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                tmp.setId(rs.getInt("Id"));
-            }
-            con.close();
+        if (dao.DAOKhachSan.insert(tmp)) {
             String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
             File f = new File(path + url + tmp.getId() + ".jpg");
             try (FileOutputStream fos = new FileOutputStream(f)) {
@@ -128,22 +84,23 @@ public class BeanKhachSan implements Serializable {
             }
             file = null;
             tmp.setTenThanhPho(hashThanhPho.get(tmp.getIdThanhPho()));
+            tmp.setTenLoaiKhachSan(hashLoaiKhachSan.get(tmp.getIdLoaiKhachSan()));
             KhachSan ks = new KhachSan(tmp);
             listKhachSan.add(ks);
             pf.Message.addMessage("Thành Công", "Thêm Khách sạn thành công!");
-        } catch (Exception e) {
+        } else {
             pf.Message.errorMessage("Thất Bại", "Thêm Khách sạn thất bại!");
         }
         PrimeFaces current = PrimeFaces.current();
         current.executeScript("PF('dialog_them').hide();");
     }
 
-    public void update(KhachSan tmp) {
+    public void update(KhachSan tmp) throws FileNotFoundException, IOException {
         if (tmp.getTen().length() == 0 || tmp.getDiaChi().length() == 0) {
             pf.Message.errorMessage("Thất Bại", "Không được để trống trường nào!");
             return;
         }
-        try {
+        if (dao.DAOKhachSan.update(tmp)) {
             if (file != null) {
                 String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
                 File f = new File(path + url + tmp.getId() + ".jpg");
@@ -153,21 +110,6 @@ public class BeanKhachSan implements Serializable {
                 }
                 file = null;
             }
-            con = dao.SQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement("update KhachSan set Ten=?, DiaChi=?, SoDienThoai=?, CachTrungTam=?, MoTa=?, GiapBien=?, DanhGia=?, BuaAn=?, IdThanhPho=?, IdLoaiKhachSan=? where Id=?");
-            stmt.setString(1, tmp.getTen());
-            stmt.setString(2, tmp.getDiaChi());
-            stmt.setString(3, tmp.getSoDienThoai());
-            stmt.setInt(4, tmp.getCachTrungTam());
-            stmt.setString(5, tmp.getMoTa());
-            stmt.setBoolean(6, tmp.isGiapBien());
-            stmt.setInt(7, tmp.getDanhGia());
-            stmt.setInt(8, tmp.getBuaAn());
-            stmt.setInt(9, tmp.getIdThanhPho());
-            stmt.setInt(10, tmp.getIdLoaiKhachSan());
-            stmt.setInt(11, tmp.getId());
-            stmt.executeUpdate();
-            con.close();
             int id = tmp.getId();
             tmp.setTenThanhPho(hashThanhPho.get(tmp.getIdThanhPho()));
             tmp.setTenLoaiKhachSan(hashLoaiKhachSan.get(tmp.getIdLoaiKhachSan()));
@@ -178,29 +120,23 @@ public class BeanKhachSan implements Serializable {
                 }
             }
             pf.Message.addMessage("Thành Công", "Sửa Khách sạn thành công!");
-        } catch (Exception e) {
-            System.out.println(e.toString());
+        } else {
             pf.Message.errorMessage("Thất Bại", "Sửa Khách sạn thất bại!");
         }
         PrimeFaces current = PrimeFaces.current();
         current.executeScript("PF('dialog_sua').hide();");
     }
 
-    public void delete(int Id) {
-        try {
-            con = dao.SQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement("delete from KhachSan where id=?");
-            stmt.setInt(1, Id);
-            stmt.executeUpdate();
-            con.close();
+    public void delete(int id) {
+        if (dao.DAOKhachSan.delete(id)) {
             for (KhachSan ks : listKhachSan) {
-                if (ks.getId() == Id) {
+                if (ks.getId() == id) {
                     listKhachSan.remove(ks);
                     break;
                 }
             }
             pf.Message.addMessage("Thành Công", "Xóa Khách sạn thành công!");
-        } catch (Exception e) {
+        } else {
             pf.Message.errorMessage("Thất Bại", "Xóa Khách sạn thất bại!");
         }
     }

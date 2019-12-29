@@ -2,10 +2,6 @@ package bean;
 
 import java.io.Serializable;
 import model.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -19,30 +15,10 @@ public class BeanTaiKhoan implements Serializable {
 
     private TaiKhoan taiKhoan;
     private ArrayList<TaiKhoan> listTaiKhoan;
-    private Connection con;
 
     public BeanTaiKhoan() {
         taiKhoan = new TaiKhoan();
-        try {
-            listTaiKhoan = new ArrayList();
-            con = dao.SQLConnection.getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from TaiKhoan");
-            while (rs.next()) {
-                TaiKhoan tmp = new TaiKhoan();
-                tmp.setTenTaiKhoan(rs.getString(1));
-                tmp.setMatKhau(rs.getString(2));
-                tmp.setHoTen(rs.getString(3));
-                tmp.setGioiTinh(rs.getBoolean(4));
-                tmp.setSoDienThoai(rs.getString(5));
-                tmp.setEmail(rs.getString(6));
-                tmp.setIsAdmin(rs.getBoolean(7));
-                listTaiKhoan.add(tmp);
-            }
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        listTaiKhoan = dao.DAOTaiKhoan.getAll();
     }
 
     public void reset() {
@@ -54,24 +30,13 @@ public class BeanTaiKhoan implements Serializable {
             pf.Message.errorMessage("Thất Bại", "Không được để trống Tên tài khoản hoặc Mật khẩu!");
             return;
         }
-        try {
-            con = dao.SQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement("insert into TaiKhoan values(?,?,?,?,?,?,?)");
-            stmt.setString(1, tmp.getTenTaiKhoan());
-            stmt.setString(2, tmp.getMatKhau());
-            stmt.setString(3, tmp.getHoTen());
-            stmt.setBoolean(4, tmp.isGioiTinh());
-            stmt.setString(5, tmp.getSoDienThoai());
-            stmt.setString(6, tmp.getEmail());
-            stmt.setBoolean(7, tmp.isIsAdmin());
-            stmt.executeUpdate();
-            con.close();
+        if (dao.DAOTaiKhoan.insert(tmp)) {
             TaiKhoan tk = new TaiKhoan(tmp);
             listTaiKhoan.add(tk);
             pf.Message.addMessage("Thành Công", "Thêm tài khoản thành công!");
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('dialog_them').hide();");
-        } catch (Exception e) {
+        } else {
             pf.Message.errorMessage("Thất Bại", "Tài khoản đã tồn tại!");
         }
     }
@@ -81,18 +46,7 @@ public class BeanTaiKhoan implements Serializable {
             pf.Message.errorMessage("Thất Bại", "Không được để trống Tên tài khoản hoặc Mật khẩu!");
             return;
         }
-        try {
-            con = dao.SQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement("update TaiKhoan set MatKhau=?, HoTen=?, GioiTinh=?, SoDienThoai=?, Email=?, IsAdmin=? where TenTaiKhoan=?");
-            stmt.setString(1, tmp.getMatKhau());
-            stmt.setString(2, tmp.getHoTen());
-            stmt.setBoolean(3, tmp.isGioiTinh());
-            stmt.setString(4, tmp.getSoDienThoai());
-            stmt.setString(5, tmp.getEmail());
-            stmt.setBoolean(6, tmp.isIsAdmin());
-            stmt.setString(7, tmp.getTenTaiKhoan());
-            stmt.executeUpdate();
-            con.close();
+        if (dao.DAOTaiKhoan.update(tmp)) {
             String tenTaiKhoan = tmp.getTenTaiKhoan();
             for (TaiKhoan tk : listTaiKhoan) {
                 if (tk.getTenTaiKhoan().equals(tenTaiKhoan)) {
@@ -103,26 +57,21 @@ public class BeanTaiKhoan implements Serializable {
             pf.Message.addMessage("Thành Công", "Sửa Tài khoản thành công!");
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('dialog_sua').hide();");
-        } catch (Exception e) {
+        } else {
             pf.Message.errorMessage("Thất Bại", "Sửa Tài khoản thất bại!");
         }
     }
 
-    public void delete(String TenTaiKhoan) {
-        try {
-            con = dao.SQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement("delete from TaiKhoan where TenTaiKhoan=?");
-            stmt.setString(1, TenTaiKhoan);
-            stmt.executeUpdate();
-            con.close();
+    public void delete(String tenTaiKhoan) {
+        if (dao.DAOTaiKhoan.delete(tenTaiKhoan)) {
             for (TaiKhoan tk : listTaiKhoan) {
-                if (tk.getTenTaiKhoan().equals(TenTaiKhoan)) {
+                if (tk.getTenTaiKhoan().equals(tenTaiKhoan)) {
                     listTaiKhoan.remove(tk);
                     break;
                 }
             }
             pf.Message.addMessage("Thành Công", "Xóa Tài khoản thành công!");
-        } catch (Exception e) {
+        } else {
             pf.Message.errorMessage("Thất Bại", "Xóa Tài khoản thất bại!");
         }
     }
