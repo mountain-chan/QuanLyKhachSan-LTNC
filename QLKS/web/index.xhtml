@@ -90,7 +90,7 @@
                                     <h:form>
                                         <c:forEach items="#{beanLoaiKhachSan.listLoaiKhachSan}" var="item">
                                             <div class="item">
-                                                <h:commandLink action = "#{beanNavigation.dsTheoLoaiKhachSan(item.id)}">
+                                                <h:commandLink style="text-decoration: none" action = "#{beanNavigation.dsTheoLoaiKhachSan(item.id)}">
                                                     <div class="img-loaiks"><img src="#{item.urlHinhAnh}" alt="Img"/></div>
                                                     <br/>
                                                     <div style="padding-left: 10px;">

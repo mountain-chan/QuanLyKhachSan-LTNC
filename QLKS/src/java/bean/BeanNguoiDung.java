@@ -22,23 +22,25 @@ import org.primefaces.PrimeFaces;
 @ManagedBean(name = "beanNguoiDung", eager = true)
 @SessionScoped
 public class BeanNguoiDung implements Serializable {
-
+    
     private static final long serialVersionUID = 1437123L;
     private static final DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-
+    
     @ManagedProperty(value = "#{beanKhachSan.listKhachSan}")
     private ArrayList<KhachSan> lstKS;
     @ManagedProperty(value = "#{beanNavigation.listDatPhong}")
     private ArrayList<DatPhong> lstDP;
+    @ManagedProperty(value = "#{beanTaiKhoan.listTaiKhoan}")
+    private ArrayList<TaiKhoan> lstTK;
     private TaiKhoan taiKhoanDangNhap;
     private String nhapLaiMatKhau;
     private KhachSan khachSanGoiY;
     private ArrayList<LichSu> listLichSu;
-
+    
     public BeanNguoiDung() {
         taiKhoanDangNhap = new TaiKhoan();
     }
-
+    
     public void dangNhap() {
         if (taiKhoanDangNhap.getTenTaiKhoan().isEmpty() || taiKhoanDangNhap.getMatKhau().isEmpty()) {
             msg.Message.errorMessage("Thất Bại", "Không được để trống Tên tài khoản hoặc Mật khẩu!");
@@ -78,7 +80,7 @@ public class BeanNguoiDung implements Serializable {
             msg.Message.errorMessage("Thất Bại", "Sai tên tài khoản hoặc mật khẩu!");
         }
     }
-
+    
     public void dangKy() {
         if (taiKhoanDangNhap.getTenTaiKhoan().isEmpty() || taiKhoanDangNhap.getMatKhau().isEmpty()) {
             msg.Message.errorMessage("Thất Bại", "Không được để trống Tên tài khoản hoặc Mật khẩu!");
@@ -90,6 +92,9 @@ public class BeanNguoiDung implements Serializable {
         }
         taiKhoanDangNhap.setIsAdmin(false);
         if (dao.DAOTaiKhoan.insert(taiKhoanDangNhap)) {
+            // Đăng ký xong phải cho vào list tài khoản thì mới thấy tài khoản này
+            // bên trang quản trị
+            lstTK.add(taiKhoanDangNhap);
             msg.Message.addMessage("Thành Công", "Đăng ký thành công!");
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('dialog_dangky').hide();");
@@ -97,7 +102,7 @@ public class BeanNguoiDung implements Serializable {
             msg.Message.errorMessage("Thất Bại", "Tên tài khoản đã được sử dụng!");
         }
     }
-
+    
     public void dangXuat() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
@@ -116,7 +121,7 @@ public class BeanNguoiDung implements Serializable {
         } catch (IOException e) {
         }
     }
-
+    
     public void caNhan() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         HttpSession session = request.getSession();
@@ -142,7 +147,7 @@ public class BeanNguoiDung implements Serializable {
         } catch (IOException e) {
         }
     }
-
+    
     public void capNhatThongTin() {
         if (taiKhoanDangNhap.getMatKhau().isEmpty()) {
             msg.Message.errorMessage("Thất Bại", "Không được để trống mật khẩu!");
@@ -163,7 +168,7 @@ public class BeanNguoiDung implements Serializable {
         TaiKhoan tk = new TaiKhoan(taiKhoanDangNhap);
         session.setAttribute("TaiKhoan", tk);
     }
-
+    
     public String lichSu() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         HttpSession session = request.getSession();
@@ -199,9 +204,9 @@ public class BeanNguoiDung implements Serializable {
         }
         return "lichSu";
     }
-
+    
     public void huyDatPhong(int id) {
-        if (dao.DAODatPhong.update(id)) {   
+        if (dao.DAODatPhong.update(id)) {            
             for (LichSu tmp : listLichSu) {
                 if (tmp.getId() == id) {
                     tmp.setTrangThai(2);
@@ -226,49 +231,57 @@ public class BeanNguoiDung implements Serializable {
     public TaiKhoan getTaiKhoanDangNhap() {
         return taiKhoanDangNhap;
     }
-
+    
     public void setTaiKhoanDangNhap(TaiKhoan taiKhoanDangNhap) {
         this.taiKhoanDangNhap = taiKhoanDangNhap;
     }
-
+    
     public String getNhapLaiMatKhau() {
         return nhapLaiMatKhau;
     }
-
+    
     public void setNhapLaiMatKhau(String nhapLaiMatKhau) {
         this.nhapLaiMatKhau = nhapLaiMatKhau;
     }
-
+    
     public KhachSan getKhachSanGoiY() {
         return khachSanGoiY;
     }
-
+    
     public void setKhachSanGoiY(KhachSan khachSanGoiY) {
         this.khachSanGoiY = khachSanGoiY;
     }
-
+    
     public ArrayList<KhachSan> getLstKS() {
         return lstKS;
     }
-
+    
     public void setLstKS(ArrayList<KhachSan> lstKS) {
         this.lstKS = lstKS;
     }
-
+    
     public ArrayList<DatPhong> getLstDP() {
         return lstDP;
     }
-
+    
     public void setLstDP(ArrayList<DatPhong> lstDP) {
         this.lstDP = lstDP;
     }
-
+    
     public ArrayList<LichSu> getListLichSu() {
         return listLichSu;
     }
-
+    
     public void setListLichSu(ArrayList<LichSu> listLichSu) {
         this.listLichSu = listLichSu;
     }
-
+    
+    public ArrayList<TaiKhoan> getLstTK() {
+        return lstTK;
+    }
+    
+    public void setLstTK(ArrayList<TaiKhoan> lstTK) {
+        this.lstTK = lstTK;
+    }
+    
 }
