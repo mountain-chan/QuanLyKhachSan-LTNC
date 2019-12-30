@@ -117,10 +117,11 @@ public class BeanKhachSan implements Serializable {
             }
             int id = tmp.getId();
             tmp.setTenThanhPho(hashThanhPho.get(tmp.getIdThanhPho()));
+            tmp.setUrlHinhAnhThanhPho(hashUrlHinhAnhThanhPho.get(tmp.getIdThanhPho()));
             tmp.setTenLoaiKhachSan(hashLoaiKhachSan.get(tmp.getIdLoaiKhachSan()));
             for (KhachSan ks : listKhachSan) {
                 if (ks.getId() == id) {
-                    ks.reload(id, tmp.getTen(), tmp.getDiaChi(), tmp.getSoDienThoai(), tmp.getCachTrungTam(), tmp.getMoTa(), tmp.isGiapBien(), tmp.getDanhGia(), tmp.getBuaAn(), tmp.getIdThanhPho(), tmp.getTenThanhPho(), tmp.getIdLoaiKhachSan(), tmp.getTenLoaiKhachSan());
+                    ks.reload(id, tmp.getTen(), tmp.getDiaChi(), tmp.getSoDienThoai(), tmp.getCachTrungTam(), tmp.getMoTa(), tmp.isGiapBien(), tmp.getDanhGia(), tmp.getBuaAn(), tmp.getIdThanhPho(), tmp.getTenThanhPho(), tmp.getIdLoaiKhachSan(), tmp.getTenLoaiKhachSan(), tmp.getUrlHinhAnhThanhPho());
                     break;
                 }
             }

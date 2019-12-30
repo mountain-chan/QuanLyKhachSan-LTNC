@@ -24,7 +24,7 @@ public class KhachSan implements Serializable  {
     public KhachSan() {
     }
 
-    public KhachSan(int id, String ten, String diaChi, String soDienThoai, int cachTrungTam, String moTa, boolean giapBien, int danhGia, int buaAn, int idThanhPho, String tenThanhPho, int idLoaiKhachSan, String tenLoaiKhachSan, String urlAnhThanhPho) {
+    public KhachSan(int id, String ten, String diaChi, String soDienThoai, int cachTrungTam, String moTa, boolean giapBien, int danhGia, int buaAn, int idThanhPho, String tenThanhPho, int idLoaiKhachSan, String tenLoaiKhachSan, String urlHinhAnhThanhPho) {
         this.id = id;
         this.ten = ten;
         this.diaChi = diaChi;
@@ -38,6 +38,7 @@ public class KhachSan implements Serializable  {
         this.tenThanhPho = tenThanhPho;
         this.idLoaiKhachSan = idLoaiKhachSan;
         this.tenLoaiKhachSan = tenLoaiKhachSan;
+        this.urlHinhAnhThanhPho = urlHinhAnhThanhPho;
     }
 
     public KhachSan(KhachSan ks) {
@@ -54,9 +55,10 @@ public class KhachSan implements Serializable  {
         this.tenThanhPho = ks.tenThanhPho;
         this.idLoaiKhachSan = ks.idLoaiKhachSan;
         this.tenLoaiKhachSan = ks.tenLoaiKhachSan;
+        this.urlHinhAnhThanhPho = ks.urlHinhAnhThanhPho;
     }
     
-    public void reload(int id, String ten, String diaChi, String soDienThoai, int cachTrungTam, String moTa, boolean giapBien, int danhGia, int buaAn, int idThanhPho, String tenThanhPho, int idLoaiKhachSan, String tenLoaiKhachSan) {
+    public void reload(int id, String ten, String diaChi, String soDienThoai, int cachTrungTam, String moTa, boolean giapBien, int danhGia, int buaAn, int idThanhPho, String tenThanhPho, int idLoaiKhachSan, String tenLoaiKhachSan, String urlHinhAnhThanhPho) {
         this.id = id;
         this.ten = ten;
         this.diaChi = diaChi;
@@ -70,6 +72,7 @@ public class KhachSan implements Serializable  {
         this.tenThanhPho = tenThanhPho;
         this.idLoaiKhachSan = idLoaiKhachSan;
         this.tenLoaiKhachSan = tenLoaiKhachSan;
+        this.urlHinhAnhThanhPho = urlHinhAnhThanhPho;
     }
 
     public int getId() {

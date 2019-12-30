@@ -202,6 +202,7 @@ public class BeanNavigation implements Serializable {
         for (KhachSan tmp : lstKS) {
             if (tmp.getId() == pageId) {
                 khachSan = tmp;
+                System.out.println(khachSan.getUrlHinhAnhThanhPho());
                 break;
             }
         }
