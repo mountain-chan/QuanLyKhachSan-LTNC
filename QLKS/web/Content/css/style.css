@@ -342,7 +342,6 @@ font-family: 'Roboto Slab'
 
 .table-dsphong {
     width: 100%;
-    margin-top: 40px;
 }
 
 .table-dsphong table, .table-dsphong th, .table-dsphong td {
@@ -403,4 +402,21 @@ font-family: 'Roboto Slab'
     z-index: 999999 !important;
 }
 
+.msg-xemngay {
+    width: 320px;
+    padding: 15px 0 15px 0;
+    background-color: #B7D8B7;
+    border-radius: 4px;
+    margin-bottom: 25px;
+}
+
+.msg-xemngay a {
+    color: #007AD9;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/*.ui-growl-item-container {
+    opacity: 1.00 !important; // opacity của message
+}*/
 

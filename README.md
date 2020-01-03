@@ -30,9 +30,9 @@ Chạy thôi
 
 ## Demo:
 
-Host mới: https://whknightz.herokuapp.com/
-
 Up lên host thấy nhiều lỗi quá http://whknightz.kilatiron.com/ - nhưng host chỉ cho trial 3 ngày :disappointed:
+
+Và đã có host mới: https://whknightz.herokuapp.com/ :smiley:
 
 
 ## Giải thích các Bean:
