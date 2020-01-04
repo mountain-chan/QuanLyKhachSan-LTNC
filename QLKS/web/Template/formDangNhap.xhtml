@@ -16,7 +16,9 @@
                     <span>Tự động đăng nhập</span>
                 </div>
                 <p:commandButton value="Đăng Nhập" update="msg head-dangnhap" action="#{beanNguoiDung.dangNhap()}" style="width: 100%"/><br/><br/>
-                <span>Nếu chưa có tài khoản, </span><p:commandLink value="Đăng Ký"/>
+                <span>Nếu chưa có tài khoản, </span> 
+                <p:commandLink value="Đăng ký" update="dangky" oncomplete="PF('dialog_dangky').show(); PF('dialog_dangnhap').hide()" style="width: 95px; height: 30px; font-size: 13px !important; margin-right: 20px" ajax="true" />
+               
             </div>
         </h:form>
     </p:dialog>
@@ -42,7 +44,7 @@
                 <p:outputLabel value="Email"/><br/>
                 <p:inputText style="width: 100%; margin-bottom: 20px" value="#{beanNguoiDung.taiKhoanDangNhap.email}" placeholder="Email ..."/><br/>
                 <p:commandButton value="Đăng Ký" update="msg" action="#{beanNguoiDung.dangKy()}" style="width: 100%"/><br/><br/>
-                <span>Nếu đã có tài khoản, </span><p:commandLink value="Đăng Nhập"/>
+                <span>Nếu đã có tài khoản, </span><p:commandLink value="Đăng Nhập" update="dangnhap" oncomplete="PF('dialog_dangnhap').show(); PF('dialog_dangky').hide()" style="width: 100%"/><br/><br/>
             </div>
         </h:form>
     </p:dialog>
