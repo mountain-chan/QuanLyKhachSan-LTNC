@@ -48,6 +48,7 @@ public class BeanNavigation implements Serializable {
     private ArrayList<DatPhong> listDatPhong;
     private Phong phongDangDat;
     private DatPhong datPhong;
+    private boolean daDatPhong;
 
     // Các danh sách lọc
     private ArrayList<Checkbox> listXepHang;
@@ -202,7 +203,6 @@ public class BeanNavigation implements Serializable {
         for (KhachSan tmp : lstKS) {
             if (tmp.getId() == pageId) {
                 khachSan = tmp;
-                System.out.println(khachSan.getUrlHinhAnhThanhPho());
                 break;
             }
         }
@@ -214,6 +214,7 @@ public class BeanNavigation implements Serializable {
         }
         daKiemTraPhongTrong = false;
         listPhongSave = listPhong;
+        daDatPhong = false;
         return "khachSan";
     }
 
@@ -367,7 +368,6 @@ public class BeanNavigation implements Serializable {
     // Chọn Đặt phòng
     public void chonDatPhong() {
         if (!daKiemTraPhongTrong) {
-            System.out.println(phongDangDat.getTen());
             msg.Message.errorMessage("Thất Bại", "Bạn vẫn chưa kiểm tra phòng trống!");
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('dialog_datphong').hide();");
@@ -390,6 +390,7 @@ public class BeanNavigation implements Serializable {
             // phải được thêm vào danh sách các phòng đã đặt
             listPhong.remove(phongDangDat);
             listDatPhong.add(new DatPhong(datPhong));
+            daDatPhong = true;
             msg.Message.addMessage("Thành Công", "Đặt phòng thành công, vui lòng vào Lịch sử trong Trang cá nhân để xem thông tin Đặt phòng!");
         } else {
             msg.Message.errorMessage("Thất Bại", "Đặt phòng thất bại!");
@@ -599,6 +600,14 @@ public class BeanNavigation implements Serializable {
 
     public void setStrThanhTien(String strThanhTien) {
         this.strThanhTien = strThanhTien;
+    }
+
+    public boolean isDaDatPhong() {
+        return daDatPhong;
+    }
+
+    public void setDaDatPhong(boolean daDatPhong) {
+        this.daDatPhong = daDatPhong;
     }
 
 }

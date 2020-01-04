@@ -16,7 +16,7 @@
                 <ui:define name="content">
 
                     <script>link_active = 2;</script>
-                    
+
                     <ui:include src="Template/formDatPhong.xhtml"/>
 
                     <div class="c80">
@@ -84,7 +84,7 @@
                                 </div>
                                 <div>
                                     <h3 id="phongtrong">Phòng trống</h3>
-                                    <div style="height: 120px; background-color: #FFD257; border: 1px solid #E2AA11; padding: 10px 0 0 20px">
+                                    <div style="height: 120px; background-color: #FFD257; border: 1px solid #E2AA11; padding: 10px 0 0 20px; margin-bottom: 25px">
                                         <span>Bạn muốn nghỉ tại <b>#{beanNavigation.khachSan.ten}</b> vào lúc nào?</span>
                                         <h:form>
                                             <div class="row" style="margin-top: 10px">
@@ -106,6 +106,19 @@
                                     </div>
                                     <div>
                                         <h:form id="form-dsphong">
+                                            <h:panelGroup rendered="#{beanNavigation.daDatPhong}">
+                                                <div class="msg-xemngay">
+                                                    <table>
+                                                        <tr>
+                                                            <td style="padding-left: 10px; padding-right: 10px"><i style="font-size: 50px" class="pi pi-info-circle"></i></td>
+                                                            <td style="padding-right: 10px">
+                                                                <div style="font-weight: bold; margin-bottom: 8px;">Đặt phòng thành công!</div>
+                                                                <div><h:commandLink action="#{beanNguoiDung.lichSu()}" value="Xem ngay"/> thông tin đặt phòng</div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </h:panelGroup>
                                             <table class="table-dsphong">
                                                 <tr>
                                                     <th style="width: 15%">Phù hợp cho</th>
